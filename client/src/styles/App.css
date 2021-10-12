@@ -69,6 +69,22 @@ html {
 	grid-column-gap: 24px;
 }
 
+.products-container {
+	display: grid;
+	grid-column-gap: 24px;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.product-container {
+	border: 0.5px solid var(--lightgrey);
+	border-radius: 12px;
+	padding: 24px;
+	margin-bottom: 24px;
+	color: var(--darkgrey);
+	overflow: scroll;
+	height: 100%;
+}
+
 /************ BUTTON STYLES ************/
 .btn {
 	background-color: var(--red);
