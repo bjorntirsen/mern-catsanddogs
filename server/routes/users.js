@@ -49,13 +49,13 @@ router.get("/:id", function (req, res, next) {
     res.statusMessage = "Invalid id";
     res.end("Invalid id");
   } else {
-    const item = TestUsers.find((item) => item.id === id);
-    if (!item) {
+    const user = TestUsers.find((user) => user.id === id);
+    if (!user) {
       res.statusCode = 404;
       res.statusMessage = "Not Found";
       res.end("Not found");
     } else {
-      res.json(item);
+      res.json(user);
     }
   }
 });
@@ -68,17 +68,20 @@ router.post("/:id", function (req, res, next) {
     res.statusMessage = "Invalid id";
     res.end("Invalid id");
   } else {
-    const item = TestUsers.find((item) => item.id === id);
-    if (!item) {
+    const user = TestUsers.find((user) => user.id === id);
+    if (!user) {
       res.statusCode = 404;
       res.statusMessage = "Not Found";
       res.end("Not found");
     } else {
-      const updatedItem = req.body;
-      item.title = updatedItem.title;
-      item.body = updatedItem.body;
+      const { fullName, password, email, phoneNumber, address } = req.body;
+      user.fullName = fullName;
+      user.password = password;
+      user.email = email;
+      user.phoneNumber = phoneNumber;
+      user.address = address;
       console.log("user updated");
-      res.json(item);
+      res.json(user);
     }
   }
 });
@@ -91,13 +94,13 @@ router.delete("/:id", (req, res, next) => {
     res.statusMessage = "Invalid id";
     res.end("Invalid id");
   } else {
-    const item = TestUsers.find((item) => item.id === id);
-    if (!item) {
+    const user = TestUsers.find((user) => user.id === id);
+    if (!user) {
       res.statusCode = 404;
       res.statusMessage = "Not Found";
       res.end("Not found");
     } else {
-      TestUsers = TestUsers.filter((item) => item.id !== id);
+      TestUsers = TestUsers.filter((user) => user.id !== id);
       res.statusCode = 200;
       res.end();
     }
