@@ -15,19 +15,19 @@ let TestProducts = [
 ];
 
 // get all
-router.get("/api/products", function (req, res, next) {
+router.get("/", function (req, res, next) {
   res.json(TestProducts);
 });
 
 // post
-router.post("/api/products", function (req, res, next) {
+router.post("/", function (req, res, next) {
   TestProducts.push(req.body);
   console.log("product created");
   res.json(TestProducts);
 });
 
 // get one
-router.get("/api/product/:id", function (req, res, next) {
+router.get("/:id", function (req, res, next) {
   const id = parseInt(req.params.id);
   if (!id) {
     res.statusCode = 500;
@@ -46,7 +46,7 @@ router.get("/api/product/:id", function (req, res, next) {
 });
 
 // update
-router.post("/api/product/:id", function (req, res, next) {
+router.post("/:id", function (req, res, next) {
   const id = parseInt(req.params.id);
   if (!id) {
     res.statusCode = 500;
@@ -69,7 +69,7 @@ router.post("/api/product/:id", function (req, res, next) {
 });
 
 // delete
-router.delete("/api/product/:id", (req, res, next) => {
+router.delete("/:id", (req, res, next) => {
   const id = parseInt(req.params.id);
   if (!id) {
     res.statusCode = 500;

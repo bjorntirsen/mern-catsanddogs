@@ -6,8 +6,8 @@ const mongoose = require("mongoose");
 
 require("dotenv").config();
 
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+const productsRouter = require("./routes/productRoutes");
+const usersRouter = require("./routes/userRoutes");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -28,7 +28,7 @@ connection.on("error", (err) => {
   console.log(`Error connecting to MongoDB: ${err}`);
 });
 
-app.use("/", indexRouter);
+app.use("/api/products", productsRouter);
 app.use("/users", usersRouter);
 
 app.listen(port, () => {
