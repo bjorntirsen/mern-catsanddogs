@@ -29,7 +29,7 @@ connection.on("error", (err) => {
 });
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/api/users", usersRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
