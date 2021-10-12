@@ -22,17 +22,17 @@ const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 connection.on("open", () => {
-	console.log("MongoDB database connection established successfully!");
+  console.log("MongoDB database connection established successfully!");
 });
 connection.on("error", (err) => {
-	console.log(`Error connecting to MongoDB: ${err}`);
+  console.log(`Error connecting to MongoDB: ${err}`);
 });
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 app.listen(port, () => {
-	console.log(`Server is running on port: ${port}`);
+  console.log(`Server is running on port: ${port}`);
 });
 
 module.exports = app;
