@@ -1,4 +1,5 @@
 import React from "react";
+import Button from './Button'
 export default function Product({product}) {
 	return (
 		<div className="product-container">
@@ -9,6 +10,9 @@ export default function Product({product}) {
             <hr />
             <p>Weight: {product.weight}</p>
             <p>Maker: {product.maker}</p>
+            <Button type="primary" text="Primary"/>
+            <Button type="secondary" text="Secondary"/>
+            <Button text="Button"/>
         </div>
 	);
 }
