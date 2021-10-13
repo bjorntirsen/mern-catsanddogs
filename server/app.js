@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
@@ -27,8 +26,8 @@ connection.on("error", (err) => {
   console.log(`Error connecting to MongoDB: ${err}`);
 });
 
+app.use("/api/users", usersRouter);
 app.use("/api/products", productsRouter);
-app.use("/users", usersRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
