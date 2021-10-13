@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-const connection = mongoose.connection;
+const { connection } = mongoose;
 connection.on("open", () => {
   console.log("MongoDB database connection established successfully!");
 });
