@@ -1,0 +1,25 @@
+.formContainer {
+	width: 40vw;
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	grid-column-gap: 24px;
+	border: 0.5px solid var(--lightgrey);
+	border-radius: 6px;
+	padding: 24px;
+}
+
+.formCol {
+	display: grid;
+	grid-row-gap: 12px;
+}
+
+.formCol input {
+	margin-bottom: 12px;
+	padding: 10px;
+	border: 0.5px solid var(--lightgrey);
+	border-radius: 6px;
+}
+
+.formCol label {
+	font-weight: 700;
+}
