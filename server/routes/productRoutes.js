@@ -1,5 +1,5 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
 let TestProducts = [
   {
@@ -15,74 +15,74 @@ let TestProducts = [
 ];
 
 // get all
-router.get("/", function (req, res, next) {
+router.get("/", (req, res, next) => {
   res.json(TestProducts);
 });
 
 // post
-router.post("/", function (req, res, next) {
+router.post("/", (req, res, next) => {
   TestProducts.push(req.body);
   console.log("product created");
   res.json(TestProducts);
 });
 
 // get one
-router.get("/:id", function (req, res, next) {
-  const id = parseInt(req.params.id);
+router.get("/:id", (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
   if (!id) {
     res.statusCode = 500;
     res.statusMessage = "Invalid id";
     res.end("Invalid id");
   } else {
-    const item = TestProducts.find((item) => item.id === id);
-    if (!item) {
+    const product = TestProducts.find((doc) => doc.id === id);
+    if (!product) {
       res.statusCode = 404;
       res.statusMessage = "Not Found";
       res.end("Not found");
     } else {
-      res.json(item);
+      res.json(product);
     }
   }
 });
 
 // update
-router.post("/:id", function (req, res, next) {
-  const id = parseInt(req.params.id);
+router.post("/:id", (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
   if (!id) {
     res.statusCode = 500;
     res.statusMessage = "Invalid id";
     res.end("Invalid id");
   } else {
-    const item = TestProducts.find((item) => item.id === id);
-    if (!item) {
+    const product = TestProducts.find((doc) => doc.id === id);
+    if (!product) {
       res.statusCode = 404;
       res.statusMessage = "Not Found";
       res.end("Not found");
     } else {
       const updatedItem = req.body;
-      item.title = updatedItem.title;
-      item.body = updatedItem.body;
+      product.title = updatedItem.title;
+      product.body = updatedItem.body;
       console.log("product updated");
-      res.json(item);
+      res.json(product);
     }
   }
 });
 
 // delete
 router.delete("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id);
+  const id = parseInt(req.params.id, 10);
   if (!id) {
     res.statusCode = 500;
     res.statusMessage = "Invalid id";
     res.end("Invalid id");
   } else {
-    const item = TestProducts.find((item) => item.id === id);
-    if (!item) {
+    const product = TestProducts.find((doc) => doc.id === id);
+    if (!product) {
       res.statusCode = 404;
       res.statusMessage = "Not Found";
       res.end("Not found");
     } else {
-      TestProducts = TestProducts.filter((item) => item.id !== id);
+      TestProducts = TestProducts.filter((doc) => doc.id !== id);
       res.statusCode = 200;
       res.end();
     }
