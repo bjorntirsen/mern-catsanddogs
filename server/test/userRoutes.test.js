@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const request = require("supertest");
 const app = require("../app");
 
@@ -42,9 +43,7 @@ describe("REST API User routes", () => {
 
   describe(`Sending a DELETE request to /api/users/${sampleUserId}`, () => {
     it("should respond with 200", (done) => {
-      request(app)
-        .delete(`/api/users/${sampleUserId}`)
-        .expect(200, done);
+      request(app).delete(`/api/users/${sampleUserId}`).expect(200, done);
     });
   });
 });
