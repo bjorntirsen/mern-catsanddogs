@@ -8,6 +8,7 @@
 	--lightgrey: #a4a4a4;
 	--darkgrey: #1d1d1b;
 	--satsumas: #ffce45;
+	--yellow: #ffce45;
 }
 
 /************ GLOBAL STYLES ************/
@@ -30,6 +31,21 @@ h1 {
 	font-size: 4rem;
 	font-weight: 500;
 	letter-spacing: 0.03em;
+}
+
+a {
+	text-decoration: none;
+}
+
+/************ MENU STYLES ************/
+.navbar {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: var(--yellow);
+	display: flex;
+	align-items: center;
 }
 
 h2 {
@@ -77,23 +93,4 @@ p, h4 {
 	color: var(--darkgrey);
 	overflow: scroll;
 	height: 100%;
-}
-
-/************ BUTTON STYLES ************/
-.btn {
-	background-color: var(--red);
-	border-radius: 12px;
-	border: none;
-	outline: none;
-	padding: 10px;
-	margin-top: 12px;
-	margin-right: 12px;
-	color: var(--white);
-	display: inline-block;
-	font-size: 16px;
-	text-align: center;
-	text-decoration: none;
-}
-.btn:hover {
-	opacity: 0.5;
 }
