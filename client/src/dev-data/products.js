@@ -9,7 +9,7 @@ const devProducts = [
       "https://img.chewy.com/is/image/catalog/161199_MAIN._AC_SL400_V1568240232_.jpg",
     weight: "100g",
     maker: "Frisco",
-    slug: "bird_teaser",
+    slug: "bird-teaser",
   },
   {
     title: "Buggin' Out Puzzle & Play",
@@ -21,7 +21,7 @@ const devProducts = [
       "https://cdn.abicart.com/shop/30710/art10/h8815/175398815-origpic-c96a68.jpg",
     weight: "300g",
     maker: "Petstages",
-    slug: "buggin_out_puzzle",
+    slug: "buggin-out-puzzle",
   },
   {
     title: "IQ Treat Dispenser Ball",
@@ -33,7 +33,7 @@ const devProducts = [
       "https://img.chewy.com/is/image/catalog/115632_Pt5._AC_SL400_V1583771892_.jpg",
     weight: "350g",
     maker: "Pet Zone",
-    slug: "iq_treat_dispenser",
+    slug: "iq-treat-dispenser",
   },
   {
     title: "Cozie Marvin the Moose Plush",
@@ -45,7 +45,7 @@ const devProducts = [
       "https://img.chewy.com/is/image/catalog/160735_MAIN._AC_SL400_V1604072534_.jpg",
     weight: "220g",
     maker: "Kong",
-    slug: "cozie_marvin_the_moose",
+    slug: "cozie-marvin-the-moose",
   },
 ];
 export default devProducts;
