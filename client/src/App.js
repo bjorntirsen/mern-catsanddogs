@@ -5,20 +5,24 @@ import LandingPage from "./pages/LandingPage";
 import ProductsListPage from "./pages/ProductsListPage";
 
 function App() {
-	return (
-		<div>
-			<div className="container">
-				<Switch>
+  return (
+    <div>
+      <div className="container">
+        <Switch>
+          <Route
+            path="/products/category/:category"
+            component={ProductsListPage}
+          />
+          {/*Will change this when component is ready*/}
+          <Route path="/products/:slug" component={ProductsListPage} />
 
-					<Route path="/catproducts" component={ProductsListPage} />
+          <Route path="/products" component={ProductsListPage} />
 
-					<Route path="/dogproducts" component={ProductsListPage} />
-
-					<Route path="/" component={LandingPage} />
-				</Switch>
-			</div>
-		</div>
-	);
+          <Route path="/" component={LandingPage} />
+        </Switch>
+      </div>
+    </div>
+  );
 }
 
 export default App;
