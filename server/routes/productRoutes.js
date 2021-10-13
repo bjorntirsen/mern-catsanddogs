@@ -1,5 +1,5 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
 let TestProducts = [
   {
@@ -13,6 +13,8 @@ let TestProducts = [
     body: "Disctract your cat with this cool light",
   },
 ];
+
+
 
 // get all
 router.get("/", function (req, res, next) {

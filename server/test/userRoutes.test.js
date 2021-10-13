@@ -11,12 +11,6 @@ const sampleUser = {
 
 const sampleUserId = 1;
 
-let listId;
-const userCredentials = {
-  email: process.env.TEST_USER_EMAIL,
-  password: process.env.TEST_USER_PASSWORD,
-};
-
 describe("REST API User routes", () => {
   describe("Sending a GET request to /api/users", () => {
     it("should respond with 200 and return json.", (done) => {
