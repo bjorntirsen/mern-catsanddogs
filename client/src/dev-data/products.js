@@ -94,6 +94,54 @@ const devProducts = [
 		weight: "30g",
 		maker: "Zara Home",
 		slug: "mouse_pet_toy",
+	},
+	{
+		title: "Snuggle Puppy",
+		price: 50.95,
+		category: "dog",
+		description:
+			"It's more than just a plush toy. Simply open the belly pouch to pop in the heart-shaped heat pack to provide extra comfort.",
+		imageUrl:
+			"https://cdn.mos.cms.futurecdn.net/th2hgj8VuMxHzvZEKcUEv4-970-80.jpg.webp",
+		weight: "280g",
+		maker: "Snuggle puppy",
+		slug: "snuggle_puppy",
+	},
+	{
+		title: "Interactive Toys Balls",
+		price: 20.00,
+		category: "dog",
+		description:
+			"Each is made from a durable natural rubber and features plenty of rigid indentations that help massage the gums and clean teeth at the same time.",
+		imageUrl:
+			"https://cdn.mos.cms.futurecdn.net/eo8GTgyxP4cJ3xhPqmUdjF-970-80.jpg.webp",
+		weight: "90g",
+		maker: "Slopehill",
+		slug: "interactive_toys_balls",
+	},
+	{
+		title: "Robotic Cat Toy",
+		price: 450.00,
+		category: "cat",
+		description:
+			"Maybe this toy with its 360-degree range of motion will even help your kitty overcome their fear of the Roomba.",
+		imageUrl:
+			"https://www.gannett-cdn.com/-mm-/cce0ffbdb6148b36d2a278c665d5f7db7b914b15/c=98-0-693-446/local/-/media/2020/09/08/USATODAY/usatsports/Reviewed.com-RvEW-25477-3._robot_toy.png?width=2560",
+		weight: "260g",
+		maker: "HEXBUG",
+		slug: "robotic_cat_toy",
+	},
+	{
+		title: "Catnip Yellow Banana",
+		price: 42.50,
+		category: "cat",
+		description:
+			"Happy buyers of this catnip-filled banana say their cats love playing with the shell long after they've torn it to pieces.",
+		imageUrl:
+			"https://img.chewy.com/is/image/catalog/102761_PT1._AC_SL1500_V1555941237_.jpg",
+		weight: "75g",
+		maker: "Yeowww!",
+		slug: "catnip_yellow_banana",
 	}
 ];
 export default devProducts;
