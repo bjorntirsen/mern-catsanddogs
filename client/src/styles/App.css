@@ -25,6 +25,10 @@ html {
 	color: var(--darkgrey);
 }
 
+a {
+	text-decoration: none;
+}
+
 /************ MENU STYLES ************/
 .navbar {
 	list-style-type: none;
