@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import "./styles/App.css";
 import LandingPage from "./pages/LandingPage";
+import Navbar from "./components/Navbar";
 import ProductsListPage from "./pages/ProductsListPage";
 import SignUpPage from "./pages/SignUpPage";
 import Footer from "./components/Footer";
@@ -9,6 +10,7 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <div>
+      <Navbar />
       <div className="container">
         <Switch>
           <Route path="/signup" component={SignUpPage} />

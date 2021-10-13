@@ -7,6 +7,7 @@
 	--black: #000;
 	--lightgrey: #a4a4a4;
 	--darkgrey: #1d1d1b;
+	--satsumas: #ffce45;
 	--yellow: #ffce45;
 }
 
@@ -16,6 +17,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	line-height: 1.5;
 }
 
 body,
@@ -23,6 +25,12 @@ html {
 	height: 100%;
 	background-color: var(--white);
 	color: var(--darkgrey);
+}
+
+h1 {
+	font-size: 4rem;
+	font-weight: 500;
+	letter-spacing: 0.03em;
 }
 
 a {
@@ -40,30 +48,28 @@ a {
 	align-items: center;
 }
 
-.navbar li {
-	float: left;
+h2 {
+	font-size: 2.5rem;
+	font-weight: 500;
+	letter-spacing: 0.03em;
 }
 
-.navbar li a {
-	display: block;
-	color: var(--white);
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-	font-size: 18px;
+h3 {
+	font-size: 1.5rem;
+	font-weight: 500;
+	letter-spacing: 0.03em;
 }
 
-.navbar li a:hover {
-	color: var(--lightgrey);
+p {
+	font-style: normal;
+	font-weight: 300;
 }
 
-.menu-logo {
-	width: 45px;
+p, h4 {
+	font-size: 1.25rem;
+	letter-spacing: 0.02em;
 }
 
-.menu-logo:hover {
-	opacity: 0.75;
-}
 
 /************ CONTAINERS ************/
 .container {
