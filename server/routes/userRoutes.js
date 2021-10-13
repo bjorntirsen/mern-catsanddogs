@@ -1,8 +1,8 @@
-var express = require("express");
-var router = express.Router();
-var faker = require("faker/locale/sv");
+const express = require("express");
+const router = express.Router();
+const faker = require("faker/locale/sv");
 
-var TestUsers = [
+const TestUsers = [
   {
     id: 1,
     fullName: faker.name.findName(),
