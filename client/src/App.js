@@ -7,8 +7,8 @@ import Navbar from "./components/Navbar";
 function App() {
   return (
     <div>
+      <Navbar />
       <div className="container">
-        <Navbar />
         <Switch>
           <Route path="/" component={LandingPage} />
         </Switch>

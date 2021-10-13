@@ -1,43 +1,60 @@
 import React from "react";
 import logo from '../logo.png';
+import Cart from '../bxs-cart.svg';
 import { NavLink } from "react-router-dom";
- 
+import styles from '../styles/Navbar.module.css';
+
 const Navbar = () => {
   return (
-    <div>
-      <nav className="navbar">
-            <ul className="navbar li">
-                <li className="navbar li a">
+    <div >
+      <nav className={`${styles.nav}`}>
+          <div className={`${styles.left}`}>
+                <li className={`${styles.li}`}>
                     <NavLink to="/">
-                        <img className="menu-logo" src={logo} />
+                        <img className={`${styles.logo}`} src={logo} alt="logo" />
                     </NavLink>
                 </li>
-                <li className="navbar li a">
+          </div>
+
+          <div className={`${styles.center}`}>
+            <ul className={`${styles.nav}`}>
+                <li className={`${styles.li}`}>
                     <NavLink to="/">
-                    Home
+                        <a className={`${styles.a}`}>Home</a>
                     </NavLink>
                 </li>
-                <li className="navbar li a">
-                    <NavLink to="/products">
-                    Products
+                <li className={`${styles.li}`}>
+                    <NavLink to="/shop">
+                    <a className={`${styles.a}`}>Shop</a>
                     </NavLink>
                 </li>
-                <li className="navbar li a">
-                    <NavLink to="/shoppingcart">
-                    Shoppingcart
-                    </NavLink>
-                </li>
-                <li className="navbar li a">
+                <li className={`${styles.li}`}>
                     <NavLink to="/contact">
-                    Contact
+                    <a className={`${styles.a}`}>Contact</a>
                     </NavLink>
                 </li>
-                <li className="navbar li a">
+                <li className={`${styles.li} ${styles.a}`}>
                     <NavLink to="/about">
-                    About us
+                    <a className={`${styles.a}`}>About us</a>
                     </NavLink>
                 </li>
             </ul>
+          </div>
+
+          <div className={`${styles.right}`}>
+            <ul className={`${styles.nav}`}>
+                <li className={`${styles.li}`}>
+                    <NavLink to="/login">
+                        <a className={`${styles.a}`}>Login</a>
+                    </NavLink>
+                </li>
+                <li className={`${styles.li}`}>
+                    <NavLink to="/cart">
+                        <img className={`${styles.cart}`} src={Cart} alt="cart-icon" />
+                    </NavLink>
+                </li>
+            </ul>
+          </div>   
       </nav>
     </div>
   );
