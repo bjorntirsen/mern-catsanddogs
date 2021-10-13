@@ -6,11 +6,12 @@ import devProducts from "../dev-data/products.js";
 export default function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const params = useParams();
+  const { slug } = useParams();
+
   useEffect(() => {
-    const [item] = devProducts.filter((item) => item.slug === params.slug);
+    const [item] = devProducts.filter((item) => item.slug === slug);
     setProduct(item);
-  }, [params.slug]);
+  }, [slug]);
 
   return (
     <div className={styles.container}>
@@ -44,9 +45,10 @@ export default function ProductDetails() {
                 </span>
                 <input
                   onChange={(e) => setQuantity(parseInt(e.target.value))}
-                  type="text"
+                  type="number"
                   name="qty_input"
                   value={quantity}
+                  min="1"
                 />
                 <span onClick={() => setQuantity(quantity + 1)}>+</span>
               </span>
