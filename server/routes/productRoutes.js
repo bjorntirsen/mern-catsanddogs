@@ -1,5 +1,7 @@
 const express = require("express");
+
 const router = express.Router();
+const Product = require('../models/productModel');
 
 let TestProducts = [
   {
@@ -25,6 +27,24 @@ router.post("/", (req, res, next) => {
   console.log("product created");
   res.json(TestProducts);
 });
+
+//add one
+router.post("/add-product", (req, res, next) => {
+  const { title, price, description, imageUrl, weight, maker } = req.body;
+  const product = new Product({
+    title, price, description, imageUrl, weight, maker
+  });
+  product
+    .save()
+    .then( result => {
+      console.log('Product created');
+      res.redirect('/products');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+});
+
 
 // get one
 router.get("/:id", (req, res, next) => {

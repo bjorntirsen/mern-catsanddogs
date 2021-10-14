@@ -5,7 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar";
 import ProductsListPage from "./pages/ProductsListPage";
 import SignUpPage from "./pages/SignUpPage";
-import ProductDetails from "./components/ProductDetails";
+import LoginPage from "./pages/LoginPage";
 import Footer from "./components/Footer";
 
 function App() {
@@ -15,12 +15,13 @@ function App() {
       <div className="container">
         <Switch>
           <Route path="/signup" component={SignUpPage} />
+          <Route path="/login" component={LoginPage} />
           <Route
             path="/products/category/:category"
             component={ProductsListPage}
           />
           {/*Will change this when component is ready*/}
-          <Route path="/products/:slug" component={ProductDetails} />
+          <Route path="/products/:slug" component={ProductsListPage} />
 
           <Route path="/products" component={ProductsListPage} />
 

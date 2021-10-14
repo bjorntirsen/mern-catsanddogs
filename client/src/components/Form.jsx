@@ -36,4 +36,23 @@ export default function Form({type}) {
             </form>
         );
     }
+    else if (type === "login"){
+        return (
+            <form className={styles.formContainer} action="">
+                <div className={styles.formCol}>
+                    <label htmlFor="email">Email*</label>
+                    <input id="email" type="email" />
+                </div>
+                <div className={styles.formCol}>
+                    <label htmlFor="password">Password*</label>
+                    <input id="password" type="password" />
+                </div>
+                <div className={styles.formCol}>
+                {/* Byt ut nedantående mot Button components */}
+                <Button text="Login" type="primary" />
+                <Link className={`${btnStyles.btn} ${btnStyles.btnSecondary}`} to="/">Cancel</Link>
+                </div>
+            </form>
+        );
+    }
 }
