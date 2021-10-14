@@ -11,13 +11,16 @@
     "prepare": "cd .. && husky install server/.husky"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
     "express": "~4.16.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.10",
     "morgan": "~1.9.1",
-    "slugify": "^1.6.1"
+    "slugify": "^1.6.1",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
@@ -29,6 +32,7 @@
     "husky": "^6.0.0",
     "mocha": "^9.1.2",
     "nodemon": "^2.0.13",
+    "prettier": "^2.4.1",
     "supertest": "^6.1.6"
   }
 }
