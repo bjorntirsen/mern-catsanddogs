@@ -14,6 +14,7 @@ const sampleProduct = {
   maker: "Frisco",
 };
 
+const sampleProductSlug = "robotic-cat-toy";
 const sampleProductId = 1;
 
 describe("REST API Product routes", () => {
@@ -26,10 +27,10 @@ describe("REST API Product routes", () => {
     });
   });
 
-  describe(`Sending a GET request to /api/products/${sampleProductId}`, () => {
+  describe(`Sending a GET request to /api/products/${sampleProductSlug}`, () => {
     it("should respond with 200 and return json.", (done) => {
       request(app)
-        .get(`/api/products/${sampleProductId}`)
+        .get(`/api/products/${sampleProductSlug}`)
         .expect("Content-Type", /json/)
         .expect(200, done);
     });

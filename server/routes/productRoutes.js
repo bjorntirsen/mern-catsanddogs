@@ -16,7 +16,7 @@ let TestProducts = [
   },
 ];
 
-//CRUD routes
+//CRUD operations
 //CREATE one product
 router.post("/", async (req, res, next) => {
   console.log("inside route handler");
@@ -58,27 +58,40 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// get all
-router.get("/", (req, res, next) => {
-  res.json(TestProducts);
+// READ get all products
+router.get("/", async (req, res, next) => {
+  try {
+    const products = await Product.find({});
+    if (!products) {
+      res.status(404).json("No products found.");
+    }
+    res.status(200).json({
+      status: "success",
+      results: products.length,
+      data: {
+        products,
+      },
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 
-// get one
-router.get("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id, 10);
-  if (!id) {
-    res.statusCode = 500;
-    res.statusMessage = "Invalid id";
-    res.end("Invalid id");
-  } else {
-    const product = TestProducts.find((doc) => doc.id === id);
+// READ get one product by slug
+router.get("/:slug", async (req, res, next) => {
+  try {
+    const product = await Product.findOne({ slug: req.params.slug });
     if (!product) {
-      res.statusCode = 404;
-      res.statusMessage = "Not Found";
-      res.end("Not found");
-    } else {
-      res.json(product);
+      res.status(404).json("No product with that slug found.");
     }
+    res.status(200).json({
+      status: "success",
+      data: {
+        product,
+      },
+    });
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 
