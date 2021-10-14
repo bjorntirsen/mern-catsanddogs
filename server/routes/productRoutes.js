@@ -1,6 +1,6 @@
-var express = require("express");
-var router = express.Router();
-var Product = require('../models/productModel');
+const express = require("express");
+const router = express.Router();
+const Product = require('../models/productModel');
 
 
 let TestProducts = [
