@@ -1,8 +1,10 @@
-var express = require("express");
-var router = express.Router();
-var faker = require("faker/locale/sv");
+/* eslint-disable import/no-extraneous-dependencies */
+const express = require("express");
 
-var TestUsers = [
+const router = express.Router();
+const faker = require("faker/locale/sv");
+
+let TestUsers = [
   {
     id: 1,
     fullName: faker.name.findName(),
@@ -30,26 +32,26 @@ var TestUsers = [
 ];
 
 // get all
-router.get("/", function (req, res, next) {
+router.get("/", (req, res, next) => {
   res.json(TestUsers);
 });
 
 // post
-router.post("/", function (req, res, next) {
+router.post("/", (req, res, next) => {
   TestUsers.push(req.body);
   console.log("user created");
   res.json(TestUsers);
 });
 
 // get one
-router.get("/:id", function (req, res, next) {
-  const id = parseInt(req.params.id);
+router.get("/:id", (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
   if (!id) {
     res.statusCode = 500;
     res.statusMessage = "Invalid id";
     res.end("Invalid id");
   } else {
-    const user = TestUsers.find((user) => user.id === id);
+    const user = TestUsers.find((doc) => doc.id === id);
     if (!user) {
       res.statusCode = 404;
       res.statusMessage = "Not Found";
@@ -61,14 +63,14 @@ router.get("/:id", function (req, res, next) {
 });
 
 // update
-router.post("/:id", function (req, res, next) {
-  const id = parseInt(req.params.id);
+router.post("/:id", (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
   if (!id) {
     res.statusCode = 500;
     res.statusMessage = "Invalid id";
     res.end("Invalid id");
   } else {
-    const user = TestUsers.find((user) => user.id === id);
+    const user = TestUsers.find((doc) => doc.id === id);
     if (!user) {
       res.statusCode = 404;
       res.statusMessage = "Not Found";
@@ -88,19 +90,19 @@ router.post("/:id", function (req, res, next) {
 
 // delete
 router.delete("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id);
+  const id = parseInt(req.params.id, 10);
   if (!id) {
     res.statusCode = 500;
     res.statusMessage = "Invalid id";
     res.end("Invalid id");
   } else {
-    const user = TestUsers.find((user) => user.id === id);
+    const user = TestUsers.find((doc) => doc.id === id);
     if (!user) {
       res.statusCode = 404;
       res.statusMessage = "Not Found";
       res.end("Not found");
     } else {
-      TestUsers = TestUsers.filter((user) => user.id !== id);
+      TestUsers = TestUsers.filter((doc) => doc.id !== id);
       res.statusCode = 200;
       res.end();
     }
