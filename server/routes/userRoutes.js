@@ -1,8 +1,45 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const express = require("express");
+const faker = require("faker/locale/sv");
+const User = require("../models/userModel");
 
 const router = express.Router();
-const faker = require("faker/locale/sv");
+
+//SIGNUP
+//skapa user i databas utan krypterat lösen
+router.post("/signup", async (req, res, next) => {
+  try {
+    if (
+      !req.body.fullName ||
+      !req.body.password ||
+      !req.body.passwordConfirm ||
+      !req.body.email ||
+      !req.body.phone ||
+      !req.body.address
+    ) {
+      return res
+        .status(401)
+        .json(
+          "You need to provide fullName, password, passwordConfirm, email, phone, address to sign up."
+        );
+    }
+    const { fullName, password, passwordConfirm, email, phone, address } =
+      req.body;
+    if (password !== passwordConfirm) {
+      return res.status(401).json("Passwords do not match");
+    }
+    const newUser = await User.create({
+      fullName,
+      password,
+      email,
+      phone,
+      address,
+    });
+    res.status(201).json({ status: "success", data: newUser });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 let TestUsers = [
   {
