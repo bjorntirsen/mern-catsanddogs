@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const express = require("express");
 const faker = require("faker/locale/sv");
+const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 
 const router = express.Router();
@@ -23,14 +24,24 @@ router.post("/signup", async (req, res, next) => {
           "You need to provide fullName, password, passwordConfirm, email, phone, address to sign up."
         );
     }
-    const { fullName, password, passwordConfirm, email, phone, address } =
-      req.body;
-    if (password !== passwordConfirm) {
+    const {
+      fullName,
+      password: unencryptedPassword,
+      passwordConfirm,
+      email,
+      phone,
+      address,
+    } = req.body;
+    if (unencryptedPassword !== passwordConfirm) {
       return res.status(401).json("Passwords do not match");
     }
+    //Encrypt password
+    //Auto-gen a salt and hash with bcryptjs
+    const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS, 10);
+    const hashedPassword = await bcrypt.hash(unencryptedPassword, saltRounds);
     const newUser = await User.create({
       fullName,
-      password,
+      password: hashedPassword,
       email,
       phone,
       address,

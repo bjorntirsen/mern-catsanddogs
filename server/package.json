@@ -11,13 +11,15 @@
     "prepare": "cd .. && husky install server/.husky"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
     "express": "~4.16.1",
     "mongoose": "^6.0.10",
     "morgan": "~1.9.1",
-    "slugify": "^1.6.1"
+    "slugify": "^1.6.1",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
