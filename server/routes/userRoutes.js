@@ -28,7 +28,6 @@ const createAndSendToken = (user, statusCode, req, res) => {
 };
 
 //SIGNUP
-//skapa user i databas utan krypterat lösen
 router.post("/signup", async (req, res, next) => {
   try {
     if (
@@ -54,7 +53,7 @@ router.post("/signup", async (req, res, next) => {
       address,
     } = req.body;
     if (unencryptedPassword !== passwordConfirm) {
-      return res.status(401).json("Passwords do not match");
+      return res.status(401).json("Passwords do not match.");
     }
     //Encrypt password
     //Auto-gen a salt and hash with bcryptjs
@@ -80,6 +79,27 @@ router.post("/signup", async (req, res, next) => {
 });
 
 //LOGIN ROUTE som returnerar en JWT
+router.post("/login", async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    // 1) check if email and pass are provided
+    if (!email || !password) {
+      res.status(400).json("Please provide email and password.");
+    }
+    // 2) if user exists && pass is valid
+    const user = await User.findOne({ email }).select("+password");
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      res.status(401).json("Incorrect email or password.");
+    }
+
+    // 3) if everything ok, send token
+    createAndSendToken(user, 200, req, res);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 //PROTECTED middleware
 //GETME route som är protected
 

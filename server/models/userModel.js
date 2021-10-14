@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "A user must have a password"],
+    select: false,
   },
   email: {
     type: String,
