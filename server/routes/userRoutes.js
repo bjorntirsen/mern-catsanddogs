@@ -27,6 +27,39 @@ const createAndSendToken = (user, statusCode, req, res) => {
   });
 };
 
+const protect = async (req, res, next) => {
+  try {
+    // 1) Check if token exists
+    let token;
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+    }
+    if (!token) {
+      res.status(401).json("You are not logged in. Log in to access.");
+    }
+
+    // 2) Validate token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // 3) Check if user still exists
+    const currentUser = await User.findById(decoded.userId);
+    if (!currentUser) {
+      res
+        .status(401)
+        .json("The user belonging to the token does no longer exist.");
+    }
+    // Grant access
+    req.user = currentUser;
+    //res.locals.user = currentUser;
+    next();
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
 //SIGNUP
 router.post("/signup", async (req, res, next) => {
   try {
@@ -38,7 +71,7 @@ router.post("/signup", async (req, res, next) => {
       !req.body.phone ||
       !req.body.address
     ) {
-      return res
+      res
         .status(401)
         .json(
           "You need to provide fullName, password, passwordConfirm, email, phone, address to sign up."
@@ -53,7 +86,7 @@ router.post("/signup", async (req, res, next) => {
       address,
     } = req.body;
     if (unencryptedPassword !== passwordConfirm) {
-      return res.status(401).json("Passwords do not match.");
+      res.status(401).json("Passwords do not match.");
     }
     //Encrypt password
     //Auto-gen a salt and hash with bcryptjs
@@ -100,8 +133,15 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-//PROTECTED middleware
 //GETME route som är protected
+router.get("/getMe", protect, (req, res, next) => {
+  res.status(200).json({
+    status: "success",
+    data: {
+      user: req.user,
+    },
+  });
+});
 
 let TestUsers = [
   {
