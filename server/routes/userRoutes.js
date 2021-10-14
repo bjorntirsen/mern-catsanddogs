@@ -2,9 +2,30 @@
 const express = require("express");
 const faker = require("faker/locale/sv");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 const router = express.Router();
+
+//HELPER FUNCTIONS
+const generateToken = (userId) =>
+  jwt.sign({ userId }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
+
+const createAndSendToken = (user, statusCode, req, res) => {
+  const token = generateToken(user._id);
+
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: "success",
+    token,
+    data: {
+      user,
+    },
+  });
+};
 
 //SIGNUP
 //skapa user i databas utan krypterat lösen
@@ -46,12 +67,21 @@ router.post("/signup", async (req, res, next) => {
       phone,
       address,
     });
-    newUser.password = undefined;
-    res.status(201).json({ status: "success", data: newUser });
+    createAndSendToken(newUser, 201, req, res);
   } catch (err) {
+    if (err.code === 11000) {
+      const field = Object.keys(err.keyValue)[0];
+      const value = Object.values(err.keyValue)[0];
+      const message = `The ${field} must be unique, ${value} already exists in the Database. Please use another value.`;
+      res.status(400).json(message);
+    }
     res.status(400).json(err);
   }
 });
+
+//LOGIN ROUTE som returnerar en JWT
+//PROTECTED middleware
+//GETME route som är protected
 
 let TestUsers = [
   {
