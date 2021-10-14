@@ -1,7 +1,7 @@
 const express = require("express");
+const Product = require("../models/productModel");
 
 const router = express.Router();
-const Product = require("../models/productModel");
 
 let TestProducts = [
   {
@@ -16,38 +16,51 @@ let TestProducts = [
   },
 ];
 
+//CRUD routes
+//CREATE one product
+router.post("/", async (req, res, next) => {
+  console.log("inside route handler");
+  try {
+    if (
+      !req.body.title ||
+      !req.body.price ||
+      !req.body.category ||
+      !req.body.description ||
+      !req.body.imageUrl ||
+      !req.body.weight ||
+      !req.body.maker
+    ) {
+      res
+        .status(401)
+        .json(
+          "You need to provide title, price, category, description, imageUrl, weight, maker to add a new product."
+        );
+    }
+    const { title, price, category, description, imageUrl, weight, maker } =
+      req.body;
+    const newProduct = await Product.create({
+      title,
+      price,
+      category,
+      description,
+      imageUrl,
+      weight,
+      maker,
+    });
+    res.status(201).json({
+      status: "success",
+      data: {
+        product: newProduct,
+      },
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 // get all
 router.get("/", (req, res, next) => {
   res.json(TestProducts);
-});
-
-// post
-router.post("/", (req, res, next) => {
-  TestProducts.push(req.body);
-  console.log("product created");
-  res.json(TestProducts);
-});
-
-//add one
-router.post("/add-product", (req, res, next) => {
-  const { title, price, description, imageUrl, weight, maker } = req.body;
-  const product = new Product({
-    title,
-    price,
-    description,
-    imageUrl,
-    weight,
-    maker,
-  });
-  product
-    .save()
-    .then((result) => {
-      console.log("Product created");
-      res.redirect("/products");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 });
 
 // get one
