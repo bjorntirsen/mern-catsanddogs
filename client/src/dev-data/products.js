@@ -47,5 +47,101 @@ const devProducts = [
 		maker: "Kong",
 		slug: "cozie_marvin_the_moose",
 	},
+	{
+		title: "Faux Shearling Jacket",
+		price: 19.95,
+		category: "dog",
+		description:
+			"Quilted Jacket With a High Collar. Contrast Fabric. Opening Detail at the Back. Breathable Mesh Lining. Back Pocket With Thermo-sealed Zip. Hook-and-loop Strap Fastening.",
+		imageUrl:
+			"https://static.zara.net/photos///2021/I/0/1/p/0653/289/712/2/w/1126/0653289712_2_1_1.jpg?ts=1632311345187",
+		weight: "270g",
+		maker: "Zara",
+		slug: "faux_shearling_jacket",
+	},
+	{
+		title: "Quilted Jacket",
+		price: 39.55,
+		category: "dog",
+		description:
+			"Water-repellent Thermo-sealed Quilted Jacket. High Neck With Adjustable Drawstring and Stopper. Zip-up Opening at the Back. Reflective Piping Details. Adjustable Hook-and-loop.",
+		imageUrl:
+			"https://static.zara.net/photos///2021/I/0/1/p/0653/288/505/2/w/1738/0653288505_1_1_1.jpg?ts=1632311327730",
+		weight: "350g",
+		maker: "Zara",
+		slug: "quilted_jacket",
+	},
+	{
+		title: "Check Pet Bed",
+		price: 59.95,
+		category: "dog",
+		description:
+			"Rectangular bed with a contrast check design for pets. The cushion cover can be removed for easy cleaning.",
+		imageUrl:
+			"https://static.zarahome.net/8/photos4/2021/I/4/1/b/1321/000/305/BH/PM/1321000305_1_1_1.jpg?t=1627479940812",
+		weight: "600g",
+		maker: "Zara Home",
+		slug: "check_pet_bed",
+	},
+	{
+		title: "Mouse Pet Toy",
+		price: 13.95,
+		category: "cat",
+		description:
+			"Crochet mouse pet toy with bell inside.",
+		imageUrl:
+			"https://static.zarahome.net/8/photos4/2021/I/4/1/p/1322/149/309/1322149309_2_7_1.jpg?t=1624271788641",
+		weight: "30g",
+		maker: "Zara Home",
+		slug: "mouse_pet_toy",
+	},
+	{
+		title: "Snuggle Puppy",
+		price: 50.95,
+		category: "dog",
+		description:
+			"It's more than just a plush toy. Simply open the belly pouch to pop in the heart-shaped heat pack to provide extra comfort.",
+		imageUrl:
+			"https://cdn.mos.cms.futurecdn.net/th2hgj8VuMxHzvZEKcUEv4-970-80.jpg.webp",
+		weight: "280g",
+		maker: "Snuggle puppy",
+		slug: "snuggle_puppy",
+	},
+	{
+		title: "Interactive Toys Balls",
+		price: 20.00,
+		category: "dog",
+		description:
+			"Each is made from a durable natural rubber and features plenty of rigid indentations that help massage the gums and clean teeth at the same time.",
+		imageUrl:
+			"https://cdn.mos.cms.futurecdn.net/eo8GTgyxP4cJ3xhPqmUdjF-970-80.jpg.webp",
+		weight: "90g",
+		maker: "Slopehill",
+		slug: "interactive_toys_balls",
+	},
+	{
+		title: "Robotic Cat Toy",
+		price: 450.00,
+		category: "cat",
+		description:
+			"Maybe this toy with its 360-degree range of motion will even help your kitty overcome their fear of the Roomba.",
+		imageUrl:
+			"https://www.gannett-cdn.com/-mm-/cce0ffbdb6148b36d2a278c665d5f7db7b914b15/c=98-0-693-446/local/-/media/2020/09/08/USATODAY/usatsports/Reviewed.com-RvEW-25477-3._robot_toy.png?width=2560",
+		weight: "260g",
+		maker: "HEXBUG",
+		slug: "robotic_cat_toy",
+	},
+	{
+		title: "Catnip Yellow Banana",
+		price: 42.50,
+		category: "cat",
+		description:
+			"Happy buyers of this catnip-filled banana say their cats love playing with the shell long after they've torn it to pieces.",
+		imageUrl:
+			"https://img.chewy.com/is/image/catalog/102761_PT1._AC_SL1500_V1555941237_.jpg",
+		weight: "75g",
+		maker: "Yeowww!",
+		slug: "catnip_yellow_banana",
+	}
 ];
 export default devProducts;
