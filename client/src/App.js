@@ -5,30 +5,32 @@ import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar";
 import ProductsListPage from "./pages/ProductsListPage";
 import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/LoginPage";
 import Footer from "./components/Footer";
 
 function App() {
-  return (
-    <div>
-      <Navbar />
-      <div className="container">
-        <Switch>
-          <Route path="/signup" component={SignUpPage} />
-          <Route
-            path="/products/category/:category"
-            component={ProductsListPage}
-          />
-          {/*Will change this when component is ready*/}
-          <Route path="/products/:slug" component={ProductsListPage} />
+	return (
+		<div>
+			<Navbar />
+			<div className="container">
+				<Switch>
+					<Route path="/signup" component={SignUpPage} />
+					<Route path="/login" component={LoginPage} />
+					<Route
+						path="/products/category/:category"
+						component={ProductsListPage}
+					/>
+					{/*Will change this when component is ready*/}
+					<Route path="/products/:slug" component={ProductsListPage} />
 
-          <Route path="/products" component={ProductsListPage} />
+					<Route path="/products" component={ProductsListPage} />
 
-          <Route path="/" component={LandingPage} />
-        </Switch>
-      </div>
-      <Footer />
-    </div>
-  );
+					<Route path="/" component={LandingPage} />
+				</Switch>
+			</div>
+			<Footer />
+		</div>
+	);
 }
 
 export default App;
