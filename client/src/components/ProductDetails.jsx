@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "../styles/ProductDetails.module.css";
 import devProducts from "../dev-data/products.js";
+import Button from "./Button";
 
 export default function ProductDetails() {
   const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const { slug } = useParams();
 
   useEffect(() => {
     const [item] = devProducts.filter((item) => item.slug === slug);
     setProduct(item);
+    const relatedItems = devProducts.filter(
+      (prod) => prod.category === item.category
+    );
+    setRelatedProducts(relatedItems);
   }, [slug]);
 
   return (
@@ -52,11 +58,34 @@ export default function ProductDetails() {
                 />
                 <span onClick={() => setQuantity(quantity + 1)}>+</span>
               </span>
-              <button>Add to Cart</button>
+              <Button type="primary" text="Add to Cart" />
             </div>
           </div>
         </div>
       )}
+
+      <div className={styles.rp_container}>
+        <h2>Related Products</h2>
+        <div className={styles.related_products}>
+          {relatedProducts &&
+            relatedProducts
+              .filter((_, index) => index < 4)
+              .map((item, index) => {
+                return (
+                  <div key={index}>
+                    <Link to={`/products/${item.slug}`}>
+                      <img src={item.imageUrl} alt="" />
+                    </Link>
+                    <p>{item.title}</p>
+                    <span>
+                      <h4>${item.price}</h4>
+                    </span>
+                    <Button type="primary" text="Add to Cart" />
+                  </div>
+                );
+              })}
+        </div>
+      </div>
     </div>
   );
 }
