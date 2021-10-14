@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar";
 import ProductsListPage from "./pages/ProductsListPage";
 import SignUpPage from "./pages/SignUpPage";
+import ProductDetails from "./components/ProductDetails";
 import Footer from "./components/Footer";
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
             component={ProductsListPage}
           />
           {/*Will change this when component is ready*/}
-          <Route path="/products/:slug" component={ProductsListPage} />
+          <Route path="/products/:slug" component={ProductDetails} />
 
           <Route path="/products" component={ProductsListPage} />
 

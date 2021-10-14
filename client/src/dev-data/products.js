@@ -48,30 +48,6 @@ const devProducts = [
     slug: "cozie-marvin-the-moose",
   },
   {
-    title: "Bird Teaser with Feathers",
-    price: 2.62,
-    category: "cat",
-    description:
-      "This is no angry bird, but the perfect play buddy for your kitty. Wave it around and let the colorful feathers, dangly string, crinkly sound and catnip entice bored felines to jump into play. Leap, actually! By stimulating their natural hunting instincts, it's the perfect way to provide cats with the daily exercise they need. Playing together also helps strengthen the bond between you and your cat, on the daily.",
-    imageUrl:
-      "https://img.chewy.com/is/image/catalog/161199_MAIN._AC_SL400_V1568240232_.jpg",
-    weight: "100g",
-    maker: "Frisco",
-    slug: "bird_teaser",
-  },
-  {
-    title: "Buggin' Out Puzzle & Play",
-    price: 19.99,
-    category: "cat",
-    description:
-      "Keep your kitty busy while rewarding her with her favorite treats! Petstages Buggin' Out Puzzle & Play Cat Toy is designed for the most curious kitties out there. This puzzle can be used for daily feeding to help her maintain a healthy eating pace, or you can use it to help keep her preoccupied. Simply place the treats in the hidden treat compartments and watch your feline forage away! And while she's doing everything in her power to reveal every last bite, you can rest assured knowing that there are no removable parts and that the toy is made from only food safe materials and never any BPA, PVC or phthalates.",
-    imageUrl:
-      "https://img.chewy.com/is/image/catalog/227098_PT2._AC_SL400_V1595560592_.jpg",
-    weight: "300g",
-    maker: "Petstages",
-    slug: "buggin_out_puzzle",
-  },
-  {
     title: "IQ Treat Dispenser Ball",
     price: 13.95,
     category: "dog",
@@ -81,7 +57,7 @@ const devProducts = [
       "https://img.chewy.com/is/image/catalog/115632_Pt5._AC_SL400_V1583771892_.jpg",
     weight: "350g",
     maker: "Pet Zone",
-    slug: "iq_treat_dispenser",
+    slug: "iq-treat-dispenser",
   },
   {
     title: "Cozie Marvin the Moose Plush",
@@ -93,7 +69,7 @@ const devProducts = [
       "https://img.chewy.com/is/image/catalog/160735_MAIN._AC_SL400_V1604072534_.jpg",
     weight: "220g",
     maker: "Kong",
-    slug: "cozie_marvin_the_moose",
+    slug: "cozie-marvin-the-moose",
   },
   {
     title: "Faux Shearling Jacket",
@@ -105,7 +81,7 @@ const devProducts = [
       "https://static.zara.net/photos///2021/I/0/1/p/0653/289/712/2/w/1126/0653289712_2_1_1.jpg?ts=1632311345187",
     weight: "270g",
     maker: "Zara",
-    slug: "faux_shearling_jacket",
+    slug: "faux-shearling-jacket",
   },
   {
     title: "Quilted Jacket",
@@ -117,7 +93,7 @@ const devProducts = [
       "https://static.zara.net/photos///2021/I/0/1/p/0653/288/505/2/w/1738/0653288505_1_1_1.jpg?ts=1632311327730",
     weight: "350g",
     maker: "Zara",
-    slug: "quilted_jacket",
+    slug: "quilted-jacket",
   },
   {
     title: "Check Pet Bed",
@@ -129,7 +105,7 @@ const devProducts = [
       "https://static.zarahome.net/8/photos4/2021/I/4/1/b/1321/000/305/BH/PM/1321000305_1_1_1.jpg?t=1627479940812",
     weight: "600g",
     maker: "Zara Home",
-    slug: "check_pet_bed",
+    slug: "check-pet-bed",
   },
   {
     title: "Mouse Pet Toy",
@@ -140,7 +116,7 @@ const devProducts = [
       "https://static.zarahome.net/8/photos4/2021/I/4/1/p/1322/149/309/1322149309_2_7_1.jpg?t=1624271788641",
     weight: "30g",
     maker: "Zara Home",
-    slug: "mouse_pet_toy",
+    slug: "mouse-pet-toy",
   },
   {
     title: "Snuggle Puppy",
@@ -152,7 +128,7 @@ const devProducts = [
       "https://cdn.mos.cms.futurecdn.net/th2hgj8VuMxHzvZEKcUEv4-970-80.jpg.webp",
     weight: "280g",
     maker: "Snuggle puppy",
-    slug: "snuggle_puppy",
+    slug: "snuggle-puppy",
   },
   {
     title: "Interactive Toys Balls",
@@ -164,7 +140,7 @@ const devProducts = [
       "https://cdn.mos.cms.futurecdn.net/eo8GTgyxP4cJ3xhPqmUdjF-970-80.jpg.webp",
     weight: "90g",
     maker: "Slopehill",
-    slug: "interactive_toys_balls",
+    slug: "interactive-toys-balls",
   },
   {
     title: "Robotic Cat Toy",
@@ -176,7 +152,7 @@ const devProducts = [
       "https://www.gannett-cdn.com/-mm-/cce0ffbdb6148b36d2a278c665d5f7db7b914b15/c=98-0-693-446/local/-/media/2020/09/08/USATODAY/usatsports/Reviewed.com-RvEW-25477-3._robot_toy.png?width=2560",
     weight: "260g",
     maker: "HEXBUG",
-    slug: "robotic_cat_toy",
+    slug: "robotic-cat-toy",
   },
   {
     title: "Catnip Yellow Banana",
@@ -188,7 +164,7 @@ const devProducts = [
       "https://img.chewy.com/is/image/catalog/102761_PT1._AC_SL1500_V1555941237_.jpg",
     weight: "75g",
     maker: "Yeowww!",
-    slug: "catnip_yellow_banana",
+    slug: "catnip-yellow-banana",
   },
 ];
 export default devProducts;
