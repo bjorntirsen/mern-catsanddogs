@@ -1,11 +1,11 @@
 import { React } from "react";
 import Form from "../components/Form"
 
-export default function SignUpPage() {
+export default function LoginPage() {
 	return (
 		<div>
-            <h2>Sign Up</h2>
-            <Form type="signup"/>
+            <h2>Login</h2>
+            <Form type="login"/>
         </div>
 	);
 }
