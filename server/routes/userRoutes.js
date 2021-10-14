@@ -35,6 +35,7 @@ router.post("/signup", async (req, res, next) => {
       phone,
       address,
     });
+    newUser.password = undefined;
     res.status(201).json({ status: "success", data: newUser });
   } catch (err) {
     res.status(400).json(err);
