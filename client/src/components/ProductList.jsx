@@ -2,16 +2,22 @@ import { React, useState, useEffect } from "react";
 
 import Product from "./Product";
 
-import classes from "./ProductList.module.css"
+import classes from "./ProductList.module.css";
 
-const ProductList = () => {
+const ProductList = (props) => {
   const [products, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch("/api/products");
+      let url = "/api/products";
+      if (props.category) {
+        const { category } = props;
+        console.log(category);
+      }
+
+      const response = await fetch(url);
 
       if (!response.ok) {
         throw new Error("Something went wrong!");
@@ -26,7 +32,7 @@ const ProductList = () => {
       setIsLoading(false);
       setErrorMessage(error.message);
     });
-  }, []);
+  }, [props]);
 
   if (isLoading) {
     return (
@@ -44,17 +50,20 @@ const ProductList = () => {
     );
   }
 
+  if (products) {
+    return (
+      <div className="products-container">
+        {products.map((product) => {
+          return <Product key={product._id} product={product} />;
+        })}
+      </div>
+    );
+  }
+
   return (
-    <div className="products-container">
-      {products.map((product) => {
-        return (
-          <Product
-            key={product._id}
-            product={product}
-          />
-        );
-      })}
-    </div>
+    <section className={classes.ErrorMessage}>
+      <p>"Something went wrong!"</p>
+    </section>
   );
 };
 
