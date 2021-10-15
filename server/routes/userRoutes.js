@@ -1,13 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const express = require("express");
-const faker = require("faker/locale/sv");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 const router = express.Router();
 
-//HELPER FUNCTIONS
+// HELPER FUNCTIONS
 const generateToken = (userId) =>
   jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -27,6 +26,7 @@ const createAndSendToken = (user, statusCode, req, res) => {
   });
 };
 
+// MIDDLEWARE
 const protect = async (req, res, next) => {
   try {
     // 1) Check if token exists
@@ -60,7 +60,8 @@ const protect = async (req, res, next) => {
   }
 };
 
-//SIGNUP
+// CRUD OPERATIONS
+// SIGNUP (CREATE user)
 router.post("/signup", async (req, res, next) => {
   try {
     if (
@@ -111,7 +112,7 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-//LOGIN ROUTE som returnerar en JWT
+// LOGIN ROUTE som returnerar en JWT
 router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -133,7 +134,7 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-//GETME route som är protected
+// GETME (READ user data)
 router.get("/getMe", protect, (req, res, next) => {
   res.status(200).json({
     status: "success",
@@ -143,108 +144,20 @@ router.get("/getMe", protect, (req, res, next) => {
   });
 });
 
-let TestUsers = [
-  {
-    id: 1,
-    fullName: faker.name.findName(),
-    password: faker.internet.password(),
-    email: faker.internet.email(),
-    phoneNumber: faker.phone.phoneNumber(),
-    address: `${faker.address.streetAddress()}, ${faker.address.zipCode()} ${faker.address.cityName()}, ${faker.address.country()}`,
-  },
-  {
-    id: 2,
-    fullName: faker.name.findName(),
-    password: faker.internet.password(),
-    email: faker.internet.email(),
-    phoneNumber: faker.phone.phoneNumber(),
-    address: `${faker.address.streetAddress()}, ${faker.address.zipCode()} ${faker.address.cityName()}, ${faker.address.country()}`,
-  },
-  {
-    id: 3,
-    fullName: faker.name.findName(),
-    password: faker.internet.password(),
-    email: faker.internet.email(),
-    phoneNumber: faker.phone.phoneNumber(),
-    address: `${faker.address.streetAddress()}, ${faker.address.zipCode()} ${faker.address.cityName()}, ${faker.address.country()}`,
-  },
-];
-
-// get all
-router.get("/", (req, res, next) => {
-  res.json(TestUsers);
-});
-
-// post
-router.post("/", (req, res, next) => {
-  TestUsers.push(req.body);
-  console.log("user created");
-  res.json(TestUsers);
-});
-
-// get one
-router.get("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id, 10);
-  if (!id) {
-    res.statusCode = 500;
-    res.statusMessage = "Invalid id";
-    res.end("Invalid id");
-  } else {
-    const user = TestUsers.find((doc) => doc.id === id);
+// DELETE user (for testing purposes)
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const user = await User.findByIdAndDelete(id);
     if (!user) {
-      res.statusCode = 404;
-      res.statusMessage = "Not Found";
-      res.end("Not found");
-    } else {
-      res.json(user);
+      res.status(404).json("No user with that id found.");
     }
-  }
-});
-
-// update
-router.post("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id, 10);
-  if (!id) {
-    res.statusCode = 500;
-    res.statusMessage = "Invalid id";
-    res.end("Invalid id");
-  } else {
-    const user = TestUsers.find((doc) => doc.id === id);
-    if (!user) {
-      res.statusCode = 404;
-      res.statusMessage = "Not Found";
-      res.end("Not found");
-    } else {
-      const { fullName, password, email, phoneNumber, address } = req.body;
-      user.fullName = fullName;
-      user.password = password;
-      user.email = email;
-      user.phoneNumber = phoneNumber;
-      user.address = address;
-      console.log("user updated");
-      res.json(user);
-    }
-  }
-});
-
-// delete
-router.delete("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id, 10);
-  if (!id) {
-    res.statusCode = 500;
-    res.statusMessage = "Invalid id";
-    res.end("Invalid id");
-  } else {
-    const user = TestUsers.find((doc) => doc.id === id);
-    if (!user) {
-      res.statusCode = 404;
-      res.statusMessage = "Not Found";
-      res.end("Not found");
-    } else {
-      TestUsers = TestUsers.filter((doc) => doc.id !== id);
-      res.statusCode = 200;
-      res.end();
-    }
+    res.status(204).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 
