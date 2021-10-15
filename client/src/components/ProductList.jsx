@@ -1,33 +1,61 @@
-import { React, useState, useEffect } from 'react'
-import devProducts from "../dev-data/products.js";
+import { React, useState, useEffect } from "react";
+
 import Product from "./Product";
 
+import classes from "./ProductList.module.css"
 
 const ProductList = () => {
   const [products, setProducts] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
-    setProducts(devProducts);
+    const fetchProducts = async () => {
+      const response = await fetch("/api/products");
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      const responseData = await response.json();
+
+      setProducts(responseData.data.products);
+      setIsLoading(false);
+    };
+    fetchProducts().catch((error) => {
+      setIsLoading(false);
+      setErrorMessage(error.message);
+    });
   }, []);
 
-  return (
-    <>
-      {products ? (
-        <div className="products-container">
-          {products.map((product) => {
-            return (
-              <Product
-                key={Math.floor(Math.random() * (1000 - 1 + 1)) + 1}
-                product={product}
-              />
-            );
-          })}
-        </div>
-      ) : (
-        <p>Loading Data</p>
-      )}
-    </>
-  )
-}
+  if (isLoading) {
+    return (
+      <section className={classes.IsLoading}>
+        <p>Loading...</p>
+      </section>
+    );
+  }
 
-export default ProductList
+  if (errorMessage) {
+    return (
+      <section className={classes.ErrorMessage}>
+        <p>{errorMessage}</p>
+      </section>
+    );
+  }
+
+  return (
+    <div className="products-container">
+      {products.map((product) => {
+        return (
+          <Product
+            key={product._id}
+            product={product}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+export default ProductList;
