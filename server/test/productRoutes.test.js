@@ -66,10 +66,10 @@ describe("REST API Product routes", () => {
   });
 
   describe(`Sending a DELETE request to /api/products/${sampleProductSlug}`, () => {
-    it("should respond with 200", (done) => {
+    it("should respond with 204", (done) => {
       request(app)
         .delete(`/api/products/${sampleProductSlug}`)
-        .expect(200, done);
+        .expect(204, done);
     });
   });
 });
