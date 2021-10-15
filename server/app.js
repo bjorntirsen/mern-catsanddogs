@@ -2,7 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-
+const cors = require("cors");
 require("dotenv").config();
 
 const productsRouter = require("./routes/productRoutes");
@@ -11,6 +11,12 @@ const usersRouter = require("./routes/userRoutes");
 const app = express();
 const port = process.env.PORT || 5000;
 
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://127.0.0.1:3000"], // allow to server to accept request from different origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  })
+);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
