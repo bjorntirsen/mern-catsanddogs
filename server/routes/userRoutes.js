@@ -145,10 +145,9 @@ router.get("/getMe", protect, (req, res, next) => {
 });
 
 // DELETE user (for testing purposes)
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", protect, async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id, 10);
-    const user = await User.findByIdAndDelete(id);
+    const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
       res.status(404).json("No user with that id found.");
     }
