@@ -49,6 +49,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
+  stock: {
+    type: Number,
+    required: [true, "A product must have a stock number"],
+  },
 });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
