@@ -1,115 +1,130 @@
 const express = require("express");
-
-const router = express.Router();
 const Product = require("../models/productModel");
 
-let TestProducts = [
-  {
-    id: 1,
-    title: "Chewi Toy",
-    body: "A chewi toy for your dog to play with",
-  },
-  {
-    id: 2,
-    title: "Cat light",
-    body: "Disctract your cat with this cool light",
-  },
-];
+const router = express.Router();
 
-// get all
-router.get("/", (req, res, next) => {
-  res.json(TestProducts);
-});
-
-// post
-router.post("/", (req, res, next) => {
-  TestProducts.push(req.body);
-  console.log("product created");
-  res.json(TestProducts);
-});
-
-//add one
-router.post("/add-product", (req, res, next) => {
-  const { title, price, description, imageUrl, weight, maker } = req.body;
-  const product = new Product({
-    title,
-    price,
-    description,
-    imageUrl,
-    weight,
-    maker,
-  });
-  product
-    .save()
-    .then((result) => {
-      console.log("Product created");
-      res.redirect("/products");
-    })
-    .catch((err) => {
-      console.log(err);
+//CRUD operations
+//CREATE one product
+router.post("/", async (req, res, next) => {
+  try {
+    if (
+      !req.body.title ||
+      !req.body.price ||
+      !req.body.category ||
+      !req.body.description ||
+      !req.body.imageUrl ||
+      !req.body.weight ||
+      !req.body.maker
+    ) {
+      res
+        .status(401)
+        .json(
+          "You need to provide title, price, category, description, imageUrl, weight, maker to add a new product."
+        );
+    }
+    const newProduct = await Product.create(req.body);
+    res.status(201).json({
+      status: "success",
+      data: {
+        product: newProduct,
+      },
     });
-});
-
-// get one
-router.get("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id, 10);
-  if (!id) {
-    res.statusCode = 500;
-    res.statusMessage = "Invalid id";
-    res.end("Invalid id");
-  } else {
-    const product = TestProducts.find((doc) => doc.id === id);
-    if (!product) {
-      res.statusCode = 404;
-      res.statusMessage = "Not Found";
-      res.end("Not found");
-    } else {
-      res.json(product);
-    }
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 
-// update
-router.post("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id, 10);
-  if (!id) {
-    res.statusCode = 500;
-    res.statusMessage = "Invalid id";
-    res.end("Invalid id");
-  } else {
-    const product = TestProducts.find((doc) => doc.id === id);
-    if (!product) {
-      res.statusCode = 404;
-      res.statusMessage = "Not Found";
-      res.end("Not found");
-    } else {
-      const updatedItem = req.body;
-      product.title = updatedItem.title;
-      product.body = updatedItem.body;
-      console.log("product updated");
-      res.json(product);
+// READ get all products
+router.get("/", async (req, res, next) => {
+  try {
+    const products = await Product.find({});
+    if (!products) {
+      res.status(404).json("No products found.");
     }
+    res.status(200).json({
+      status: "success",
+      results: products.length,
+      data: {
+        products,
+      },
+    });
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 
-// delete
-router.delete("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id, 10);
-  if (!id) {
-    res.statusCode = 500;
-    res.statusMessage = "Invalid id";
-    res.end("Invalid id");
-  } else {
-    const product = TestProducts.find((doc) => doc.id === id);
+// READ get one product by slug
+router.get("/:slug", async (req, res, next) => {
+  try {
+    const product = await Product.findOne({ slug: req.params.slug });
     if (!product) {
-      res.statusCode = 404;
-      res.statusMessage = "Not Found";
-      res.end("Not found");
-    } else {
-      TestProducts = TestProducts.filter((doc) => doc.id !== id);
-      res.statusCode = 200;
-      res.end();
+      res.status(404).json("No product with that slug found.");
     }
+    res.status(200).json({
+      status: "success",
+      data: {
+        product,
+      },
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+// UPDATE one product by slug
+router.post("/:slug", async (req, res, next) => {
+  try {
+    const product = await Product.findOne({ slug: req.params.slug });
+    if (!product) {
+      res.status(404).json("No product with that slug found.");
+    }
+    if (
+      !req.body.title ||
+      !req.body.price ||
+      !req.body.category ||
+      !req.body.description ||
+      !req.body.imageUrl ||
+      !req.body.weight ||
+      !req.body.maker
+    ) {
+      res
+        .status(401)
+        .json(
+          "You need to provide title, price, category, description, imageUrl, weight, maker to update a product."
+        );
+    }
+    const updatedProduct = await Product.findOneAndUpdate(
+      { slug: product.slug },
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        product: updatedProduct,
+      },
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+// DELETE one product by slug
+router.delete("/:slug", async (req, res, next) => {
+  try {
+    const product = await Product.findOneAndDelete({ slug: req.params.slug });
+    if (!product) {
+      res.status(404).json("No product with that slug found.");
+    }
+    res.status(204).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 

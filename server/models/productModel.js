@@ -45,7 +45,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "A product must have a maker"],
   },
-  slug: String,
+  slug: {
+    type: String,
+    unique: true,
+  },
 });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
