@@ -20,22 +20,22 @@ const Navbar = () => {
           <ul className={`${styles.nav}`}>
             <li className={`${styles.li}`}>
               <NavLink to="/">
-                <a href="/" className={`${styles.a}`}>Home</a>
+                <span className={`${styles.a}`}>Home</span>
               </NavLink>
             </li>
             <li className={`${styles.li}`}>
               <NavLink to="/shop">
-                <a href="/shop" className={`${styles.a}`}>Shop</a>
+                <span className={`${styles.a}`}>Shop</span>
               </NavLink>
             </li>
             <li className={`${styles.li}`}>
               <NavLink to="/contact">
-                <a href="/contact" className={`${styles.a}`}>Contact</a>
+                <span className={`${styles.a}`}>Contact</span>
               </NavLink>
             </li>
             <li className={`${styles.li} ${styles.a}`}>
               <NavLink to="/about">
-                <a href="/about" className={`${styles.a}`}>About us</a>
+                <span className={`${styles.a}`}>About us</span>
               </NavLink>
             </li>
           </ul>
@@ -45,7 +45,7 @@ const Navbar = () => {
           <ul className={`${styles.nav}`}>
             <li className={`${styles.li}`}>
               <NavLink to="/login">
-                <a href="/login" className={`${styles.a}`}>Login</a>
+                <span className={`${styles.a}`}>Login</span>
               </NavLink>
             </li>
             <li className={`${styles.li}`}>
