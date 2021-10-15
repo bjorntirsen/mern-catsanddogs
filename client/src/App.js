@@ -21,7 +21,6 @@ function App() {
             path="/products/category/:category"
             component={ProductsListPage}
           />
-          {/*Will change this when component is ready*/}
           <Route path="/products/:slug" component={ProductDetails} />
 
           <Route path="/products" component={ProductsListPage} />
