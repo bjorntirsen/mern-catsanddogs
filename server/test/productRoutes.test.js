@@ -11,6 +11,7 @@ const testProduct = {
     "https://img.chewy.com/is/image/catalog/161199_MAIN._AC_SL400_V1568240232_.jpg",
   weight: "100g",
   maker: "Frisco",
+  stock: 45,
 };
 
 const updatedTestProduct = {
@@ -22,6 +23,7 @@ const updatedTestProduct = {
     "https://img.chewy.com/is/image/catalog/161199_MAIN._AC_SL400_V1568240232_.jpg",
   weight: "100g",
   maker: "Frisco",
+  stock: 50,
 };
 
 const sampleProductSlug = "test-title";
