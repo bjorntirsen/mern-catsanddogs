@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import styles from "../styles/Form.module.css";
 import btnStyles from "../styles/Button.module.css";
 import Button from "./Button";
-
+import axios from "axios";
 export default function Form({ type }) {
   const [formFields, setFormFields] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const formValidateMessage = (submitedFileds) => {
     let fields = [];
@@ -50,9 +51,30 @@ export default function Form({ type }) {
     return "validates";
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formFields);
+    const validateMessage = formValidateMessage(formFields);
+    if (validateMessage === "validates") {
+      const url = "http://localhost:5000/api/users/signup";
+      try {
+        const res = await axios.post(url, formFields);
+        setSubmitStatus({
+          requestCompleted: true,
+          message: "You can now log in",
+        });
+        console.log(res.data);
+      } catch (e) {
+        setSubmitStatus({
+          requestCompleted: false,
+          message: "Something went wrong",
+        });
+      }
+    } else {
+      setSubmitStatus({
+        requestCompleted: false,
+        message: validateMessage,
+      });
+    }
   };
 
   const handleChange = (value, fieldId) => {
@@ -128,26 +150,33 @@ export default function Form({ type }) {
             </Link>
           </div>
         </form>
+        {submitStatus && <p>{submitStatus.message}</p>}
+      </>
     );
   } else if (type === "login") {
     return (
-      <form className={styles.formContainer} action="">
-        <div className={styles.formCol}>
-          <label htmlFor="email">Email*</label>
-          <input id="email" type="email" />
-        </div>
-        <div className={styles.formCol}>
-          <label htmlFor="password">Password*</label>
-          <input id="password" type="password" />
-        </div>
-        <div className={styles.formCol}>
-          {/* Byt ut nedantående mot Button components */}
-          <Button text="Login" type="primary" />
-          <Link className={`${btnStyles.btn} ${btnStyles.btnSecondary}`} to="/">
-            Cancel
-          </Link>
-        </div>
-      </form>
+      <>
+        <form className={styles.formContainer} action="">
+          <div className={styles.formCol}>
+            <label htmlFor="email">Email*</label>
+            <input id="email" type="email" />
+          </div>
+          <div className={styles.formCol}>
+            <label htmlFor="password">Password*</label>
+            <input id="password" type="password" />
+          </div>
+          <div className={styles.formCol}>
+            {/* Byt ut nedantående mot Button components */}
+            <Button text="Login" type="primary" />
+            <Link
+              className={`${btnStyles.btn} ${btnStyles.btnSecondary}`}
+              to="/"
+            >
+              Cancel
+            </Link>
+          </div>
+        </form>
+      </>
     );
   }
 }
