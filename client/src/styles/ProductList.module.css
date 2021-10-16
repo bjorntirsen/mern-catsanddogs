@@ -17,6 +17,7 @@
 }
 
 .container h1 {
+  text-transform: capitalize;
   font-size: 3rem;
   text-align: center;
 }

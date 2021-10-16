@@ -54,7 +54,11 @@ const ProductList = (props) => {
   if (products) {
     return (
       <section className={styles.container}>
-        <h1>Products:</h1>
+        {props.category ? (
+          <h1>{props.category.substring(0, 3)} products:</h1>
+        ) : (
+          <h1>products:</h1>
+        )}
         <div className={styles.products}>
           {products.map((product) => {
             return <Product key={product._id} product={product} />;
