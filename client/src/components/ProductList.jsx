@@ -15,7 +15,7 @@ const ProductList = (props) => {
       if (props.category) {
         const { category } = props;
         const singularCategory = category.substring(0, 3);
-        console.log(singularCategory);
+        url += `/categories/${singularCategory}`
       }
 
       const response = await fetch(url);
