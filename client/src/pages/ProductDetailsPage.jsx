@@ -1,73 +1,70 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
-import devProducts from "../dev-data/products.js";
-import Button from "../components/Button";
+import ProductDetails from '../components/ProductDetails.jsx';
 import RelatedProducts from "../components/RelatedProducts.jsx";
 
 import styles from "../styles/ProductDetails.module.css";
 
-export default function ProductDetails() {
+const ProductDetailsPage = ({ match }) => {
+  const [products, setProducts] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState();
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState(null);
-  const { slug } = useParams();
+
+  const slug = match.url.split("/")[2];
+
+  // Store products from db in state
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const url = "/api/products";
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+      const responseData = await response.json();
+      setProducts(responseData.data.products);
+      setIsLoading(false);
+    };
+    fetchProducts().catch((error) => {
+      setIsLoading(false);
+      setErrorMessage(error.message);
+    });
+  }, [match]);
 
   useEffect(() => {
-    const [item] = devProducts.filter((item) => item.slug === slug);
-    setProduct(item);
-    const relatedItems = devProducts.filter((prod) => {
-      return prod.category === item.category && prod.slug !== item.slug;
-    });
-    setRelatedProducts(relatedItems);
-  }, [slug, product]);
+    if (products) {
+      const [item] = products.filter((item) => item.slug === slug);
+      setProduct(item);
+      const relatedItems = products.filter((prod) => {
+        return prod.category === item.category && prod.slug !== item.slug;
+      });
+      setRelatedProducts(relatedItems);
+    }
+  }, [products, slug]);
+
+  if (isLoading) {
+    return (
+      <section>
+        <p>Loading...</p>
+      </section>
+    );
+  }
+
+  if (errorMessage) {
+    return (
+      <section>
+        <p>{errorMessage}</p>
+      </section>
+    );
+  }
 
   return (
     <div className={styles.container}>
-      {product && (
-        <div className={styles.details_top}>
-          <div className={styles.details_top_images}>
-            <div className={styles.main_image_container}>
-              <img
-                src={product.imageUrl}
-                className={styles.main_image}
-                alt="product"
-              />
-            </div>
-            <div className={styles.secondary_images_container}>
-              <div>Image 1</div>
-              <div>Image 2</div>
-              <div>Image 3</div>
-            </div>
-          </div>
-          <div className={styles.details_top_content}>
-            <h1>{product.title}</h1>
-            <p>{product.description}</p>
-            <div className={styles.price_wrapper}>
-              <span>{`$${product.price}`}</span>
-            </div>
-            <div className={styles.cta_area}>
-              <label htmlFor="qty_input">Quantity:</label>
-              <span className={styles.quantity}>
-                <span onClick={() => quantity > 1 && setQuantity(quantity - 1)}>
-                  -
-                </span>
-                <input
-                  onChange={(e) => setQuantity(parseInt(e.target.value))}
-                  type="number"
-                  name="qty_input"
-                  value={quantity}
-                  min="1"
-                />
-                <span onClick={() => setQuantity(quantity + 1)}>+</span>
-              </span>
-              <Button type="primary" text="Add to Cart" />
-            </div>
-          </div>
-        </div>
-      )}
-
+      <ProductDetails product={product} />
       <RelatedProducts relatedProducts={relatedProducts} />
     </div>
   );
-}
+};
+
+export default ProductDetailsPage;
