@@ -15,7 +15,7 @@ const ProductList = (props) => {
       if (props.category) {
         const { category } = props;
         const singularCategory = category.substring(0, 3);
-        url += `/categories/${singularCategory}`
+        url += `/categories/${singularCategory}`;
       }
 
       const response = await fetch(url);
@@ -53,11 +53,14 @@ const ProductList = (props) => {
 
   if (products) {
     return (
-      <div className="products-container">
-        {products.map((product) => {
-          return <Product key={product._id} product={product} />;
-        })}
-      </div>
+      <section className={styles.container}>
+        <h1>Products:</h1>
+        <div className={styles.products}>
+          {products.map((product) => {
+            return <Product key={product._id} product={product} />;
+          })}
+        </div>
+      </section>
     );
   }
 
