@@ -1,68 +1,28 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styles from "../styles/Form.module.css";
 import btnStyles from "../styles/Button.module.css";
 import Button from "./Button";
 import axios from "axios";
+import { formValidateMessage } from "../utils/formValidateMessage";
+
 export default function Form({ type }) {
   const [formFields, setFormFields] = useState(null);
   const [submitStatus, setSubmitStatus] = useState(null);
-
-  const formValidateMessage = (submitedFileds) => {
-    let fields = [];
-    if (type === "signup") {
-      fields = [
-        "fullName",
-        "email",
-        "phone",
-        "address",
-        "password",
-        "passwordConfirm",
-      ];
-    } else if (type === "login") {
-      fields = ["email", "passowrd"];
-    }
-
-    let isThereEmptyField = false;
-    //This checks if there is any empty field
-    fields.forEach((field) => {
-      if (
-        submitedFileds[field] === "" ||
-        typeof submitedFileds[field] === "undefined"
-      ) {
-        isThereEmptyField = true;
-      }
-    });
-
-    if (isThereEmptyField) return "No empty fields";
-
-    //This will check if passwords match only for the signup type
-    if (
-      typeof submitedFileds.passwordConfirm !== undefined &&
-      submitedFileds.password !== submitedFileds.passwordConfirm
-    )
-      return "Passwords don't match";
-
-    if (
-      !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(submitedFileds.email)
-    )
-      return "Not a valid Email address";
-
-    return "validates";
-  };
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validateMessage = formValidateMessage(formFields);
+
+    const validateMessage = formValidateMessage(formFields, type);
+
     if (validateMessage === "validates") {
-      const url = "http://localhost:5000/api/users/signup";
+      const url = `http://localhost:5000/api/users/${type}`;
       try {
-        const res = await axios.post(url, formFields);
-        setSubmitStatus({
-          requestCompleted: true,
-          message: "You can now log in",
-        });
-        console.log(res.data);
+        const { data } = await axios.post(url, formFields);
+        localStorage.setItem("tkn", data.token);
+        console.log(data);
+        history.push("/");
       } catch (e) {
         setSubmitStatus({
           requestCompleted: false,
@@ -156,7 +116,11 @@ export default function Form({ type }) {
   } else if (type === "login") {
     return (
       <>
-        <form className={styles.formContainer} action="">
+        <form
+          onSubmit={handleSubmit}
+          className={styles.formContainer}
+          action=""
+        >
           <div className={styles.formCol}>
             <label htmlFor="email">Email*</label>
             <input id="email" type="email" />
@@ -180,4 +144,3 @@ export default function Form({ type }) {
     );
   }
 }
-
