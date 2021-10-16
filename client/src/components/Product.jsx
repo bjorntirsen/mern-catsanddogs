@@ -10,6 +10,7 @@ export default function Product({product}) {
             <hr />
             <p>Weight: {product.weight}</p>
             <p>Maker: {product.maker}</p>
+            <Button type="primary" text="Add to Cart" />
             <Button type="primary" text="Primary"/>
             <Button type="secondary" text="Secondary"/>
             <Button text="Button"/>

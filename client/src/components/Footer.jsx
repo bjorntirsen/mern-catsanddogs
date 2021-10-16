@@ -1,13 +1,14 @@
 import React from "react";
 import {Link} from "react-router-dom"
 import styles from '../styles/Footer.module.css';
+import logo from "../assets/logo-white.png";
 
 export default function Footer() {
 	return (
         <div className={styles.footerContainer}>
             <div className={`${styles.footerContent} ${styles.footerMain}`}>
                 <div className={styles.footerCol}>
-                    <img src="./logo-white.png" alt="Logo" />
+                    <img src={logo} alt="Logo" />
                     <p>1203 Town Center Orive #L 335458 USA</p>
                     <p>+841 123 456 78</p>
                     <p>info@company.com</p>

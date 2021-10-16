@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../logo.png";
+import logo from "../assets/logo.png";
 import Cart from "../bxs-cart.svg";
 import { NavLink } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
