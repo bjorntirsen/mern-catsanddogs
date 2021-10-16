@@ -1,0 +1,28 @@
+.container {
+  width: 100vw;
+  max-width: 1280px;
+  background-color: #fff;
+  margin: 100px auto 0 auto;
+}
+
+.container h1 {
+  font-size: 2rem;
+}
+
+.container h3 {
+  font-size: 1.25rem;
+}
+.container p {
+  font-size: 1rem;
+}
+
+.IsLoading {
+  text-align: center;
+  padding: 1rem;
+}
+
+.ErrorMessage {
+  text-align: center;
+  color: red;
+  padding: 1rem;
+}

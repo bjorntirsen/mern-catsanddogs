@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import ProductDetails from '../components/ProductDetails.jsx';
+import ProductDetails from "../components/ProductDetails.jsx";
 import RelatedProducts from "../components/RelatedProducts.jsx";
 
-import styles from "../styles/ProductDetails.module.css";
+import styles from "../styles/ProductDetailsPage.module.css";
 
 const ProductDetailsPage = ({ match }) => {
   const [products, setProducts] = useState(null);
@@ -35,6 +35,10 @@ const ProductDetailsPage = ({ match }) => {
   useEffect(() => {
     if (products) {
       const [item] = products.filter((item) => item.slug === slug);
+      if (!item)
+        return setErrorMessage(
+          "No item with that slug was found in the database"
+        );
       setProduct(item);
       const relatedItems = products.filter((prod) => {
         return prod.category === item.category && prod.slug !== item.slug;
@@ -45,7 +49,7 @@ const ProductDetailsPage = ({ match }) => {
 
   if (isLoading) {
     return (
-      <section>
+      <section className={styles.IsLoading}>
         <p>Loading...</p>
       </section>
     );
@@ -53,7 +57,7 @@ const ProductDetailsPage = ({ match }) => {
 
   if (errorMessage) {
     return (
-      <section>
+      <section className={styles.ErrorMessage}>
         <p>{errorMessage}</p>
       </section>
     );
