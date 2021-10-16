@@ -1,19 +1,21 @@
 import React from "react";
-import Button from './Button'
-export default function Product({product}) {
-	return (
-		<div className="product-container">
-            <h2>{product.title}</h2>
-            <img src={product.imageUrl} alt={`${product.title}`} />
-            <h4>Price: {product.price}</h4>
-            <p>{product.description}</p>
-            <hr />
-            <p>Weight: {product.weight}</p>
-            <p>Maker: {product.maker}</p>
-            <Button type="primary" text="Add to Cart" />
-            <Button type="primary" text="Primary"/>
-            <Button type="secondary" text="Secondary"/>
-            <Button text="Button"/>
-        </div>
-	);
-}
+import { Link } from "react-router-dom";
+
+import Button from "../components/Button";
+
+const Product = ({product}) => {
+  return (
+    <div>
+      <Link to={`/products/${product.slug}`}>
+        <img src={product.imageUrl} alt="" />
+      </Link>
+      <p>{product.title}</p>
+      <span>
+        <h4>${product.price}</h4>
+      </span>
+      <Button type="primary" text="Add to Cart" />
+    </div>
+  );
+};
+
+export default Product;
