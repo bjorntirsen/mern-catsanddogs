@@ -28,7 +28,7 @@ export const formValidateMessage = (submitedFileds, type) => {
 
   //This will check if passwords match only for the signup type
   if (
-    typeof submitedFileds.passwordConfirm !== undefined &&
+    type === "signup" &&
     submitedFileds.password !== submitedFileds.passwordConfirm
   )
     return "Passwords don't match";

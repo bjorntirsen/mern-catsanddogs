@@ -24,13 +24,13 @@ export default function Form({ type }) {
         history.push("/");
       } catch (e) {
         setSubmitStatus({
-          validRequest: false,
+          requestCompleted: false,
           message: "Something went wrong",
         });
       }
     } else {
       setSubmitStatus({
-        validRequest: false,
+        requestCompleted: false,
         message: validateMessage,
       });
     }
@@ -111,7 +111,7 @@ export default function Form({ type }) {
           {submitStatus && (
             <p
               className={
-                submitStatus.validRequest ? styles.success : styles.error
+                submitStatus.requestCompleted ? styles.success : styles.error
               }
             >
               {submitStatus.message}
@@ -157,7 +157,7 @@ export default function Form({ type }) {
           {submitStatus && (
             <p
               className={
-                submitStatus.validRequest ? styles.success : styles.error
+                submitStatus.requestCompleted ? styles.success : styles.error
               }
             >
               {submitStatus.message}
