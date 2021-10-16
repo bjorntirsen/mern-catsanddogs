@@ -21,17 +21,16 @@ export default function Form({ type }) {
       try {
         const { data } = await axios.post(url, formFields);
         localStorage.setItem("tkn", data.token);
-        console.log(data);
         history.push("/");
       } catch (e) {
         setSubmitStatus({
-          requestCompleted: false,
+          validRequest: false,
           message: "Something went wrong",
         });
       }
     } else {
       setSubmitStatus({
-        requestCompleted: false,
+        validRequest: false,
         message: validateMessage,
       });
     }
@@ -109,8 +108,16 @@ export default function Form({ type }) {
               Cancel
             </Link>
           </div>
+          {submitStatus && (
+            <p
+              className={
+                submitStatus.validRequest ? styles.success : styles.error
+              }
+            >
+              {submitStatus.message}
+            </p>
+          )}
         </form>
-        {submitStatus && <p>{submitStatus.message}</p>}
       </>
     );
   } else if (type === "login") {
@@ -123,11 +130,19 @@ export default function Form({ type }) {
         >
           <div className={styles.formCol}>
             <label htmlFor="email">Email*</label>
-            <input id="email" type="email" />
+            <input
+              onChange={(e) => handleChange(e.target.value, e.target.id)}
+              id="email"
+              type="email"
+            />
           </div>
           <div className={styles.formCol}>
             <label htmlFor="password">Password*</label>
-            <input id="password" type="password" />
+            <input
+              onChange={(e) => handleChange(e.target.value, e.target.id)}
+              id="password"
+              type="password"
+            />
           </div>
           <div className={styles.formCol}>
             {/* Byt ut nedantående mot Button components */}
@@ -139,6 +154,15 @@ export default function Form({ type }) {
               Cancel
             </Link>
           </div>
+          {submitStatus && (
+            <p
+              className={
+                submitStatus.validRequest ? styles.success : styles.error
+              }
+            >
+              {submitStatus.message}
+            </p>
+          )}
         </form>
       </>
     );
