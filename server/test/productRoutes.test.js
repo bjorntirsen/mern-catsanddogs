@@ -48,6 +48,15 @@ describe("REST API Product routes", () => {
     });
   });
 
+  describe("Sending a GET request to /api/products/categories/cat", () => {
+    it("should respond with 200 and return json.", (done) => {
+      request(app)
+        .get("/api/products/categories/cat")
+        .expect("Content-Type", /json/)
+        .expect(200, done);
+    });
+  });
+
   describe(`Sending a GET request to /api/products/${sampleProductSlug}`, () => {
     it("should respond with 200 and return json.", (done) => {
       request(app)

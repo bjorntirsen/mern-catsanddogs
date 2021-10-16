@@ -24,7 +24,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className={`${styles.li}`}>
-              <NavLink to="/shop">
+              <NavLink to="/products">
                 <span className={`${styles.a}`}>Shop</span>
               </NavLink>
             </li>

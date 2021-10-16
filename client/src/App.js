@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import "./styles/App.css";
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar";
-import ProductDetails from "./components/ProductDetails";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 import ProductsListPage from "./pages/ProductsListPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
@@ -20,14 +20,11 @@ function App() {
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
           <Route
-            path="/products/category/:category"
+            path="/products/categories/:category"
             component={ProductsListPage}
           />
-          {/*Will change this when component is ready*/}
-          <Route path="/products/:slug" component={ProductDetails} />
-
+          <Route path="/products/:slug" component={ProductDetailsPage} />
           <Route path="/products" component={ProductsListPage} />
-
           <Route path="/" component={LandingPage} />
         </Switch>
       </div>
