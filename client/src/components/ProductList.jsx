@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 
 import Product from "./Product";
 
-import classes from "./ProductList.module.css";
+import styles from "../styles/ProductList.module.css";
 
 const ProductList = (props) => {
   const [products, setProducts] = useState(null);
@@ -37,7 +37,7 @@ const ProductList = (props) => {
 
   if (isLoading) {
     return (
-      <section className={classes.IsLoading}>
+      <section className={styles.IsLoading}>
         <p>Loading...</p>
       </section>
     );
@@ -45,7 +45,7 @@ const ProductList = (props) => {
 
   if (errorMessage) {
     return (
-      <section className={classes.ErrorMessage}>
+      <section className={styles.ErrorMessage}>
         <p>{errorMessage}</p>
       </section>
     );
@@ -62,7 +62,7 @@ const ProductList = (props) => {
   }
 
   return (
-    <section className={classes.ErrorMessage}>
+    <section className={styles.ErrorMessage}>
       <p>"Something went wrong!"</p>
     </section>
   );
