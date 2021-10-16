@@ -26,6 +26,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "A user must have an adress"],
   },
+  cart: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "product",
+        required: [true, "An product in cart must have an id"],
+      },
+      amount: {
+        type: String,
+        required: [true, "An product in cart must have an amount"],
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("user", userSchema);

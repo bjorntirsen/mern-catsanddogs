@@ -11,6 +11,7 @@ const testProduct = {
     "https://img.chewy.com/is/image/catalog/161199_MAIN._AC_SL400_V1568240232_.jpg",
   weight: "100g",
   maker: "Frisco",
+  stock: 45,
 };
 
 const updatedTestProduct = {
@@ -22,6 +23,7 @@ const updatedTestProduct = {
     "https://img.chewy.com/is/image/catalog/161199_MAIN._AC_SL400_V1568240232_.jpg",
   weight: "100g",
   maker: "Frisco",
+  stock: 50,
 };
 
 const sampleProductSlug = "test-title";
@@ -41,6 +43,15 @@ describe("REST API Product routes", () => {
     it("should respond with 200 and return json.", (done) => {
       request(app)
         .get("/api/products")
+        .expect("Content-Type", /json/)
+        .expect(200, done);
+    });
+  });
+
+  describe("Sending a GET request to /api/products/categories/cat", () => {
+    it("should respond with 200 and return json.", (done) => {
+      request(app)
+        .get("/api/products/categories/cat")
         .expect("Content-Type", /json/)
         .expect(200, done);
     });
