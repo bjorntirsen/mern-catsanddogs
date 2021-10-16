@@ -1,26 +1,17 @@
-import { React, useState,useEffect } from "react";
-import Product from "../components/Product"
-import devProducts from "../dev-data/products.js";
+import React from "react";
+import ProductList from "../components/ProductList";
 
-export default function ProductsListPage() {
-    const [products, setProducts] = useState(null);
-	
-    useEffect(() => {
-        setProducts(devProducts);
-    }, [])
-	return (
-		<div>
-            <h1>Products List Page</h1>
-            {products ? (
-					<div className="products-container">
-						{products.map((product) => {
-							return <Product key={Math.floor(Math.random() * (1000 - 1 + 1)) + 1} product={product}/>;
-						})}
-					</div>
-				) : (
-					<p>Loading Data</p>
-				)}
-            
-        </div>
-	);
-}
+const ProductsListPage = (props) => {
+  const path = props.match.url;
+  let category = null;
+  if (path.split("/")[3]) {
+    category = path.split("/")[3];
+  }
+  return (
+    <>
+      <ProductList category={category} />
+    </>
+  );
+};
+
+export default ProductsListPage;

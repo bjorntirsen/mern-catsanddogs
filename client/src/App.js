@@ -20,10 +20,9 @@ function App() {
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
           <Route
-            path="/products/category/:category"
+            path="/products/categories/:category"
             component={ProductsListPage}
           />
-          {/*Will change this when component is ready*/}
           <Route path="/products/:slug" component={ProductDetails} />
 
           <Route path="/products" component={ProductsListPage} />

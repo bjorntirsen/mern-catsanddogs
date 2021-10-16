@@ -16,8 +16,8 @@ export default function Footer() {
                 <div className={styles.footerCol}>
                     <h3>Store Menu</h3>
                     <Link className={styles.footerLink} to="/products">All Products</Link>
-                    <Link className={styles.footerLink} to="/products/category/cat">Cat Products</Link>
-                    <Link className={styles.footerLink} to="/products/category/dog">Dog Products</Link>
+                    <Link className={styles.footerLink} to="/products/categories/cat">Cat Products</Link>
+                    <Link className={styles.footerLink} to="/products/categories/dog">Dog Products</Link>
                 </div>
                 <div className={styles.footerCol}>
                     <h3>Shop</h3>
