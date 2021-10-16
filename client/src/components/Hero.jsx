@@ -5,12 +5,12 @@ import Button from "./Button";
 export default function Hero() {
   return (
     <div className={styles.hero_container}>
-      <Link to="/products/category/cats">
+      <Link to="/products/categories/cats">
         <div className={styles.cats}>
           <Button type="primary" text="Shop Cats" />
         </div>
       </Link>
-      <Link to="/products/category/dogs">
+      <Link to="/products/categories/dogs">
         <div className={styles.dogs}>
           <Button type="primary" text="Shop Dogs" />
         </div>

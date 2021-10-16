@@ -14,7 +14,8 @@ const ProductList = (props) => {
       let url = "/api/products";
       if (props.category) {
         const { category } = props;
-        console.log(category);
+        const singularCategory = category.substring(0, 3);
+        console.log(singularCategory);
       }
 
       const response = await fetch(url);

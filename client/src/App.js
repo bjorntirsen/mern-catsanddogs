@@ -20,7 +20,7 @@ function App() {
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
           <Route
-            path="/products/category/:category"
+            path="/products/categories/:category"
             component={ProductsListPage}
           />
           <Route path="/products/:slug" component={ProductDetails} />
