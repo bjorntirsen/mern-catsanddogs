@@ -16,7 +16,7 @@ router.post("/", async (req, res, next) => {
       !req.body.weight ||
       !req.body.maker
     ) {
-      res
+      return res
         .status(401)
         .json(
           "You need to provide title, price, category, description, imageUrl, weight, maker to add a new product."
@@ -39,7 +39,7 @@ router.get("/", async (req, res, next) => {
   try {
     const products = await Product.find({});
     if (!products) {
-      res.status(404).json("No products found.");
+      return res.status(404).json("No products found.");
     }
     res.status(200).json({
       status: "success",
@@ -58,11 +58,11 @@ router.get("/categories/:category", async (req, res, next) => {
   try {
     const { category } = req.params;
     if (category !== "dog" && category !== "cat") {
-      res.status(401).json("Provide either 'cat' or 'dog' as category.");
+      return res.status(401).json("Provide either 'cat' or 'dog' as category.");
     }
     const products = await Product.find({ category });
     if (!products) {
-      res.status(404).json("No products found.");
+      return res.status(404).json("No products found.");
     }
     res.status(200).json({
       status: "success",
@@ -81,7 +81,7 @@ router.get("/:slug", async (req, res, next) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug });
     if (!product) {
-      res.status(404).json("No product with that slug found.");
+      return res.status(404).json("No product with that slug found.");
     }
     res.status(200).json({
       status: "success",
@@ -99,7 +99,7 @@ router.post("/:slug", async (req, res, next) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug });
     if (!product) {
-      res.status(404).json("No product with that slug found.");
+      return res.status(404).json("No product with that slug found.");
     }
     if (
       !req.body.title ||
@@ -110,7 +110,7 @@ router.post("/:slug", async (req, res, next) => {
       !req.body.weight ||
       !req.body.maker
     ) {
-      res
+      return res
         .status(401)
         .json(
           "You need to provide title, price, category, description, imageUrl, weight, maker to update a product."
@@ -140,7 +140,7 @@ router.delete("/:slug", async (req, res, next) => {
   try {
     const product = await Product.findOneAndDelete({ slug: req.params.slug });
     if (!product) {
-      res.status(404).json("No product with that slug found.");
+      return res.status(404).json("No product with that slug found.");
     }
     res.status(204).json({
       status: "success",
