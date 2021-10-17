@@ -71,6 +71,7 @@ export default function Form({ type }) {
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="email"
               type="email"
+              autoComplete="email"
             />
           </div>
           <div className={styles.formCol}>
@@ -95,6 +96,7 @@ export default function Form({ type }) {
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="password"
               type="password"
+              autoComplete="new-password"
             />
           </div>
           <div className={styles.formCol}>
@@ -103,6 +105,7 @@ export default function Form({ type }) {
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="passwordConfirm"
               type="password"
+              autoComplete="new-password"
             />
           </div>
           <div className={styles.formCol}>
@@ -141,6 +144,7 @@ export default function Form({ type }) {
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="email"
               type="email"
+              autoComplete="email"
             />
           </div>
           <div className={styles.formCol}>
@@ -149,6 +153,7 @@ export default function Form({ type }) {
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="password"
               type="password"
+              autoComplete="password"
             />
           </div>
           <div className={styles.formCol}>
