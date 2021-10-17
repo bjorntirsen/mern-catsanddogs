@@ -60,6 +60,20 @@ const protect = async (req, res, next) => {
   }
 };
 
+// Must have protect before it in stack
+const restrictToAdmin = async (req, res, next) => {
+  try {
+    if (!req.user.adminUser) {
+      return res
+        .status(403)
+        .json("You do not have permission to perform this action");
+    }
+    next();
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+};
+
 // CRUD OPERATIONS
 // SIGNUP (CREATE user)
 router.post("/signup", async (req, res, next) => {
@@ -158,6 +172,11 @@ router.delete("/:id", protect, async (req, res, next) => {
   } catch (err) {
     res.status(400).json(err);
   }
+});
+
+// GET only for admin (for testing purposes)
+router.get("/onlyAdmin", protect, restrictToAdmin, (req, res, next) => {
+  res.status(200).json("You are an admin user!");
 });
 
 module.exports = router;
