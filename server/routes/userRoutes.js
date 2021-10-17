@@ -38,7 +38,7 @@ const protect = async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
     }
     if (!token) {
-      res.status(401).json("You are not logged in. Log in to access.");
+      return res.status(401).json("You are not logged in. Log in to access.");
     }
 
     // 2) Validate token
@@ -47,7 +47,7 @@ const protect = async (req, res, next) => {
     // 3) Check if user still exists
     const currentUser = await User.findById(decoded.userId);
     if (!currentUser) {
-      res
+      return res
         .status(401)
         .json("The user belonging to the token does no longer exist.");
     }
@@ -57,6 +57,20 @@ const protect = async (req, res, next) => {
     next();
   } catch (err) {
     res.status(400).json(err);
+  }
+};
+
+// Must have protect before it in stack
+const restrictToAdmin = async (req, res, next) => {
+  try {
+    if (!req.user.adminUser) {
+      return res
+        .status(403)
+        .json("You do not have permission to perform this action");
+    }
+    next();
+  } catch (err) {
+    return res.status(400).json(err);
   }
 };
 
@@ -72,7 +86,7 @@ router.post("/signup", async (req, res, next) => {
       !req.body.phone ||
       !req.body.address
     ) {
-      res
+      return res
         .status(401)
         .json(
           "You need to provide fullName, password, passwordConfirm, email, phone, address to sign up."
@@ -87,7 +101,7 @@ router.post("/signup", async (req, res, next) => {
       address,
     } = req.body;
     if (unencryptedPassword !== passwordConfirm) {
-      res.status(401).json("Passwords do not match.");
+      return res.status(401).json("Passwords do not match.");
     }
     //Encrypt password
     //Auto-gen a salt and hash with bcryptjs
@@ -106,7 +120,7 @@ router.post("/signup", async (req, res, next) => {
       const field = Object.keys(err.keyValue)[0];
       const value = Object.values(err.keyValue)[0];
       const message = `The ${field} must be unique, ${value} already exists in the Database. Please use another value.`;
-      res.status(400).json(message);
+      return res.status(400).json({ message, errorCode: err.code });
     }
     res.status(400).json(err);
   }
@@ -119,12 +133,12 @@ router.post("/login", async (req, res, next) => {
 
     // 1) check if email and pass are provided
     if (!email || !password) {
-      res.status(400).json("Please provide email and password.");
+      return res.status(400).json("Please provide email and password.");
     }
     // 2) if user exists && pass is valid
     const user = await User.findOne({ email }).select("+password");
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      res.status(401).json("Incorrect email or password.");
+      return res.status(401).json("Incorrect email or password.");
     }
 
     // 3) if everything ok, send token
@@ -149,7 +163,7 @@ router.delete("/:id", protect, async (req, res, next) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
-      res.status(404).json("No user with that id found.");
+      return res.status(404).json("No user with that id found.");
     }
     res.status(204).json({
       status: "success",
@@ -158,6 +172,11 @@ router.delete("/:id", protect, async (req, res, next) => {
   } catch (err) {
     res.status(400).json(err);
   }
+});
+
+// GET only for admin (for testing purposes)
+router.get("/onlyAdmin", protect, restrictToAdmin, (req, res, next) => {
+  res.status(200).json("You are an admin user!");
 });
 
 module.exports = router;

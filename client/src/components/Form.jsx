@@ -23,10 +23,17 @@ export default function Form({ type }) {
         localStorage.setItem("tkn", data.token);
         history.push("/");
       } catch (e) {
-        setSubmitStatus({
-          requestCompleted: false,
-          message: e.response.data,
-        });
+        if (e.response.data.errorCode === 11000) {
+          setSubmitStatus({
+            requestCompleted: false,
+            message: "This email is already registered.",
+          });
+        } else {
+          setSubmitStatus({
+            requestCompleted: false,
+            message: "Something went wrong",
+          });
+        }
       }
     } else {
       setSubmitStatus({
@@ -64,6 +71,7 @@ export default function Form({ type }) {
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="email"
               type="email"
+              autoComplete="email"
             />
           </div>
           <div className={styles.formCol}>
@@ -88,6 +96,7 @@ export default function Form({ type }) {
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="password"
               type="password"
+              autoComplete="new-password"
             />
           </div>
           <div className={styles.formCol}>
@@ -96,6 +105,7 @@ export default function Form({ type }) {
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="passwordConfirm"
               type="password"
+              autoComplete="new-password"
             />
           </div>
           <div className={styles.formCol}>
@@ -134,6 +144,7 @@ export default function Form({ type }) {
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="email"
               type="email"
+              autoComplete="email"
             />
           </div>
           <div className={styles.formCol}>
@@ -142,6 +153,7 @@ export default function Form({ type }) {
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="password"
               type="password"
+              autoComplete="password"
             />
           </div>
           <div className={styles.formCol}>
