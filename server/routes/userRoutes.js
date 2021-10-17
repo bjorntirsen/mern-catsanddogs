@@ -120,7 +120,7 @@ router.post("/signup", async (req, res, next) => {
       const field = Object.keys(err.keyValue)[0];
       const value = Object.values(err.keyValue)[0];
       const message = `The ${field} must be unique, ${value} already exists in the Database. Please use another value.`;
-      return res.status(400).json(message);
+      return res.status(400).json({ message, errorCode: err.code });
     }
     res.status(400).json(err);
   }
