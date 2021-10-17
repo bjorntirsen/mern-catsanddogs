@@ -25,7 +25,7 @@ export default function Form({ type }) {
       } catch (e) {
         setSubmitStatus({
           requestCompleted: false,
-          message: "Something went wrong",
+          message: e.response.data,
         });
       }
     } else {
