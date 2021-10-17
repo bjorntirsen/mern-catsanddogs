@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
-import Button from "../components/Button";
 
 import styles from "../styles/ProductDetails.module.css";
+import Product from "./Product";
 
 const RelatedProducts = ({ relatedProducts }) => {
   return (
@@ -13,19 +11,8 @@ const RelatedProducts = ({ relatedProducts }) => {
         {relatedProducts &&
           relatedProducts
             .filter((_, index) => index < 4)
-            .map((item, index) => {
-              return (
-                <div key={index}>
-                  <Link to={`/products/${item.slug}`}>
-                    <img src={item.imageUrl} alt="" />
-                  </Link>
-                  <p>{item.title}</p>
-                  <span>
-                    <h4>${item.price}</h4>
-                  </span>
-                  <Button type="primary" text="Add to Cart" />
-                </div>
-              );
+            .map((product) => {
+              return <Product key={product._id} product={product} />;
             })}
       </div>
     </div>
