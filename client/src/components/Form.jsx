@@ -23,10 +23,17 @@ export default function Form({ type }) {
         localStorage.setItem("tkn", data.token);
         history.push("/");
       } catch (e) {
-        setSubmitStatus({
-          requestCompleted: false,
-          message: "Something went wrong",
-        });
+        if (e.response.data.errorCode === 11000) {
+          setSubmitStatus({
+            requestCompleted: false,
+            message: "This email is already registered.",
+          });
+        } else {
+          setSubmitStatus({
+            requestCompleted: false,
+            message: "Something went wrong",
+          });
+        }
       }
     } else {
       setSubmitStatus({
