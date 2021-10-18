@@ -1,0 +1,45 @@
+.body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, #fcfcfc, #f9f9f9);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+ .ap_container {
+  width: 70%;
+  height: 85%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 25px 40px #87878733;
+ }
+ .header {
+  margin: auto;
+  width: 90%;
+  height: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ }
+ .ap_table {
+  width: 90%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  text-align: center;
+}
+
+td, th {
+  padding: 0.4rem;
+  border: 1px solid black;
+}
+
+th {
+  background-color: #FFC200;
+}
+
+.th_small {
+  width: 10%;
+
+}
+
