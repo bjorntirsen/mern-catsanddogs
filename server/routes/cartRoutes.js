@@ -26,7 +26,17 @@ router.post("/add", async (req, res) => {
 });
 
 // READ
-router.get("/", async (req, res) => {});
+router.get("/", async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const user = await User.findOne({ _id: userId });
+    if (!user) return res.status(404).json("User not found");
+    const { cart } = user;
+    res.status(200).json(cart);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
 
 // UPDATE
 router.post("/:id", (req, res) => {});
