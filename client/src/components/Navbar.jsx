@@ -5,6 +5,15 @@ import { NavLink } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
 
 const Navbar = () => {
+  var logStatus = "Login";
+  var userStaus = "Sign Up!";
+  var userRoute = "signup";
+
+  if (localStorage.getItem("tkn")) {
+    logStatus = "Logout";
+    userStaus = "Get Me";
+    userRoute = "getme";
+  }
   return (
     <div>
       <nav className={`${styles.nav}`}>
@@ -44,13 +53,13 @@ const Navbar = () => {
         <div className={`${styles.right}`}>
           <ul className={`${styles.nav}`}>
             <li className={`${styles.li}`}>
-              <NavLink to="/login">
-                <span className={`${styles.a}`}>Login</span>
+              <NavLink to={`/${logStatus}`}>
+                <span className={`${styles.a}`}>{logStatus}</span>
               </NavLink>
             </li>
             <li className={`${styles.li}`}>
-              <NavLink to="/signup">
-                <span className={`${styles.a}`}>Sign Up!</span>
+              <NavLink to={`/${userRoute}`}>
+                <span className={`${styles.a}`}>{userStaus}</span>
               </NavLink>
             </li>
             <li className={`${styles.li}`}>
