@@ -60,7 +60,7 @@ const AdminProducts = () => {
               return (
                 <tr>
                 <td>{product.title}</td>
-                <td>3</td>
+                <td>{product.stock}</td>
                 <td><Button type="primary" text="Edit" /></td>
                 <td><Button type="secondary" text="Delete" /></td>
               </tr>
