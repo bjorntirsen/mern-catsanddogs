@@ -4,7 +4,7 @@ const Product = require("../models/productModel");
 
 const router = express.Router();
 
-// CREATE
+// Add product + amount to user's cart
 router.post("/add", async (req, res) => {
   const { item, userId } = req.body;
   try {
@@ -25,7 +25,7 @@ router.post("/add", async (req, res) => {
   }
 });
 
-// READ
+// Get user's cart!
 router.get("/", async (req, res) => {
   const { userId } = req.body;
   try {
@@ -41,7 +41,21 @@ router.get("/", async (req, res) => {
 // UPDATE
 router.post("/:id", (req, res) => {});
 
-// DELETE
-router.delete("/:id", (req, res) => {});
+// Remove item in user's cart
+router.delete("/:itemId", async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const filter = { _id: userId };
+    const update = {
+      $pull: { cart: { _id: req.params.itemId } },
+    };
+    const updatedUser = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 module.exports = router;
