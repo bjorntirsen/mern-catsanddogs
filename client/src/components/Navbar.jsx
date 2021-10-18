@@ -49,6 +49,11 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className={`${styles.li}`}>
+              <NavLink to="/signup">
+                <span className={`${styles.a}`}>Sign Up!</span>
+              </NavLink>
+            </li>
+            <li className={`${styles.li}`}>
               <NavLink to="/cart">
                 <img className={`${styles.cart}`} src={Cart} alt="cart-icon" />
               </NavLink>
