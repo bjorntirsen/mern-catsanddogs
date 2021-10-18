@@ -38,8 +38,22 @@ router.get("/", async (req, res) => {
   }
 });
 
-// UPDATE
-router.post("/:id", (req, res) => {});
+// Update amount of product in users's cart
+router.post("/:itemId", async (req, res) => {
+  const { amount, userId } = req.body;
+  try {
+    const filter = { _id: userId, "cart._id": req.params.itemId };
+    const update = {
+      $set: { "cart.$.amount": amount },
+    };
+    const updatedUser = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 // Remove item in user's cart
 router.delete("/:itemId", async (req, res) => {
