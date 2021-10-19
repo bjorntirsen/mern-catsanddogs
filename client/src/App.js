@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./styles/App.css";
 import LandingPage from "./pages/LandingPage";
@@ -10,10 +10,13 @@ import LoginPage from "./pages/LoginPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import AdminProductsPage from "./pages/AdminProductsPage";
 import Footer from "./components/Footer";
+import { UserContext } from "./contexts/UserContext";
 
 function App() {
+  const [user, setUser] = useState(null);
+
   return (
-    <div>
+    <UserContext.Provider value={{ user, setUser }}>
       <Navbar />
       <div className="container">
         <Switch>
@@ -31,7 +34,7 @@ function App() {
         </Switch>
       </div>
       <Footer />
-    </div>
+    </UserContext.Provider>
   );
 }
 
