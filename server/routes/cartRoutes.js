@@ -11,6 +11,8 @@ router.post("/add", protect, async (req, res) => {
   try {
     const product = await Product.findOne({ _id: item.id });
     if (!product) return res.status(404).json("Product not found");
+    if (item.amount < 1)
+      return res.status(404).json("Amount of product must be greater than 0");
 
     const filter = { _id: req.user };
     const update = {
@@ -46,6 +48,8 @@ router.get("/", protect, async (req, res) => {
 router.post("/update/:cartItemId", protect, async (req, res) => {
   const { amount } = req.body;
   try {
+    if (amount < 1)
+      return res.status(404).json("Amount of product must be greater than 0");
     const filter = { _id: req.user, "cart._id": req.params.cartItemId };
     const update = {
       $set: { "cart.$.amount": amount },
