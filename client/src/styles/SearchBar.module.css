@@ -1,9 +1,27 @@
+.searchContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 .searchBar input {
   float: right;
   padding: 6px;
-  border: 0.5px solid var(--lightgrey);
-  border-radius: 18px;
   margin-top: 8px;
   margin-right: 16px;
   font-size: 17px;
+  border: 0.5px solid var(--lightgrey);
+  border-radius: 18px;
+}
+.searchBar button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  font-size: 17px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+.searchContainer button:hover {
+  opacity: 0.5;
 }
