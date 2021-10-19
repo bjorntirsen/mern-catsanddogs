@@ -7,7 +7,8 @@
     "imageUrl": "https://img.chewy.com/is/image/catalog/161199_MAIN._AC_SL400_V1568240232_.jpg",
     "weight": "100g",
     "maker": "Frisco",
-    "slug": "bird_teaser"
+    "slug": "bird_teaser",
+    "stock": 10
   },
   {
     "title": "Buggin' Out Puzzle & Play",
@@ -17,7 +18,8 @@
     "imageUrl": "https://cdn.abicart.com/shop/30710/art10/h8815/175398815-origpic-c96a68.jpg",
     "weight": "300g",
     "maker": "Petstages",
-    "slug": "buggin-out-puzzle"
+    "slug": "buggin-out-puzzle",
+    "stock": 10
   },
   {
     "title": "IQ Treat Dispenser Ball",
@@ -27,7 +29,8 @@
     "imageUrl": "https://img.chewy.com/is/image/catalog/115632_Pt5._AC_SL400_V1583771892_.jpg",
     "weight": "350g",
     "maker": "Pet Zone",
-    "slug": "iq-treat-dispenser"
+    "slug": "iq-treat-dispenser",
+    "stock": 10
   },
   {
     "title": "Cozie Marvin the Moose Plush",
@@ -37,7 +40,8 @@
     "imageUrl": "https://img.chewy.com/is/image/catalog/160735_MAIN._AC_SL400_V1604072534_.jpg",
     "weight": "220g",
     "maker": "Kong",
-    "slug": "cozie-marvin-the-moose"
+    "slug": "cozie-marvin-the-moose",
+    "stock": 10
   },
   {
     "title": "Faux Shearling Jacket",
@@ -47,7 +51,8 @@
     "imageUrl": "https://static.zara.net/photos///2021/I/0/1/p/0653/289/712/2/w/1126/0653289712_2_1_1.jpg?ts=1632311345187",
     "weight": "270g",
     "maker": "Zara",
-    "slug": "faux-shearling-jacket"
+    "slug": "faux-shearling-jacket",
+    "stock": 10
   },
   {
     "title": "Quilted Jacket",
@@ -57,7 +62,8 @@
     "imageUrl": "https://static.zara.net/photos///2021/I/0/1/p/0653/288/505/2/w/1738/0653288505_1_1_1.jpg?ts=1632311327730",
     "weight": "350g",
     "maker": "Zara",
-    "slug": "quilted-jacket"
+    "slug": "quilted-jacket",
+    "stock": 10
   },
   {
     "title": "Check Pet Bed",
@@ -67,7 +73,8 @@
     "imageUrl": "https://static.zarahome.net/8/photos4/2021/I/4/1/b/1321/000/305/BH/PM/1321000305_1_1_1.jpg?t=1627479940812",
     "weight": "600g",
     "maker": "Zara Home",
-    "slug": "check-pet-bed"
+    "slug": "check-pet-bed",
+    "stock": 10
   },
   {
     "title": "Mouse Pet Toy",
@@ -77,7 +84,8 @@
     "imageUrl": "https://static.zarahome.net/8/photos4/2021/I/4/1/p/1322/149/309/1322149309_2_7_1.jpg?t=1624271788641",
     "weight": "30g",
     "maker": "Zara Home",
-    "slug": "mouse-pet-toy"
+    "slug": "mouse-pet-toy",
+    "stock": 10
   },
   {
     "title": "Snuggle Puppy",
@@ -87,7 +95,8 @@
     "imageUrl": "https://cdn.mos.cms.futurecdn.net/th2hgj8VuMxHzvZEKcUEv4-970-80.jpg.webp",
     "weight": "280g",
     "maker": "Snuggle puppy",
-    "slug": "snuggle-puppy"
+    "slug": "snuggle-puppy",
+    "stock": 10
   },
   {
     "title": "Interactive Toys Balls",
@@ -97,7 +106,8 @@
     "imageUrl": "https://cdn.mos.cms.futurecdn.net/eo8GTgyxP4cJ3xhPqmUdjF-970-80.jpg.webp",
     "weight": "90g",
     "maker": "Slopehill",
-    "slug": "interactive-toys-balls"
+    "slug": "interactive-toys-balls",
+    "stock": 10
   },
   {
     "title": "Robotic Cat Toy",
@@ -107,7 +117,8 @@
     "imageUrl": "https://www.gannett-cdn.com/-mm-/cce0ffbdb6148b36d2a278c665d5f7db7b914b15/c=98-0-693-446/local/-/media/2020/09/08/USATODAY/usatsports/Reviewed.com-RvEW-25477-3._robot_toy.png?width=2560",
     "weight": "260g",
     "maker": "HEXBUG",
-    "slug": "robotic-cat-toy"
+    "slug": "robotic-cat-toy",
+    "stock": 10
   },
   {
     "title": "Catnip Yellow Banana",
@@ -117,6 +128,7 @@
     "imageUrl": "https://img.chewy.com/is/image/catalog/102761_PT1._AC_SL1500_V1555941237_.jpg",
     "weight": "75g",
     "maker": "Yeowww!",
-    "slug": "catnip-yellow-banana"
+    "slug": "catnip-yellow-banana",
+    "stock": 10
   }
 ]
