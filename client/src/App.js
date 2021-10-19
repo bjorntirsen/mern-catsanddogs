@@ -14,12 +14,6 @@ import { UserContext } from "./contexts/UserContext";
 function App() {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    if (localStorage.getItem("tkn")) {
-      setUser(true);
-    }
-  });
-
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Navbar />
