@@ -1,18 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import logo from "../assets/logo.png";
 import Cart from "../bxs-cart.svg";
 import { NavLink } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
+import { UserContext } from "../contexts/UserContext";
 
 const Navbar = (props) => {
-  var logStatus = "Login";
-  var userStaus = "Sign Up!";
-  var userRoute = "signup";
+  const { user } = useContext(UserContext);
+
+  const logStatus = "Login";
+  const userStaus = "Sign Up!";
+  const userRoute = "signup";
 
   if (props.user) {
     logStatus = "Logout";
     userStaus = "Get Me";
     userRoute = "getme";
+  }
+  if (user) {
+    console.log(user);
   }
   return (
     <div>

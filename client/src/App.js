@@ -9,6 +9,7 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import Footer from "./components/Footer";
+import { UserContext } from "./contexts/UserContext";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -20,8 +21,8 @@ function App() {
   });
 
   return (
-    <div>
-      <Navbar user={user} />
+    <UserContext.Provider value={{ user, setUser }}>
+      <Navbar />
       <div className="container">
         <Switch>
           <Route path="/cart" component={ShoppingCartPage} />
@@ -37,7 +38,7 @@ function App() {
         </Switch>
       </div>
       <Footer />
-    </div>
+    </UserContext.Provider>
   );
 }
 
