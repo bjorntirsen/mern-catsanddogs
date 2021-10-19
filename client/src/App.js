@@ -9,6 +9,7 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import AdminProductsPage from "./pages/AdminProductsPage";
+import AdminEditProductPage from "./pages/AdminEditProductPage";
 import Footer from "./components/Footer";
 
 function App() {
@@ -20,7 +21,9 @@ function App() {
           <Route path="/cart" component={ShoppingCartPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/admin" component={AdminProductsPage} />
+          <Route path="/admin_products" component={AdminProductsPage} />
+          <Route path="/admin_product/:slug" component={AdminEditProductPage} />
+
           <Route
             path="/products/categories/:category"
             component={ProductsListPage}
