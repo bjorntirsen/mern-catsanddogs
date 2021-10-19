@@ -12,7 +12,7 @@ const Navbar = () => {
   if (!user) {
     return (
       <div>
-        <nav className={`${styles.nav}`}>
+        <nav className={styles.nav}>
           <StandardLinks />
           <LoginLinks />
         </nav>
@@ -22,7 +22,7 @@ const Navbar = () => {
   if (user && !user.adminUser) {
     return (
       <div>
-        <nav className={`${styles.nav}`}>
+        <nav className={styles.nav}>
           <StandardLinks />
           <UserLinks />
         </nav>
@@ -31,7 +31,7 @@ const Navbar = () => {
   }
   return (
     <div>
-      <nav className={`${styles.nav}`}>
+      <nav className={styles.nav}>
         <StandardLinks />
         <AdminLinks />
       </nav>

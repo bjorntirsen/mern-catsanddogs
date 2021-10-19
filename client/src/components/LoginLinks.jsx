@@ -5,21 +5,21 @@ import { NavLink } from "react-router-dom";
 
 const LoginLinks = () => {
   return (
-    <div className={`${styles.right}`}>
-      <ul className={`${styles.nav}`}>
-        <li className={`${styles.li}`}>
+    <div className={styles.right}>
+      <ul className={styles.nav}>
+        <li className={styles.li}>
           <NavLink to={`/login`}>
-            <span className={`${styles.a}`}>Login</span>
+            <span className={styles.a}>Login</span>
           </NavLink>
         </li>
-        <li className={`${styles.li}`}>
+        <li className={styles.li}>
           <NavLink to={`/signup`}>
-            <span className={`${styles.a}`}>Sign Up!</span>
+            <span className={styles.a}>Sign Up!</span>
           </NavLink>
         </li>
-        <li className={`${styles.li}`}>
+        <li className={styles.li}>
           <NavLink to="/cart">
-            <img className={`${styles.cart}`} src={Cart} alt="cart-icon" />
+            <img className={styles.cart} src={Cart} alt="cart-icon" />
           </NavLink>
         </li>
       </ul>
