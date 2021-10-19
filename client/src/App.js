@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./styles/App.css";
 import LandingPage from "./pages/LandingPage";
@@ -11,9 +11,17 @@ import ShoppingCartPage from "./pages/ShoppingCartPage";
 import Footer from "./components/Footer";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (localStorage.getItem("tkn")) {
+      setUser(true);
+    }
+  });
+
   return (
     <div>
-      <Navbar />
+      <Navbar user={user} />
       <div className="container">
         <Switch>
           <Route path="/cart" component={ShoppingCartPage} />

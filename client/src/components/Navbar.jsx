@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../assets/logo.png";
 import Cart from "../bxs-cart.svg";
 import { NavLink } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
 
-const Navbar = () => {
+const Navbar = (props) => {
   var logStatus = "Login";
   var userStaus = "Sign Up!";
   var userRoute = "signup";
 
-  if (localStorage.getItem("tkn")) {
+  if (props.user) {
     logStatus = "Logout";
     userStaus = "Get Me";
     userRoute = "getme";
