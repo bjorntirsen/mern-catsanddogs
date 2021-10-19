@@ -81,7 +81,10 @@ describe("REST API User routes", () => {
     it("should respond with 200 and return json and jwt.", (done) => {
       request(app)
         .post("/api/users/login")
-        .send({ password: adminPassword, email: adminEmail })
+        .send({
+          password: adminPassword,
+          email: adminEmail,
+        })
         .expect("Content-Type", /json/)
         .expect((res) => {
           // eslint-disable-next-line prefer-destructuring
