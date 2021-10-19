@@ -75,7 +75,9 @@ router.post("/", async (req, res, next) => {
 router.get("/", protect, async (req, res, next) => {
   const customerId = req.user._id;
   try {
-    const orders = await Order.find({ customerId: customerId });
+    //Will only limit query by customerId for non-admins
+    const limitQuery = req.user.adminUser ? {} : { customerId: customerId };
+    const orders = await Order.find(limitQuery);
     if (!orders) {
       return res.status(404).json("No orders found.");
     }
@@ -97,6 +99,11 @@ router.get("/:orderId", protect, async (req, res, next) => {
     const order = await Order.findOne({ _id: req.params.orderId });
     if (!order) {
       return res.status(404).json("No order with that id was found.");
+    }
+    if (order.customerId !== req.user._id && !req.user.adminUser) {
+      return res
+        .status(403)
+        .json("You don't have permission to access this resource");
     }
     res.status(200).json({
       status: "success",
