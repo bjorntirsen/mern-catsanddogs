@@ -1,0 +1,9 @@
+.searchBar input {
+  float: right;
+  padding: 6px;
+  border: 0.5px solid var(--lightgrey);
+  border-radius: 18px;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
