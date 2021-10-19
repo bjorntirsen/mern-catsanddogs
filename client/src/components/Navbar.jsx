@@ -1,60 +1,39 @@
-import React from "react";
-import logo from "../assets/logo.png";
-import Cart from "../bxs-cart.svg";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
 import styles from "../styles/Navbar.module.css";
+import { UserContext } from "../contexts/UserContext";
+import StandardLinks from "./StandardLinks";
+import LoginLinks from "./LoginLinks";
+import UserLinks from "./UserLinks";
+import AdminLinks from "./AdminLinks";
 
 const Navbar = () => {
+  const { user } = useContext(UserContext);
+  console.log(user);
+  if (!user) {
+    return (
+      <div>
+        <nav className={styles.nav}>
+          <StandardLinks />
+          <LoginLinks />
+        </nav>
+      </div>
+    );
+  }
+  if (user && !user.adminUser) {
+    return (
+      <div>
+        <nav className={styles.nav}>
+          <StandardLinks />
+          <UserLinks />
+        </nav>
+      </div>
+    );
+  }
   return (
     <div>
-      <nav className={`${styles.nav}`}>
-        <div className={`${styles.left}`}>
-          <li className={`${styles.li}`}>
-            <NavLink to="/">
-              <img className={`${styles.logo}`} src={logo} alt="logo" />
-            </NavLink>
-          </li>
-        </div>
-
-        <div className={`${styles.center}`}>
-          <ul className={`${styles.nav}`}>
-            <li className={`${styles.li}`}>
-              <NavLink to="/">
-                <span className={`${styles.a}`}>Home</span>
-              </NavLink>
-            </li>
-            <li className={`${styles.li}`}>
-              <NavLink to="/products">
-                <span className={`${styles.a}`}>Shop</span>
-              </NavLink>
-            </li>
-            <li className={`${styles.li}`}>
-              <NavLink to="/contact">
-                <span className={`${styles.a}`}>Contact</span>
-              </NavLink>
-            </li>
-            <li className={`${styles.li} ${styles.a}`}>
-              <NavLink to="/about">
-                <span className={`${styles.a}`}>About us</span>
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-
-        <div className={`${styles.right}`}>
-          <ul className={`${styles.nav}`}>
-            <li className={`${styles.li}`}>
-              <NavLink to="/login">
-                <span className={`${styles.a}`}>Login</span>
-              </NavLink>
-            </li>
-            <li className={`${styles.li}`}>
-              <NavLink to="/cart">
-                <img className={`${styles.cart}`} src={Cart} alt="cart-icon" />
-              </NavLink>
-            </li>
-          </ul>
-        </div>
+      <nav className={styles.nav}>
+        <StandardLinks />
+        <AdminLinks />
       </nav>
     </div>
   );
