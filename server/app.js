@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const productsRouter = require("./routes/productRoutes");
 const usersRouter = require("./routes/userRoutes");
+const orderRouter = require("./routes/orderRoutes");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -34,6 +35,7 @@ connection.on("error", (err) => {
 
 app.use("/api/users", usersRouter);
 app.use("/api/products", productsRouter);
+app.use("/api/orders", orderRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const protect = require("../controllers/auth/protect");
 const restrictToAdmin = require("../controllers/auth/restrictToAdmin");
+
 const router = express.Router();
 
 // HELPER FUNCTIONS
