@@ -3,8 +3,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
-const protect = require("../controllers/auth/protect");
-const restrictToAdmin = require("../controllers/auth/restrictToAdmin");
+const { protect, restrictToAdmin } = require("../controllers/authControllers");
 
 const router = express.Router();
 

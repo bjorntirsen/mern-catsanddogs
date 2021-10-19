@@ -4,8 +4,7 @@ const Order = require("../models/orderModel");
 const Product = require("../models/productModel");
 
 const router = express.Router();
-const protect = require("../controllers/auth/protect");
-const restrictToAdmin = require("../controllers/auth/restrictToAdmin");
+const { protect, restrictToAdmin } = require("../controllers/authControllers");
 
 async function isMissingOrderItem(order) {
   let missingOrderItem = false;
@@ -51,12 +50,13 @@ router.post("/", async (req, res, next) => {
       !req.body.datePlaced ||
       !req.body.status ||
       !req.body.content ||
+      !req.body.shippingCost ||
       missingOrderItem
     ) {
       return res
         .status(401)
         .json(
-          "You need to provide price, a valid product id, amount, status, date placed and delivery address to place an order."
+          "You need to provide price, a valid product id, amount, status, shipping cost, date placed and delivery address to place an order."
         );
     }
     const newOrder = await Order.create(req.body);
@@ -124,6 +124,7 @@ router.post("/:orderId", protect, restrictToAdmin, async (req, res, next) => {
       !req.body.datePlaced ||
       !req.body.status ||
       !req.body.content ||
+      !req.body.shippingCost ||
       missingOrderItem
     ) {
       return res

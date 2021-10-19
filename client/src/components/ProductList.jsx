@@ -32,7 +32,6 @@ const ProductList = (props) => {
       setIsLoading(false);
       setErrorMessage(error.message);
     });
-
   }, [props]);
 
   if (isLoading) {
@@ -45,7 +44,6 @@ const ProductList = (props) => {
 
   if (errorMessage) {
     return (
-
       <section className={styles.ErrorMessage}>
         <p>{errorMessage}</p>
       </section>

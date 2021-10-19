@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const User = require("../../models/userModel");
-
+const User = require("../models/userModel");
+// MIDDLEWARE
 const protect = async (req, res, next) => {
   try {
     // 1) Check if token exists
@@ -34,4 +34,18 @@ const protect = async (req, res, next) => {
   }
 };
 
-module.exports = protect;
+// Must have protect before it in stack
+const restrictToAdmin = async (req, res, next) => {
+  try {
+    if (!req.user.adminUser) {
+      return res
+        .status(403)
+        .json("You do not have permission to perform this action");
+    }
+    next();
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+};
+
+module.exports = { protect, restrictToAdmin };
