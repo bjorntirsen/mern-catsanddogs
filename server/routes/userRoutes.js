@@ -158,6 +158,46 @@ router.get("/getMe", protect, (req, res, next) => {
   });
 });
 
+// UPDATE user
+router.post("/:id", protect, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json("No user with that id found.");
+    }
+    if (
+      !req.body.fullName ||
+      !req.body.password ||
+      !req.body.passwordConfirm ||
+      !req.body.email ||
+      !req.body.phone ||
+      !req.body.address
+    ) {
+      return res
+        .status(401)
+        .json(
+          "You need to provide fullName, password, passwordConfirm, email, phone, address to update user."
+        );
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+      { _id: user.id },
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        product: updatedUser,
+      },
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 // DELETE user (for testing purposes)
 router.delete("/:id", protect, async (req, res, next) => {
   try {
