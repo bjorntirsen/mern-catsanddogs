@@ -1,4 +1,4 @@
-import { React, useContext, useState } from "react";
+import { React, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Button from "../components/Button";
@@ -11,15 +11,13 @@ const Product = ({ product }) => {
     if (!user) {
       history.push("/login");
     }
-    const fetchAndAddToCart = async () => {
+    const fetchAndAddOneToCart = async () => {
       if (localStorage.getItem("tkn")) {
         const token = localStorage.getItem("tkn");
-        const url = "/api/carts/add";
+        const url = "/api/carts/addOne";
         const body = {
-          item: {
-            id: product._id,
-            amount: 1,
-          },
+          id: product._id,
+          amount: 1,
         };
         const obj = {
           method: "POST",
@@ -41,7 +39,7 @@ const Product = ({ product }) => {
         setUser(responseData.data.user);
       }
     };
-    fetchAndAddToCart().catch((error) => {
+    fetchAndAddOneToCart().catch((error) => {
       console.log(error);
     });
   };
