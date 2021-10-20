@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./styles/App.css";
 import LandingPage from "./pages/LandingPage";
@@ -16,6 +16,32 @@ import { UserContext } from "./contexts/UserContext";
 function App() {
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (localStorage.getItem("tkn")) {
+        const token = localStorage.getItem("tkn");
+        const url = "/api/users/getMe";
+        const obj = {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        };
+
+        const response = await fetch(url, obj);
+
+        if (!response.ok) {
+          throw new Error("Something went wrong!");
+        }
+
+        const responseData = await response.json();
+        setUser(responseData.data.user);
+      }
+    };
+    fetchUser().catch((error) => {
+      console.log(error);
+    });
+  }, []);
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Navbar />
@@ -24,8 +50,12 @@ function App() {
           <Route path="/cart" component={ShoppingCartPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/admin_products" component={AdminProductsPage} />
-          <Route path="/admin_product/:slug" component={AdminEditProductPage} />
+          <Route path="/admin/products" component={AdminProductsPage} exact />
+          <Route path="/admin/products/:slug" component={AdminEditProductPage} />
+{/*
+          <Route path="/admin/products/create" component={AdminCreateProductPage} />
+          <Route path="/admin/orders" component={AdminOrdersPage} exact />
+          <Route path="/admin/orders/:id" component={AdminEditOrderPage} /> */}
 
           <Route
             path="/products/categories/:category"
