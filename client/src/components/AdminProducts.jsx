@@ -27,6 +27,17 @@ const AdminProducts = () => {
     });
   }, []);
 
+  const handleDelete = (slug) => async (event) => {
+    const url = `/api/products/${slug}`;
+    const response = await fetch(url, { method: 'DELETE' });
+
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    }
+
+    setProducts(pp => pp.filter(p => p.slug !== slug));
+  }
+
   if (isLoading) {
     return (
       <section className={styles.IsLoading}>
@@ -67,7 +78,7 @@ const AdminProducts = () => {
                     <td>
                       <a href={`/admin/products/${product.slug}`}><Button type="primary" text="Update" /></a>
                     </td>
-                    <td><Button type="secondary" text="Delete" /></td>
+                    <td><button className={styles.btn_delete} onClick={handleDelete(product.slug)}>Delete</button></td>
                   </tr>
                 )
               })}
