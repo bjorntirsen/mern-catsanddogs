@@ -8,7 +8,6 @@ import AdminLinks from "./AdminLinks";
 
 const Navbar = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
   if (!user) {
     return (
       <div>
