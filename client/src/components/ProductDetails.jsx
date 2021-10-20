@@ -50,7 +50,6 @@ const ProductDetails = ({ product }) => {
         }
 
         const responseData = await response.json();
-        console.log(responseData);
         setUser(responseData.data.user);
       }
     };
