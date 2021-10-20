@@ -45,30 +45,36 @@ const AdminProducts = () => {
   }
   if (products) {
     return (
-      <body className={styles.body}>
+      <div className={styles.body}>
         <div className={styles.ap_container}>
           <h2 className={styles.header}>Admin Page</h2>
           <h3 className={styles.header}>Products List</h3>
           <table className={styles.ap_table}>
-            <tr>
-              <th>Product</th>
-              <th className={styles.th_small}>Stock</th>
-              <th className={styles.th_small}>Edit</th>
-              <th className={styles.th_small}>Delete</th>
-            </tr>
-            {products.map((product) => {
-              return (
-                <tr>
-                <td>{product.title}</td>
-                <td>{product.stock}</td>
-                <td><Button type="primary" text="Edit" /></td>
-                <td><Button type="secondary" text="Delete" /></td>
+            <thead>
+              <tr>
+                <th className={styles.th_big}>Product</th>
+                <th className={styles.th_small}>Stock</th>
+                <th className={styles.th_small}>Edit</th>
+                <th className={styles.th_small}>Delete</th>
               </tr>
-              )
-            })}
+            </thead>
+            <tbody>
+              {products.map((product) => {
+                return (
+                  <tr key={product.slug}>
+                    <td className={styles.th_big}>{product.title}</td>
+                    <td>{product.stock}</td>
+                    <td>
+                      <a href={`/admin_product/${product.slug}`}><Button type="primary" text="Update" /></a>
+                    </td>
+                    <td><Button type="secondary" text="Delete" /></td>
+                  </tr>
+                )
+              })}
+            </tbody>
           </table>
         </div>
-      </body>
+      </div>
     )
   };
 
