@@ -65,7 +65,7 @@ const AdminProducts = () => {
                     <td className={styles.th_big}>{product.title}</td>
                     <td>{product.stock}</td>
                     <td>
-                      <a href={`/admin_product/${product.slug}`}><Button type="primary" text="Update" /></a>
+                      <a href={`/admin/products/${product.slug}`}><Button type="primary" text="Update" /></a>
                     </td>
                     <td><Button type="secondary" text="Delete" /></td>
                   </tr>
