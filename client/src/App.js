@@ -28,7 +28,7 @@ function App() {
           <Route path="/admin/products/:slug" component={AdminEditProductPage} />
 {/*
           <Route path="/admin/products/create" component={AdminCreateProductPage} />
-          <Route path="/admin/orders" component={AdminOrdersPage} />
+          <Route path="/admin/orders" component={AdminOrdersPage} exact />
           <Route path="/admin/orders/:id" component={AdminEditOrderPage} /> */}
 
           <Route
