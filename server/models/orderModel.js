@@ -4,23 +4,27 @@ const orderSchema = new mongoose.Schema({
   customerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
-    required: [true, "An order must have an id of customer"],
+    required: [true, "An order must have an id of customer."],
   },
   deliveryAddress: {
     type: String,
-    required: [true, "An order must have a delivery address"],
+    required: [true, "An order must have a delivery address."],
   },
   datePlaced: {
     type: Date,
     default: new Date(),
-    required: [true, "An order must have a date of placed"],
+    required: [true, "An order must have a date of placed."],
   },
   dateShipped: {
     type: Date,
   },
+  shippingCost: {
+    type: Number,
+    required: [true, "An order must have a shipping cost."],
+  },
   status: {
     type: String,
-    required: [true, "An order must have a status"],
+    required: [true, "An order must have a status."],
     default: "Registered",
   },
   content: [
@@ -28,15 +32,15 @@ const orderSchema = new mongoose.Schema({
       productId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "product",
-        required: [true, "An order must have an id of product"],
+        required: [true, "An order must have an id of product."],
       },
       amount: {
         type: String,
-        required: [true, "An order must have an amount of product"],
+        required: [true, "An order must have an amount of product."],
       },
       unitPriceAtPurchase: {
         type: Number,
-        required: [true, "An order must have a price of unit at purchase"],
+        required: [true, "An order must have a price of unit at purchase."],
       },
     },
   ],
