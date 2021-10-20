@@ -40,15 +40,13 @@ async function isMissingOrderItem(order) {
 
 //CRUD operations
 //CREATE one order
-router.post("/", async (req, res, next) => {
+router.post("/", protect, async (req, res, next) => {
   const missingOrderItem = await isMissingOrderItem(req.body.content);
-
+  const customerId = req.user._id;
   try {
     if (
-      !req.body.customerId ||
+      !customerId ||
       !req.body.deliveryAddress ||
-      !req.body.datePlaced ||
-      !req.body.status ||
       !req.body.content ||
       !req.body.shippingCost ||
       missingOrderItem
@@ -56,10 +54,14 @@ router.post("/", async (req, res, next) => {
       return res
         .status(401)
         .json(
-          "You need to provide price, a valid product id, amount, status, shipping cost, date placed and delivery address to place an order."
+          "You need to provide price, a valid product id, amount, shipping cost and delivery address to place an order."
         );
     }
-    const newOrder = await Order.create(req.body);
+    const orderPayLoad = {
+      ...req.body,
+      customerId,
+    };
+    const newOrder = await Order.create(orderPayLoad);
     res.status(201).json({
       status: "success",
       data: {
@@ -128,7 +130,6 @@ router.post("/:orderId", protect, restrictToAdmin, async (req, res, next) => {
     if (
       !req.body.customerId ||
       !req.body.deliveryAddress ||
-      !req.body.datePlaced ||
       !req.body.status ||
       !req.body.content ||
       !req.body.shippingCost ||
@@ -137,7 +138,7 @@ router.post("/:orderId", protect, restrictToAdmin, async (req, res, next) => {
       return res
         .status(401)
         .json(
-          "You need to provide content, status, date placed and delivery address to place an order."
+          "You need to provide content, status and delivery address to place an order."
         );
     }
     const updatedOrder = await Order.findOneAndUpdate(
