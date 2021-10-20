@@ -146,44 +146,70 @@ router.get("/", protect, async (req, res) => {
   }
 });
 
-// Update amount of product in users's cart
-router.post("/update/:cartItemId", protect, async (req, res) => {
-  const { amount } = req.body;
+// Helper function to see if cart is valid
+const cartIsValid = async (updatedCart) => {
+  const productsPromises = [];
+  updatedCart.forEach((orderItem) => {
+    productsPromises.push(
+      ObjectId.isValid(orderItem.productId)
+        ? Product.findById(orderItem.productId).exec()
+        : null
+    );
+  });
+
+  const arrayOfProducts = await Promise.all(productsPromises);
+
+  return !arrayOfProducts.some((el) => el === null);
+};
+
+// Update the entire cart
+router.post("/update", protect, async (req, res, next) => {
   try {
-    if (amount < 1)
-      return res.status(404).json("Amount of product must be min 1");
-    const filter = { _id: req.user, "cart._id": req.params.cartItemId };
-    const update = {
-      $set: { "cart.$.amount": amount },
-    };
-    const updatedUser = await User.findOneAndUpdate(filter, update, {
-      new: true,
-    });
-    res.status(200).json({
+    const { updatedCart } = req.body;
+    const validCart = await cartIsValid(updatedCart);
+    if (!validCart) {
+      return res
+        .status(401)
+        .json("One or more items in your cart are not valid products.");
+    }
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: req.user._id },
+      {
+        $set: { cart: updatedCart },
+      },
+      {
+        new: true,
+      }
+    );
+    return res.status(200).json({
       status: "success",
-      cart: updatedUser.cart,
+      data: {
+        user: updatedUser,
+      },
     });
-  } catch (err) {
-    res.status(400).json(err);
+  } catch (error) {
+    res.status(400).json(error);
   }
 });
 
-// Remove item in user's cart
-router.delete("/delete/:cartItemId", protect, async (req, res) => {
+// (Delete) Empty the entire cart
+router.delete("/emptyCart", protect, async (req, res) => {
   try {
-    const filter = { _id: req.user };
+    const filter = { _id: req.user._id };
     const update = {
-      $pull: { cart: { _id: req.params.cartItemId } },
+      $set: { cart: [] },
     };
     const updatedUser = await User.findOneAndUpdate(filter, update, {
       new: true,
     });
     res.status(200).json({
       status: "success",
-      cart: updatedUser.cart,
+      data: {
+        user: updatedUser,
+      },
     });
-  } catch (err) {
-    res.status(400).json(err);
+  } catch (error) {
+    res.status(400).json(error);
   }
 });
 
