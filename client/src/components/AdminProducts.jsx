@@ -1,11 +1,13 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "./Button";
+import { UserContext } from "../contexts/UserContext";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,6 +28,14 @@ const AdminProducts = () => {
       setErrorMessage(error.message);
     });
   }, []);
+
+  if (!user || !user.adminUser) {
+    return (
+      <div>
+        <p>You do not have permission to access this page</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (

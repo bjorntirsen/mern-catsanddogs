@@ -51,8 +51,11 @@ function App() {
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/admin/products" component={AdminProductsPage} exact />
-          <Route path="/admin/products/:slug" component={AdminEditProductPage} />
-{/*
+          <Route
+            path="/admin/products/:slug"
+            component={AdminEditProductPage}
+          />
+          {/*
           <Route path="/admin/products/create" component={AdminCreateProductPage} />
           <Route path="/admin/orders" component={AdminOrdersPage} exact />
           <Route path="/admin/orders/:id" component={AdminEditOrderPage} /> */}
