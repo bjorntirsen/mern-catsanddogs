@@ -13,7 +13,6 @@ const orderSchema = new mongoose.Schema({
   datePlaced: {
     type: Date,
     default: new Date(),
-    required: [true, "An order must have a date of placed."],
   },
   dateShipped: {
     type: Date,
@@ -24,7 +23,6 @@ const orderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    required: [true, "An order must have a status."],
     default: "Registered",
   },
   content: [
@@ -35,7 +33,7 @@ const orderSchema = new mongoose.Schema({
         required: [true, "An order must have an id of product."],
       },
       amount: {
-        type: String,
+        type: Number,
         required: [true, "An order must have an amount of product."],
       },
       unitPriceAtPurchase: {
