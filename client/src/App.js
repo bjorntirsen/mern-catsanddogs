@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./styles/App.css";
 import LandingPage from "./pages/LandingPage";
@@ -9,18 +9,24 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import AdminProductsPage from "./pages/AdminProductsPage";
+import AdminEditProductPage from "./pages/AdminEditProductPage";
 import Footer from "./components/Footer";
+import { UserContext } from "./contexts/UserContext";
 
 function App() {
+  const [user, setUser] = useState(null);
+
   return (
-    <div>
+    <UserContext.Provider value={{ user, setUser }}>
       <Navbar />
       <div className="container">
         <Switch>
           <Route path="/cart" component={ShoppingCartPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/admin" component={AdminProductsPage} />
+          <Route path="/admin_products" component={AdminProductsPage} />
+          <Route path="/admin_product/:slug" component={AdminEditProductPage} />
+
           <Route
             path="/products/categories/:category"
             component={ProductsListPage}
@@ -31,7 +37,7 @@ function App() {
         </Switch>
       </div>
       <Footer />
-    </div>
+    </UserContext.Provider>
   );
 }
 

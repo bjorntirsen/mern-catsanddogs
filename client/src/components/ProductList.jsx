@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 
 import Product from "./Product";
 import styles from "../styles/ProductList.module.css";
+import SearchBar from "../components/SearchBar";
 
 const ProductList = (props) => {
   const [products, setProducts] = useState(null);
@@ -32,7 +33,6 @@ const ProductList = (props) => {
       setIsLoading(false);
       setErrorMessage(error.message);
     });
-
   }, [props]);
 
   if (isLoading) {
@@ -45,7 +45,6 @@ const ProductList = (props) => {
 
   if (errorMessage) {
     return (
-
       <section className={styles.ErrorMessage}>
         <p>{errorMessage}</p>
       </section>
@@ -55,6 +54,7 @@ const ProductList = (props) => {
   if (products) {
     return (
       <section className={styles.container}>
+        <SearchBar products={products}/>
         {props.category ? (
           <h1>{props.category.substring(0, 3)} products:</h1>
         ) : (

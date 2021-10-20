@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "../styles/Form.module.css";
 import btnStyles from "../styles/Button.module.css";
 import Button from "./Button";
 import axios from "axios";
 import { formValidateMessage } from "../utils/formValidateMessage";
+import { UserContext } from "../contexts/UserContext";
 
 export default function Form({ type }) {
   const [formFields, setFormFields] = useState(null);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
 
   const handleSubmit = async (e) => {
@@ -21,6 +23,7 @@ export default function Form({ type }) {
       try {
         const { data } = await axios.post(url, formFields);
         localStorage.setItem("tkn", data.token);
+        setUser(data.data.user);
         history.push("/");
       } catch (e) {
         if (e.response.data.errorCode === 11000) {
