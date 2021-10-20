@@ -31,15 +31,15 @@ const AdminProducts = () => {
 
   const handleDelete = (slug) => async (event) => {
     const url = `/api/products/${slug}`;
-    const response = await fetch(url, { method: 'DELETE' });
+    const response = await fetch(url, { method: "DELETE" });
 
     if (!response.ok) {
       throw new Error("Something went wrong!");
     }
 
-    setProducts(pp => pp.filter(p => p.slug !== slug));
-  }
-  
+    setProducts((pp) => pp.filter((p) => p.slug !== slug));
+  };
+
   if (!user || !user.adminUser) {
     return (
       <div>
@@ -90,9 +90,13 @@ const AdminProducts = () => {
                       </a>
                     </td>
                     <td>
-                      <Button type="secondary" text="Delete" />
+                      <button
+                        className={styles.btn_delete}
+                        onClick={handleDelete(product.slug)}
+                      >
+                        Delete
+                      </button>
                     </td>
-                    <td><button className={styles.btn_delete} onClick={handleDelete(product.slug)}>Delete</button></td>
                   </tr>
                 );
               })}
