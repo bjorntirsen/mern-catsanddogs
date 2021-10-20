@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../models/userModel");
-// const Product = require("../models/productModel");
+const Product = require("../models/productModel");
 const { protect } = require("../controllers/authControllers");
 
 const router = express.Router();
@@ -8,8 +8,24 @@ const router = express.Router();
 // Add product + amount to user's cart
 router.post("/update", protect, async (req, res) => {
   try {
-    // updateToCart is an array of objects
+    // updateToCart should be an array of objects
     const { updateToCart } = req.body;
+    if (!updateToCart)
+      return res.status(400).json("You need to provide an update to your cart");
+    // Check if all items in updateToCart are valid products
+    await Promise.all(
+      updateToCart.forEach(async (item) => {
+        try {
+          const product = await Product.findById(item.id);
+          if (!product)
+            return new Error(
+              "At least one of the items in updateToCart is not a valid product"
+            );
+        } catch (err) {
+          return new Error(err);
+        }
+      })
+    );
     res.json(updateToCart);
     // const product = await Product.findOne({ _id: item.id });
     // if (!product) return res.status(404).json("Product not found");
