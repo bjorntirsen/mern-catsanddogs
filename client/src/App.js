@@ -24,8 +24,12 @@ function App() {
           <Route path="/cart" component={ShoppingCartPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/admin_products" component={AdminProductsPage} />
-          <Route path="/admin_product/:slug" component={AdminEditProductPage} />
+          <Route path="/admin/products" component={AdminProductsPage} exact />
+          <Route path="/admin/products/:slug" component={AdminEditProductPage} />
+{/*
+          <Route path="/admin/products/create" component={AdminCreateProductPage} />
+          <Route path="/admin/orders" component={AdminOrdersPage} exact />
+          <Route path="/admin/orders/:id" component={AdminEditOrderPage} /> */}
 
           <Route
             path="/products/categories/:category"
