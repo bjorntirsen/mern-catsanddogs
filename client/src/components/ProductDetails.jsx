@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-
+import { React, useState, useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 import Button from "../components/Button";
-
 import styles from "../styles/ProductDetails.module.css";
 
 const ProductDetails = ({ product }) => {
+  const history = useHistory();
+  const { user, setUser } = useContext(UserContext);
+
   const [quantity, setQuantity] = useState(1);
 
   const reduceQuantityHandler = () => {
@@ -17,6 +20,42 @@ const ProductDetails = ({ product }) => {
 
   const onChangeHandler = (e) => {
     setQuantity(parseInt(e.target.value));
+  };
+
+  const addToCart = () => {
+    if (!user) {
+      history.push("/login");
+    }
+    const fetchAndAddOneOrManyToCart = async () => {
+      if (localStorage.getItem("tkn")) {
+        const token = localStorage.getItem("tkn");
+        const url = "/api/carts/addMany";
+        const body = {
+          id: product._id,
+          amount: quantity,
+        };
+        const obj = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        };
+
+        const response = await fetch(url, obj);
+
+        if (!response.ok) {
+          throw new Error("Something went wrong!");
+        }
+
+        const responseData = await response.json();
+        setUser(responseData.data.user);
+      }
+    };
+    fetchAndAddOneOrManyToCart().catch((error) => {
+      console.log(error);
+    });
   };
 
   return (
@@ -54,7 +93,9 @@ const ProductDetails = ({ product }) => {
             />
             <span onClick={increaseQuantityHandler}>+</span>
           </span>
-          <Button type="primary" text="Add to Cart" />
+          <div onClick={addToCart}>
+            <Button type="primary" text="Add to Cart" />
+          </div>
         </div>
       </div>
     </div>
