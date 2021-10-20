@@ -111,6 +111,59 @@ router.get("/getMe", protect, (req, res, next) => {
   });
 });
 
+// UPDATE user
+router.patch("/updateMe", protect, async (req, res, next) => {
+  try {
+    // Do not allow password updates
+    if (req.body.password || req.body.passwordConfirm) {
+      return res.status(400).json("This route is not for password updates.");
+    }
+    // Filter out fields that are not allowed to be updated
+    const filterObj = (obj, ...allowedFields) => {
+      const newObj = {};
+      Object.keys(obj).forEach((el) => {
+        if (allowedFields.includes(el)) newObj[el] = obj[el];
+      });
+      return newObj;
+    };
+    const filteredBody = filterObj(
+      req.body,
+      "fullName",
+      "email",
+      "phone",
+      "address"
+    );
+    if (
+      !req.body.fullName &&
+      !req.body.email &&
+      !req.body.phone &&
+      !req.body.address
+    ) {
+      return res
+        .status(400)
+        .json(
+          "This route is for updating fullName, email, phone or address of an existing user."
+        );
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      filteredBody,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        user: updatedUser,
+      },
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 // DELETE user (for testing purposes)
 router.delete("/:id", protect, async (req, res, next) => {
   try {
