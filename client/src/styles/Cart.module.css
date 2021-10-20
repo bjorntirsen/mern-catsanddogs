@@ -57,3 +57,12 @@
   width: 100%;
   cursor: pointer;
 }
+.IsLoading {
+  text-align: center;
+  padding: 1rem;
+}
+.ErrorMessage {
+  text-align: center;
+  color: red;
+  padding: 1rem;
+}

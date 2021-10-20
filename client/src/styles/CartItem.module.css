@@ -12,6 +12,9 @@
 }
 .img {
   height: 120px;
+  border: 1px solid #f4f4f4;
+  width: 100%;
+  object-fit: cover;
 }
 .title {
   font-size: 17px;
@@ -35,6 +38,8 @@
 }
 .count {
   font-size: 18px;
+  width: 2rem;
+  margin: 0.5rem;
 }
 .prices {
   text-align: right;
