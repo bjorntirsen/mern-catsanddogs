@@ -34,8 +34,9 @@ const userSchema = new mongoose.Schema({
         required: [true, "An product in cart must have an id"],
       },
       amount: {
-        type: String,
+        type: Number,
         required: [true, "An product in cart must have an amount"],
+        min: 1,
       },
     },
   ],
