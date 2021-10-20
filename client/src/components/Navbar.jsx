@@ -1,13 +1,25 @@
 import React, { useContext } from "react";
-import styles from "../styles/Navbar.module.css";
+import { useHistory } from "react-router-dom";
+
 import { UserContext } from "../contexts/UserContext";
 import StandardLinks from "./StandardLinks";
 import LoginLinks from "./LoginLinks";
 import UserLinks from "./UserLinks";
 import AdminLinks from "./AdminLinks";
 
+import styles from "../styles/Navbar.module.css";
+
 const Navbar = () => {
-  const { user } = useContext(UserContext);
+  const history = useHistory();
+  const { user, setUser } = useContext(UserContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem("tkn");
+    setUser(null);
+    history.push("/");
+  };
+
+  console.log(user);
   if (!user) {
     return (
       <div>
@@ -23,7 +35,7 @@ const Navbar = () => {
       <div>
         <nav className={styles.nav}>
           <StandardLinks />
-          <UserLinks />
+          <UserLinks logoutHandler={handleLogout} />
         </nav>
       </div>
     );
@@ -32,7 +44,7 @@ const Navbar = () => {
     <div>
       <nav className={styles.nav}>
         <StandardLinks />
-        <AdminLinks />
+        <AdminLinks logoutHandler={handleLogout} />
       </nav>
     </div>
   );

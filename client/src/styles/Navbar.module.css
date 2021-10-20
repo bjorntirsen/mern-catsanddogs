@@ -37,7 +37,7 @@ nav {
   list-style-type: none;
 }
 
-.nav li a {
+.nav li a,span {
   display: block;
   color: #000;
   text-align: center;
@@ -47,8 +47,9 @@ nav {
   font-weight: 700;
 }
 
-.nav li a:hover {
+.nav li a:hover,span:hover {
   color: var(--lightgrey);
+  cursor: pointer;
 }
 
 .logo {
