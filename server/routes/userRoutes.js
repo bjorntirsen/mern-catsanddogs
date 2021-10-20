@@ -112,29 +112,42 @@ router.get("/getMe", protect, (req, res, next) => {
 });
 
 // UPDATE user
-router.post("/:id", protect, async (req, res, next) => {
+router.patch("/updateMe", protect, async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json("No user with that id found.");
+    // Do not allow password updates
+    if (req.body.password || req.body.passwordConfirm) {
+      return res.status(400).json("This route is not for password updates.");
     }
+    // Filter out fields that are not allowed to be updated
+    const filterObj = (obj, ...allowedFields) => {
+      const newObj = {};
+      Object.keys(obj).forEach((el) => {
+        if (allowedFields.includes(el)) newObj[el] = obj[el];
+      });
+      return newObj;
+    };
+    const filteredBody = filterObj(
+      req.body,
+      "fullName",
+      "email",
+      "phone",
+      "address"
+    );
     if (
-      !req.body.fullName ||
-      !req.body.password ||
-      !req.body.passwordConfirm ||
-      !req.body.email ||
-      !req.body.phone ||
+      !req.body.fullName &&
+      !req.body.email &&
+      !req.body.phone &&
       !req.body.address
     ) {
       return res
-        .status(401)
+        .status(400)
         .json(
-          "You need to provide fullName, password, passwordConfirm, email, phone, address to update user."
+          "This route is for updating fullName, email, phone or address of an existing user."
         );
     }
     const updatedUser = await User.findByIdAndUpdate(
-      { _id: user.id },
-      req.body,
+      req.user.id,
+      filteredBody,
       {
         new: true,
         runValidators: true,
@@ -143,7 +156,7 @@ router.post("/:id", protect, async (req, res, next) => {
     res.status(200).json({
       status: "success",
       data: {
-        product: updatedUser,
+        user: updatedUser,
       },
     });
   } catch (err) {
