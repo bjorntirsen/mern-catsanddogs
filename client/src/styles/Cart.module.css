@@ -1,114 +1,68 @@
 .body {
- margin: 0;
- padding: 0;
- background: linear-gradient(to bottom right, #fcfcfc, #f9f9f9);
- height: 100vh;
- display: flex;
- justify-content: center;
- align-items: center;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, #fcfcfc, #f9f9f9);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .cart_container {
- width: 70%;
- height: 85%;
- background-color: #ffffff;
- border-radius: 20px;
- box-shadow: 0px 25px 40px #87878733;
+  width: 70%;
+  height: 85%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 25px 40px #87878733;
 }
 .header {
- margin: auto;
- width: 90%;
- height: 15%;
- display: flex;
- justify-content: space-between;
- align-items: center;
+  margin: auto;
+  width: 90%;
+  height: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
 .action {
- font-size: 14px;
- font-weight: 600;
- color: #E44C4C;
- cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e44c4c;
+  cursor: pointer;
 }
-
-.cart_items{
- margin: auto;
- width: 90%;
- height: 30%;
- display: flex;
- justify-content: space-between;
- align-items: center;
-}
-.image_box{
- width: 15%;
- text-align: center;
-}
-.img{
- height: 120px;
-}
-.title{
- font-size: 17px;
-}
-.counter{
- width: 15%;
- display: flex;
- justify-content: space-between;
- align-items: center;
-}
-.btn{
- width: 40px;
- height: 40px;
- border-radius: 50%;
- background-color: #d9d9d9;
- display: flex;
- justify-content: center;
- align-items: center;
- font-size: 20px;
- cursor: pointer;
-}
-.count{
- font-size: 18px;
-}
-.prices{
- text-align: right;
-}
-.amount{
- font-size: 19px;
- font-weight: 600;
-}
-.remove{
- padding-top: 5px;
- font-size: 13px;
- font-weight: 600;
- color: #E44C4C;
- cursor: pointer;
-}
-.checkout{
- float: right;
- margin-right: 5%;
- width: 28%;
+.summary {
+  padding: 1rem;
+  margin: 0 auto;
+  width: 28%;
 }
 .total {
   width: 100%;
- display: flex;
- justify-content: space-between;
-
+  display: flex;
+  justify-content: space-between;
 }
-.totalprice{
- font-size: 20px;
- font-weight: 700;
+.totalprice {
+  font-size: 20px;
+  font-weight: 700;
 }
-.items{
- font-size: 14px;
- font-weight: 500;
- color: #909090;
- line-height: 10px;
+.items {
+  font-size: 14px;
+  font-weight: 500;
+  color: #909090;
+  line-height: 10px;
 }
-.total_amount{
- font-size: 23px;
- font-weight: 700;
+.total_amount {
+  font-size: 23px;
+  font-weight: 700;
 }
 .button button {
- margin-top: 10px;
- width: 100%;
- cursor: pointer;
+  margin: 1rem auto;
+  width: 100%;
+  cursor: pointer;
+}
+.IsLoading {
+  text-align: center;
+  padding: 1rem;
+}
+.ErrorMessage {
+  text-align: center;
+  color: red;
+  padding: 1rem;
 }
