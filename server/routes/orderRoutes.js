@@ -2,6 +2,7 @@ const express = require("express");
 const { ObjectId } = require("mongoose").Types;
 const Order = require("../models/orderModel");
 const Product = require("../models/productModel");
+const User = require("../models/userModel");
 
 const router = express.Router();
 const { protect, restrictToAdmin } = require("../controllers/authControllers");
@@ -62,6 +63,17 @@ router.post("/", protect, async (req, res, next) => {
       customerId,
     };
     const newOrder = await Order.create(orderPayLoad);
+
+    // Empty cart array in User
+    const filter = { _id: customerId };
+    const update = {
+      $set: { cart: [] },
+    };
+    const updatedUser = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+    if (!updatedUser) return res.status(500).json("Could not empty array");
+
     res.status(201).json({
       status: "success",
       data: {

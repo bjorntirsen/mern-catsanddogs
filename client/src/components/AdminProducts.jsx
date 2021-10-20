@@ -1,11 +1,13 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "./Button";
+import { UserContext } from "../contexts/UserContext";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,6 +39,14 @@ const AdminProducts = () => {
 
     setProducts(pp => pp.filter(p => p.slug !== slug));
   }
+  
+  if (!user || !user.adminUser) {
+    return (
+      <div>
+        <p>You do not have permission to access this page</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -48,7 +58,6 @@ const AdminProducts = () => {
 
   if (errorMessage) {
     return (
-
       <section className={styles.ErrorMessage}>
         <p>{errorMessage}</p>
       </section>
@@ -76,25 +85,29 @@ const AdminProducts = () => {
                     <td className={styles.th_big}>{product.title}</td>
                     <td>{product.stock}</td>
                     <td>
-                      <a href={`/admin/products/${product.slug}`}><Button type="primary" text="Update" /></a>
+                      <a href={`/admin/products/${product.slug}`}>
+                        <Button type="primary" text="Update" />
+                      </a>
+                    </td>
+                    <td>
+                      <Button type="secondary" text="Delete" />
                     </td>
                     <td><button className={styles.btn_delete} onClick={handleDelete(product.slug)}>Delete</button></td>
                   </tr>
-                )
+                );
               })}
             </tbody>
           </table>
         </div>
       </div>
-    )
-  };
+    );
+  }
 
   return (
     <section className={styles.ErrorMessage}>
       <p>"Something went wrong!"</p>
     </section>
   );
-
 };
 
 export default AdminProducts;

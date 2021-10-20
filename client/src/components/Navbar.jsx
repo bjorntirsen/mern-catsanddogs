@@ -19,7 +19,6 @@ const Navbar = () => {
     history.push("/");
   };
 
-  console.log(user);
   if (!user) {
     return (
       <div>
