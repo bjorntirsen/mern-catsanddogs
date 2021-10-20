@@ -1,13 +1,13 @@
 import { React, useState, useEffect } from "react";
 import styles from "../styles/AdminEditProduct.module.css";
 
-const AdminEditProduct = ({ match }) => {
+const AdminEditProductPage = ({ match }) => {
   const [products, setProducts] = useState(null);
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
 
-  const slug = match.url.split("/")[2];
+  const slug = match.url.split("/")[3];
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -56,7 +56,7 @@ const AdminEditProduct = ({ match }) => {
       ));
   }
 
-  function handleOnSubmit(e) { //TODO - add function to edit product in DB
+  function handleOnSubmit(e) { //TODO - add function to update product in DB
     e.preventDefault()
   }
 
@@ -106,8 +106,6 @@ const AdminEditProduct = ({ match }) => {
       </div>
     </div>
   );
-
 };
 
-
-export default AdminEditProduct;
+export default AdminEditProductPage;
