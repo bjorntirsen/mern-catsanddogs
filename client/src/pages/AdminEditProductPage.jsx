@@ -1,11 +1,13 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminEditProduct.module.css";
+import { UserContext } from "../contexts/UserContext";
 
 const AdminEditProductPage = ({ match }) => {
   const [products, setProducts] = useState(null);
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
+  const { user } = useContext(UserContext);
 
   const slug = match.url.split("/")[3];
 
@@ -44,10 +46,11 @@ const AdminEditProductPage = ({ match }) => {
         <tr key={k}>
           <th className={styles.th}>{k}</th>
           <td>
-            <input className={styles.input}
+            <input
+              className={styles.input}
               type="text"
               name={k}
-              value={v || ''}
+              value={v || ""}
               size={50}
               onChange={getHandleChange(k)}
             />
@@ -56,13 +59,22 @@ const AdminEditProductPage = ({ match }) => {
       ));
   }
 
-  function handleOnSubmit(e) { //TODO - add function to update product in DB
-    e.preventDefault()
+  function handleOnSubmit(e) {
+    //TODO - add function to update product in DB
+    e.preventDefault();
   }
 
   const getHandleChange = (k) => (event) => {
     setProduct({ ...product, [k]: event.target.value });
   };
+
+  if (!user || !user.adminUser) {
+    return (
+      <div>
+        <p>You do not have permission to access this page</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -74,7 +86,6 @@ const AdminEditProductPage = ({ match }) => {
 
   if (errorMessage) {
     return (
-
       <section className={styles.ErrorMessage}>
         <p>{errorMessage}</p>
       </section>
@@ -97,7 +108,7 @@ const AdminEditProductPage = ({ match }) => {
                 "imageUrl",
                 "weight",
                 "maker",
-                "stock"
+                "stock",
               ])}
             </tbody>
           </table>
