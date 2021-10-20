@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const productsRouter = require("./routes/productRoutes");
 const usersRouter = require("./routes/userRoutes");
+const orderRouter = require("./routes/orderRoutes");
 const cartsRouter = require("./routes/cartRoutes");
 
 const app = express();
@@ -35,6 +36,7 @@ connection.on("error", (err) => {
 
 app.use("/api/users", usersRouter);
 app.use("/api/products", productsRouter);
+app.use("/api/orders", orderRouter);
 app.use("/api/carts", cartsRouter);
 
 app.listen(port, () => {
