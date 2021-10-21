@@ -94,23 +94,18 @@ const Cart = () => {
   };
 
   const addUnitPriceToCart = (oldCart) => {
-    console.log(oldCart);
     const updatedCart = oldCart.map((product) => {
       const unitPrice = products.find((item) => {
         return item._id === product.productId;
       }).price;
-      console.log(unitPrice);
       product.unitPriceAtPurchase = unitPrice;
-      console.log(product);
       return product;
     });
-    console.log(updatedCart);
     return updatedCart;
   };
 
   const handleCreateOrder = async () => {
     const updatedCart = addUnitPriceToCart(cart);
-    console.log(updatedCart);
     const token = localStorage.getItem("tkn");
     const url = "/api/orders";
     const obj = {
