@@ -15,7 +15,8 @@ const ProductDetails = ({ product }) => {
   };
 
   const increaseQuantityHandler = () => {
-    setQuantity(quantity + 1);
+    if (quantity === product.stock) return null;
+    else setQuantity(quantity + 1);
   };
 
   const onChangeHandler = (e) => {
@@ -100,6 +101,7 @@ const ProductDetails = ({ product }) => {
               name="qty_input"
               value={quantity}
               min="1"
+              max={product.stock}
             />
             <span onClick={increaseQuantityHandler}>+</span>
           </span>
