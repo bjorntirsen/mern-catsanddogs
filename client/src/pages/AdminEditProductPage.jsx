@@ -73,9 +73,12 @@ const AdminEditProductPage = ({ match }) => {
       body: JSON.stringify(product)
     });
     if (!response.ok) {
-      throw new Error("Something went wrong!");
+      const responseErrorMessage = await response.json();
+      setMessage(responseErrorMessage);
     }
-    setMessage("Successfully updated product!");
+    if (response.ok) {
+      setMessage("Successfully updated product!");
+    }
   }
 
   if (!user || !user.adminUser) {
