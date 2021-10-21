@@ -39,19 +39,30 @@ async function isMissingOrderItem(order) {
   return missingOrderItem;
 }
 
+// Helper function to see if cart is valid
+const cartIsValid = async (updatedCart) => {
+  const productsPromises = [];
+  updatedCart.forEach((orderItem) => {
+    productsPromises.push(
+      ObjectId.isValid(orderItem.productId)
+        ? Product.findById(orderItem.productId).exec()
+        : null
+    );
+  });
+
+  const arrayOfProducts = await Promise.all(productsPromises);
+
+  return !arrayOfProducts.some((el) => el === null);
+};
+
 //CRUD operations
 //CREATE one order
 router.post("/", protect, async (req, res, next) => {
-  const missingOrderItem = await isMissingOrderItem(req.body.content);
+  // const missingOrderItem = await isMissingOrderItem(req.body.content);
+  const validCart = await cartIsValid(req.body.content);
   const customerId = req.user._id;
   try {
-    if (
-      !customerId ||
-      !req.body.deliveryAddress ||
-      !req.body.content ||
-      !req.body.shippingCost ||
-      missingOrderItem
-    ) {
+    if (!req.body.content || !validCart) {
       return res
         .status(401)
         .json(
@@ -61,6 +72,8 @@ router.post("/", protect, async (req, res, next) => {
     const orderPayLoad = {
       ...req.body,
       customerId,
+      deliveryAddress: req.user.address,
+      shippingCost: 15,
     };
     const newOrder = await Order.create(orderPayLoad);
 
@@ -77,6 +90,7 @@ router.post("/", protect, async (req, res, next) => {
     res.status(201).json({
       status: "success",
       data: {
+        user: updatedUser,
         order: newOrder,
       },
     });

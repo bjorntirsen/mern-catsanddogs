@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
+import { useHistory } from "react-router-dom";
+
 import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/Cart.module.css";
 import Button from "./Button";
@@ -12,6 +14,7 @@ const Cart = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
   const [wasChanged, setWasChanged] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,7 +60,8 @@ const Cart = () => {
         }).price;
         const subTotal = product.amount * unitPrice;
         return previousValue + subTotal;
-      }, 0);
+      }, 15);
+
       setTotalPrice(total.toFixed(2));
     }
   }, [cart, products]);
@@ -70,7 +74,6 @@ const Cart = () => {
   }, [user, products, calculateTotal]);
 
   const handleSaveCart = async () => {
-    console.log("save");
     const token = localStorage.getItem("tkn");
     const url = "/api/carts/update";
     const obj = {
@@ -88,6 +91,38 @@ const Cart = () => {
     const responseData = await response.json();
     setUser(responseData.data.user);
     setWasChanged(false);
+  };
+
+  const addUnitPriceToCart = (oldCart) => {
+    const updatedCart = oldCart.map((product) => {
+      const unitPrice = products.find((item) => {
+        return item._id === product.productId;
+      }).price;
+      product.unitPriceAtPurchase = unitPrice;
+      return product;
+    });
+    return updatedCart;
+  };
+
+  const handleCreateOrder = async () => {
+    const updatedCart = addUnitPriceToCart(cart);
+    const token = localStorage.getItem("tkn");
+    const url = "/api/orders";
+    const obj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ content: updatedCart }),
+    };
+    const response = await fetch(url, obj);
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    }
+    const responseData = await response.json();
+    setUser(responseData.data.user);
+    history.push(`/orders/${responseData.data.order._id}`);
   };
 
   if (isLoading) {
@@ -133,16 +168,24 @@ const Cart = () => {
             <div className={styles.total}>
               <div>
                 <div className={styles.totalprice}>Total</div>
-                <div className={styles.items}>2 items</div>
               </div>
               <div className={styles.total_amount}>${totalPrice}</div>
             </div>
+            <div className={styles.items}>including $15 postage</div>
             <div className={styles.button}>
-              <Button type="primary" text="Checkout" />
+              <Button
+                type="primary"
+                text="Checkout"
+                onClick={handleCreateOrder}
+              />
             </div>
             {wasChanged && (
-              <div className={styles.button} onClick={handleSaveCart}>
-                <Button type="secondary" text="Save cart" />
+              <div className={styles.button}>
+                <Button
+                  type="secondary"
+                  text="Save cart"
+                  onClick={handleSaveCart}
+                />
               </div>
             )}
           </div>
