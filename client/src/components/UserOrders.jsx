@@ -1,4 +1,5 @@
 import { React, useState, useContext, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "./Button";
@@ -66,26 +67,29 @@ const UserOrders = () => {
     return (
       <div className={styles.body}>
         <div className={styles.ap_container}>
-          <h2 className={styles.header}>Profile Page</h2>
-          <h3 className={styles.header}>My Orders</h3>
+          <h2 className={styles.header}>My Orders</h2>
           <table className={styles.ap_table}>
             <thead>
               <tr>
-                <th className={styles.th_big}>Order Date</th>
+                <th className={styles.th_small}>Order Date</th>
                 <th className={styles.th_small}>Status</th>
-                <th className={styles.th_big}>Delivery Address</th>
-                <th className={styles.th_small}>Cancel</th>
+                <th className={styles.th_small}>Delivery Address</th>
+                <th className={styles.th_small}>Details</th>
               </tr>
             </thead>
             <tbody>
               {UserOrders.map((order) => {
                 return (
                   <tr key={order._id}>
-                    <td>{order.datePlaced}</td>
+                    <td>
+                      {new Date(order.datePlaced).toLocaleString("en-US")}
+                    </td>
                     <td>{order.status}</td>
                     <td>{order.deliveryAddress}</td>
                     <td>
-                      <Button type="secondary" text="Cancel" />
+                      <NavLink to={`/orders/${order._id}`}>
+                        <Button text={"Order details"} type={"primary"} />
+                      </NavLink>
                     </td>
                   </tr>
                 );
