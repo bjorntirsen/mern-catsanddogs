@@ -1,19 +1,35 @@
-import { useContext, useState, useEffect } from "react";
-import { UserContext } from "../contexts/UserContext";
+import { useState, useEffect } from "react";
 import styles from "../styles/ProfilePage.module.css";
 import { useHistory } from "react-router-dom";
 export default function ProfilePage() {
   const [editMode, setEditMode] = useState(false);
-  const { user, setUser } = useContext(UserContext);
-  const [changedUser, setChangedUser] = useState(null);
+  const [userToChange, setUserToChange] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [canSendPayload, setCanSendPayload] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
-    setChangedUser({ ...user });
-    if (user) setIsLoading(false);
-  }, [user]);
+    const fetchUser = async () => {
+      if (localStorage.getItem("tkn")) {
+        const token = localStorage.getItem("tkn");
+        const url = "/api/users/getMe";
+        const obj = {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        };
+
+        const response = await fetch(url, obj);
+        const responseData = await response.json();
+
+        setUserToChange(responseData.data.user);
+        setIsLoading(false);
+      } else setIsLoading(false);
+    };
+    fetchUser().catch((error) => {
+      setIsLoading(false);
+    });
+  }, []);
 
   const handleEditClick = () => {
     setEditMode(!editMode);
@@ -27,11 +43,11 @@ export default function ProfilePage() {
   };
 
   const handleSaveClick = async () => {
-    if (!changedUser) {
+    if (!userToChange) {
       alert("Details not changed");
       return;
     }
-    if (!changesValidate(changedUser)) {
+    if (!changesValidate(userToChange)) {
       alert("Fill all forms");
       return;
     }
@@ -45,7 +61,7 @@ export default function ProfilePage() {
           "Content-Type": "application/json",
           authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(changedUser),
+        body: JSON.stringify(userToChange),
       };
 
       const response = await fetch(url, payload);
@@ -55,34 +71,34 @@ export default function ProfilePage() {
       }
 
       const responseData = await response.json();
-      setUser(responseData.data.user);
+      setUserToChange(responseData.data.user);
       history.push("/");
     }
   };
 
   const handleChange = (value, fieldId) => {
-    const userChangedDetails = { ...changedUser };
+    const userChangedDetails = { ...userToChange };
     userChangedDetails[fieldId] = value;
-    setChangedUser(userChangedDetails);
+    setUserToChange(userChangedDetails);
     setCanSendPayload(true);
   };
 
   return (
     <div className={styles.profile_container}>
       {isLoading && <p>Loading...</p>}
-      {user && !isLoading && (
+      {userToChange && !isLoading && (
         <div className={styles.details_card}>
           <p className={styles.card_line}>
             <span>Name:</span>
             {editMode ? (
               <input
                 onChange={(e) => handleChange(e.target.value, e.target.id)}
-                placeholder={user.fullName}
+                placeholder={userToChange.fullName}
                 id="fullName"
                 type="text"
               />
             ) : (
-              user.fullName
+              userToChange.fullName
             )}
           </p>
           <p className={styles.card_line}>
@@ -90,12 +106,12 @@ export default function ProfilePage() {
             {editMode ? (
               <input
                 onChange={(e) => handleChange(e.target.value, e.target.id)}
-                placeholder={user.email}
+                placeholder={userToChange.email}
                 id="email"
                 type="email"
               />
             ) : (
-              user.email
+              userToChange.email
             )}
           </p>
           <p className={styles.card_line}>
@@ -103,12 +119,12 @@ export default function ProfilePage() {
             {editMode ? (
               <input
                 onChange={(e) => handleChange(e.target.value, e.target.id)}
-                placeholder={user.address}
+                placeholder={userToChange.address}
                 id="address"
                 type="text"
               />
             ) : (
-              user.address
+              userToChange.address
             )}
           </p>
           <p className={styles.card_line}>
@@ -116,12 +132,12 @@ export default function ProfilePage() {
             {editMode ? (
               <input
                 onChange={(e) => handleChange(e.target.value, e.target.id)}
-                placeholder={user.phone}
+                placeholder={userToChange.phone}
                 id="phone"
                 type="text"
               />
             ) : (
-              user.phone
+              userToChange.phone
             )}
           </p>
           {editMode ? (
@@ -133,7 +149,7 @@ export default function ProfilePage() {
           )}
         </div>
       )}
-      {!user && !isLoading && (
+      {!userToChange && !isLoading && (
         <div className={styles.card_line}>
           You need to be logged in to see this page
         </div>
