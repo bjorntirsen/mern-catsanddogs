@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
+import { useHistory } from "react-router-dom";
+
 import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/Cart.module.css";
 import Button from "./Button";
@@ -12,6 +14,7 @@ const Cart = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
   const [wasChanged, setWasChanged] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -90,8 +93,24 @@ const Cart = () => {
     setWasChanged(false);
   };
 
+  const addUnitPriceToCart = (oldCart) => {
+    console.log(oldCart);
+    const updatedCart = oldCart.map((product) => {
+      const unitPrice = products.find((item) => {
+        return item._id === product.productId;
+      }).price;
+      console.log(unitPrice);
+      product.unitPriceAtPurchase = unitPrice;
+      console.log(product);
+      return product;
+    });
+    console.log(updatedCart);
+    return updatedCart;
+  };
+
   const handleCreateOrder = async () => {
-    console.log("create");
+    const updatedCart = addUnitPriceToCart(cart);
+    console.log(updatedCart);
     const token = localStorage.getItem("tkn");
     const url = "/api/orders";
     const obj = {
@@ -100,15 +119,15 @@ const Cart = () => {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ updatedCart: cart }),
+      body: JSON.stringify({ content: updatedCart }),
     };
     const response = await fetch(url, obj);
     if (!response.ok) {
       throw new Error("Something went wrong!");
     }
     const responseData = await response.json();
-    console.log(responseData.data.user);
-    console.log(false);
+    setUser(responseData.data.user);
+    history.push(`/orders/${responseData.data.order._id}`);
   };
 
   if (isLoading) {
