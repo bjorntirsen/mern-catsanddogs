@@ -34,19 +34,19 @@ const Cart = () => {
   }, [user]);
 
   const reduceQuantityHandler = async (productId) => {
-    console.log(productId);
-    console.log(cart[0].productId);
     //update product
-    // let indexOfProduct;
-    console.log(typeof cart);
-    const product = await cart.find((item) => item.productId === productId);
-    console.log(product);
-    // const { amount } = product;
-    // const updatedProduct = { amount: amount - 1, ...product };
-    // // insert updated product in array
-    // let updatedCart = cart;
-    // updatedCart[indexOfProduct] = updatedProduct;
-    // setCart(updatedCart);
+    let indexOfProduct;
+    const product = await cart.find((item, index) => {
+      indexOfProduct = index;
+      return item.productId === productId;
+    });
+    const { amount } = product;
+    const updatedProduct = product;
+    updatedProduct.amount = amount - 1;
+    // insert updated product in array
+    let updatedCart = cart;
+    updatedCart[indexOfProduct] = updatedProduct;
+    setCart(updatedCart);
   };
 
   // const increaseQuantityHandler = () => {
@@ -76,7 +76,6 @@ const Cart = () => {
   if (!isLoading && cart)
     return (
       <section className={styles.body}>
-        {console.log(cart)}
         <div className={styles.cart_container}>
           <div className={styles.header}>
             <h2>Shopping Cart</h2>

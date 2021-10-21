@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "../styles/CartItem.module.css";
 
 const CartItem = ({ product, amount, reduceQuantityHandler }) => {
-  // const [quantity, setQuantity] = useState(amount);
+  const [quantity, setQuantity] = useState(amount);
 
   // const reduceQuantityHandler = () => {
   //   quantity > 1 && setQuantity(quantity - 1);
@@ -19,6 +19,7 @@ const CartItem = ({ product, amount, reduceQuantityHandler }) => {
 
   const handleReduce = () => {
     reduceQuantityHandler(product._id);
+    setQuantity(quantity - 1);
   };
 
   return (
@@ -39,7 +40,7 @@ const CartItem = ({ product, amount, reduceQuantityHandler }) => {
           className={styles.count}
           type="number"
           name="qty_input"
-          value={amount}
+          value={quantity}
           min="1"
         />
         <span className={styles.btn}>+</span>
