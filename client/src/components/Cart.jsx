@@ -33,20 +33,21 @@ const Cart = () => {
     if (user) setCart(user.cart);
   }, [user]);
 
-  const reduceQuantityHandler = async (productId) => {
+  const changeQuantityHandler = (productId, fn) => {
     //update product
     let indexOfProduct;
-    const product = await cart.find((item, index) => {
+    const product = cart.find((item, index) => {
       indexOfProduct = index;
       return item.productId === productId;
     });
     const { amount } = product;
     const updatedProduct = product;
-    updatedProduct.amount = amount - 1;
+    updatedProduct.amount = fn(amount);
     // insert updated product in array
     let updatedCart = cart;
     updatedCart[indexOfProduct] = updatedProduct;
     setCart(updatedCart);
+    console.log(cart);
   };
 
   // const increaseQuantityHandler = () => {
@@ -91,7 +92,7 @@ const Cart = () => {
                 key={product.productId}
                 product={fullProduct}
                 amount={product.amount}
-                reduceQuantityHandler={reduceQuantityHandler}
+                changeQuantityHandler={changeQuantityHandler}
               />
             );
           })}

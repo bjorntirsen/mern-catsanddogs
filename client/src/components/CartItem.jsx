@@ -2,23 +2,24 @@ import React, { useState } from "react";
 
 import styles from "../styles/CartItem.module.css";
 
-const CartItem = ({ product, amount, reduceQuantityHandler }) => {
+const CartItem = ({ product, amount, changeQuantityHandler }) => {
   const [quantity, setQuantity] = useState(amount);
 
   // const reduceQuantityHandler = () => {
   //   quantity > 1 && setQuantity(quantity - 1);
   // };
 
-  // const increaseQuantityHandler = () => {
-  //   setQuantity(quantity + 1);
-  // };
+  const handleIncrease = () => {
+    changeQuantityHandler(product._id, (amount) => amount + 1);
+    setQuantity(quantity + 1);
+  };
 
   // const onChangeHandler = (e) => {
   //   setQuantity(parseInt(e.target.value));
   // };
 
   const handleReduce = () => {
-    reduceQuantityHandler(product._id);
+    changeQuantityHandler(product._id, (amount) => amount - 1);
     setQuantity(quantity - 1);
   };
 
@@ -43,7 +44,9 @@ const CartItem = ({ product, amount, reduceQuantityHandler }) => {
           value={quantity}
           min="1"
         />
-        <span className={styles.btn}>+</span>
+        <span className={styles.btn} onClick={handleIncrease}>
+          +
+        </span>
       </div>
       <div className={styles.prices}>
         <div className={styles.amount}>${product.price}</div>
