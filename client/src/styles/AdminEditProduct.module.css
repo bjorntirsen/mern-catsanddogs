@@ -66,6 +66,7 @@ button {
 	background-color: var(--yellow);
 	color: var(--black);
   margin-left: 3rem;
+  cursor: pointer;
 }
 
 button:hover {

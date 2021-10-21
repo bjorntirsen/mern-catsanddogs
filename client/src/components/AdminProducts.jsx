@@ -1,11 +1,13 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "./Button";
+import { UserContext } from "../contexts/UserContext";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,6 +28,25 @@ const AdminProducts = () => {
       setErrorMessage(error.message);
     });
   }, []);
+
+  const handleDelete = (slug) => async (event) => {
+    const url = `/api/products/${slug}`;
+    const response = await fetch(url, { method: "DELETE" });
+
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    }
+
+    setProducts((pp) => pp.filter((p) => p.slug !== slug));
+  };
+
+  if (!user || !user.adminUser) {
+    return (
+      <div>
+        <p>You do not have permission to access this page</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -69,7 +90,12 @@ const AdminProducts = () => {
                       </a>
                     </td>
                     <td>
-                      <Button type="secondary" text="Delete" />
+                      <button
+                        className={styles.btn_delete}
+                        onClick={handleDelete(product.slug)}
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 );
