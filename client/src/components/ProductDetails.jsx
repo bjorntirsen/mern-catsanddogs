@@ -1,4 +1,4 @@
-import { React, useState, useContext, useEffect } from "react";
+import { React, useState, useContext, useEffect, useCallback } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 import Button from "../components/Button";
@@ -11,14 +11,14 @@ const ProductDetails = ({ product }) => {
   const [btnText, setBtnText] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(false);
 
-  const productAvailable = () => {
+  const productAvailable = useCallback(() => {
     const prodInCart = user.cart.find((item) => item.productId === product._id);
     if (prodInCart) {
       const prodAvailable = product.stock - prodInCart.amount;
       return quantity < prodAvailable;
     }
     return quantity < product.stock;
-  };
+  }, [product, quantity, user]);
 
   const reduceQuantityHandler = () => {
     quantity > 1 && setQuantity(quantity - 1);
@@ -90,7 +90,7 @@ const ProductDetails = ({ product }) => {
         setBtnText("Add to Cart");
       }
     }
-  }, [product, user]);
+  }, [product, user, productAvailable]);
 
   return (
     <div className={styles.details_top}>
