@@ -1,4 +1,4 @@
-import { React, useState, useContext } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 import Button from "../components/Button";
@@ -7,15 +7,26 @@ import styles from "../styles/ProductDetails.module.css";
 const ProductDetails = ({ product }) => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
-
   const [quantity, setQuantity] = useState(1);
+  const [btnText, setBtnText] = useState("");
+  const [btnDisabled, setBtnDisabled] = useState(false);
+
+  const productAvailable = () => {
+    const prodInCart = user.cart.find((item) => item.productId === product._id);
+    if (prodInCart) {
+      const prodAvailable = product.stock - prodInCart.amount;
+      return quantity < prodAvailable;
+    }
+    return quantity < product.stock;
+  };
 
   const reduceQuantityHandler = () => {
     quantity > 1 && setQuantity(quantity - 1);
   };
 
   const increaseQuantityHandler = () => {
-    setQuantity(quantity + 1);
+    if (!productAvailable()) return null;
+    else setQuantity(quantity + 1);
   };
 
   const onChangeHandler = (e) => {
@@ -26,6 +37,9 @@ const ProductDetails = ({ product }) => {
     if (!user) {
       history.push("/login");
     }
+    // Check if product is sold out
+    if (product.stock === 0) return null;
+
     const fetchAndAddOneOrManyToCart = async () => {
       if (localStorage.getItem("tkn")) {
         const token = localStorage.getItem("tkn");
@@ -57,6 +71,26 @@ const ProductDetails = ({ product }) => {
       console.log(error);
     });
   };
+
+  const checkStockAndSetBtnText = (item) => {
+    if (item.stock === 0) setBtnText("Sold Out");
+    else setBtnText("Add to Cart");
+  };
+
+  useEffect(() => {
+    setQuantity(1);
+    checkStockAndSetBtnText(product);
+    if (user) {
+      if (!productAvailable()) {
+        setQuantity(0);
+        setBtnText("Max limit reached");
+        setBtnDisabled(true);
+      } else {
+        setBtnDisabled(false);
+        setBtnText("Add to Cart");
+      }
+    }
+  }, [product, user]);
 
   return (
     <div className={styles.details_top}>
@@ -90,12 +124,16 @@ const ProductDetails = ({ product }) => {
               name="qty_input"
               value={quantity}
               min="1"
+              max={product.stock}
             />
             <span onClick={increaseQuantityHandler}>+</span>
           </span>
-          <div onClick={addToCart}>
-            <Button type="primary" text="Add to Cart" />
-          </div>
+          <Button
+            onClick={addToCart}
+            type="primary"
+            text={btnText}
+            disabled={btnDisabled}
+          />
         </div>
       </div>
     </div>
