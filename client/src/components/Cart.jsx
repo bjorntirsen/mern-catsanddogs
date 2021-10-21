@@ -47,16 +47,7 @@ const Cart = () => {
     let updatedCart = cart;
     updatedCart[indexOfProduct] = updatedProduct;
     setCart(updatedCart);
-    console.log(cart);
   };
-
-  // const increaseQuantityHandler = () => {
-  //   setQuantity(quantity + 1);
-  // };
-
-  // const onChangeHandler = (e) => {
-  //   setQuantity(parseInt(e.target.value));
-  // };
 
   if (isLoading) {
     return (

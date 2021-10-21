@@ -5,18 +5,15 @@ import styles from "../styles/CartItem.module.css";
 const CartItem = ({ product, amount, changeQuantityHandler }) => {
   const [quantity, setQuantity] = useState(amount);
 
-  // const reduceQuantityHandler = () => {
-  //   quantity > 1 && setQuantity(quantity - 1);
-  // };
-
   const handleIncrease = () => {
     changeQuantityHandler(product._id, (amount) => amount + 1);
     setQuantity(quantity + 1);
   };
 
-  // const onChangeHandler = (e) => {
-  //   setQuantity(parseInt(e.target.value));
-  // };
+  const handleChange = (e) => {
+    changeQuantityHandler(product._id, (_amount) => parseInt(e.target.value));
+    setQuantity(parseInt(e.target.value));
+  };
 
   const handleReduce = () => {
     changeQuantityHandler(product._id, (amount) => amount - 1);
@@ -43,6 +40,7 @@ const CartItem = ({ product, amount, changeQuantityHandler }) => {
           name="qty_input"
           value={quantity}
           min="1"
+          onChange={handleChange}
         />
         <span className={styles.btn} onClick={handleIncrease}>
           +
