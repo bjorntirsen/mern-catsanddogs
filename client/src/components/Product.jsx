@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Button from "../components/Button";
@@ -6,8 +6,11 @@ import Button from "../components/Button";
 const Product = ({ product }) => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
+  const [btnText, setBtnText] = useState("");
 
   const addToCart = () => {
+    if (product.stock === 0) return null;
+
     if (!user) {
       history.push("/login");
     }
@@ -42,6 +45,16 @@ const Product = ({ product }) => {
       console.log(error);
     });
   };
+
+  const checkStock = (item) => {
+    if (item.stock === 0) setBtnText("Sold Out");
+    else setBtnText("Add to Cart");
+  };
+
+  useEffect(() => {
+    checkStock(product);
+  }, [product]);
+
   return (
     <div>
       <Link to={`/products/${product.slug}`}>
@@ -52,7 +65,7 @@ const Product = ({ product }) => {
         <h4>${product.price}</h4>
       </span>
       <div onClick={addToCart}>
-        <Button type="primary" text="Add to Cart" />
+        <Button type="primary" text={btnText} />
       </div>
     </div>
   );

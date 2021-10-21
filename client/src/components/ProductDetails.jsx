@@ -1,4 +1,4 @@
-import { React, useState, useContext } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 import Button from "../components/Button";
@@ -7,8 +7,8 @@ import styles from "../styles/ProductDetails.module.css";
 const ProductDetails = ({ product }) => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
-
   const [quantity, setQuantity] = useState(1);
+  const [btnText, setBtnText] = useState("");
 
   const reduceQuantityHandler = () => {
     quantity > 1 && setQuantity(quantity - 1);
@@ -23,6 +23,7 @@ const ProductDetails = ({ product }) => {
   };
 
   const addToCart = () => {
+    if (product.stock === 0) return null;
     if (!user) {
       history.push("/login");
     }
@@ -57,6 +58,15 @@ const ProductDetails = ({ product }) => {
       console.log(error);
     });
   };
+
+  const checkStock = (item) => {
+    if (item.stock === 0) setBtnText("Sold Out");
+    else setBtnText("Add to Cart");
+  };
+
+  useEffect(() => {
+    checkStock(product);
+  }, [product]);
 
   return (
     <div className={styles.details_top}>
@@ -94,7 +104,7 @@ const ProductDetails = ({ product }) => {
             <span onClick={increaseQuantityHandler}>+</span>
           </span>
           <div onClick={addToCart}>
-            <Button type="primary" text="Add to Cart" />
+            <Button type="primary" text={btnText} />
           </div>
         </div>
       </div>
