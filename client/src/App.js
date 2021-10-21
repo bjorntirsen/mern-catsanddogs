@@ -8,6 +8,7 @@ import ProductsListPage from "./pages/ProductsListPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
+import UserOrdersPage from "./pages/UserOrdersPage";
 import AdminProductsPage from "./pages/AdminProductsPage";
 import AdminEditProductPage from "./pages/AdminEditProductPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
@@ -53,6 +54,7 @@ function App() {
           <Route path="/cart" component={ShoppingCartPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
+          <Route path="/orders" component={UserOrdersPage} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/admin/products" component={AdminProductsPage} exact />
           <Route path="/admin/products/:slug" component={AdminEditProductPage}/>

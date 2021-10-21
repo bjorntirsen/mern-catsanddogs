@@ -37,7 +37,8 @@ nav {
   list-style-type: none;
 }
 
-.nav li a,span {
+.nav li a,
+span {
   display: block;
   color: #000;
   text-align: center;
@@ -47,7 +48,8 @@ nav {
   font-weight: 700;
 }
 
-.nav li a:hover,span:hover {
+.nav li a:hover,
+span:hover {
   color: var(--lightgrey);
   cursor: pointer;
 }
@@ -66,4 +68,21 @@ nav {
 
 .cart:hover {
   opacity: 0.75;
+}
+
+.cartLi {
+  position: relative;
+}
+
+.cartLi span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: -2px;
+  position: absolute;
+  background-color: var(--white);
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
 }

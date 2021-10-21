@@ -76,3 +76,9 @@ button {
 button:hover {
 	opacity: 0.5;
 }
+
+.message {
+  margin: 1.5rem 3rem 0 3rem;
+  font-weight: bold;
+  color: orangered;
+}
