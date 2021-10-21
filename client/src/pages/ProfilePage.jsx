@@ -6,14 +6,16 @@ export default function ProfilePage() {
   const [editMode, setEditMode] = useState(false);
   const { user, setUser } = useContext(UserContext);
   const [changedUser, setChangedUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [canSendPayload, setCanSendPayload] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
     setChangedUser({ ...user });
+    if (user) setIsLoading(false);
   }, [user]);
 
-  const handleEditClick = (e) => {
+  const handleEditClick = () => {
     setEditMode(!editMode);
   };
 
@@ -24,8 +26,7 @@ export default function ProfilePage() {
     return true;
   };
 
-  const handleSaveClick = async (e) => {
-    console.log(changedUser);
+  const handleSaveClick = async () => {
     if (!changedUser) {
       alert("Details not changed");
       return;
@@ -54,7 +55,6 @@ export default function ProfilePage() {
       }
 
       const responseData = await response.json();
-      console.log(responseData);
       setUser(responseData.data.user);
       history.push("/");
     }
@@ -66,9 +66,11 @@ export default function ProfilePage() {
     setChangedUser(userChangedDetails);
     setCanSendPayload(true);
   };
+
   return (
     <div className={styles.profile_container}>
-      {user ? (
+      {isLoading && <p>Loading...</p>}
+      {user && !isLoading && (
         <div className={styles.details_card}>
           <p className={styles.card_line}>
             <span>Name:</span>
@@ -130,7 +132,8 @@ export default function ProfilePage() {
             <button onClick={handleEditClick}>Edit</button>
           )}
         </div>
-      ) : (
+      )}
+      {!user && !isLoading && (
         <div className={styles.card_line}>
           You need to be logged in to see this page
         </div>
