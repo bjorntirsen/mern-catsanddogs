@@ -8,6 +8,7 @@ const AdminEditProductPage = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
   const { user } = useContext(UserContext);
+  const [message, setMessage] = useState("");
 
   const slug = match.url.split("/")[3];
 
@@ -66,14 +67,26 @@ const AdminEditProductPage = ({ match }) => {
       ));
   }
 
-  function handleOnSubmit(e) {
-    //TODO - add function to update product in DB
-    e.preventDefault();
-  }
-
   const getHandleChange = (k) => (event) => {
     setProduct({ ...product, [k]: event.target.value });
   };
+
+  const handleOnSubmit = (slug) => async (event) => {
+    event.preventDefault();
+    const url = `/api/products/${slug}`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(product)
+    });
+    if (!response.ok) {
+      const responseErrorMessage = await response.json();
+      setMessage(responseErrorMessage);
+    }
+    if (response.ok) {
+      setMessage("Successfully updated product!");
+    }
+  }
 
   if (!user || !user.adminUser) {
     return (
@@ -104,7 +117,7 @@ const AdminEditProductPage = ({ match }) => {
       <div className={styles.ap_container}>
         <h2 className={styles.header}>Admin Page</h2>
         <h3 className={styles.header}>Edit product</h3>
-        <form onSubmit={handleOnSubmit}>
+        <form onSubmit={handleOnSubmit(product.slug)}>
           <table className={styles.ap_table}>
             <tbody>
               {renderInputs([
@@ -121,6 +134,7 @@ const AdminEditProductPage = ({ match }) => {
           </table>
           <button type="submit">Update product</button>
         </form>
+        <p className={styles.message}>{message}</p>
       </div>
     </div>
   );
