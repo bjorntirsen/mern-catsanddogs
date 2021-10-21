@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./styles/App.css";
-import AdminOrdersPage from "./pages/AdminOrdersPage";
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
@@ -11,9 +10,11 @@ import LoginPage from "./pages/LoginPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import AdminProductsPage from "./pages/AdminProductsPage";
 import AdminEditProductPage from "./pages/AdminEditProductPage";
-import Footer from "./components/Footer";
-import { UserContext } from "./contexts/UserContext";
+import AdminOrdersPage from "./pages/AdminOrdersPage";
+import AdminEditOrderPage from "./pages/AdminEditOrderPage";
 import ProfilePage from "./pages/ProfilePage";
+import { UserContext } from "./contexts/UserContext";
+import Footer from "./components/Footer";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -54,15 +55,12 @@ function App() {
           <Route path="/login" component={LoginPage} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/admin/products" component={AdminProductsPage} exact />
-          <Route
-            path="/admin/products/:slug"
-            component={AdminEditProductPage}
-          />
-          <Route path="/admin/orders" component={AdminOrdersPage} />
+          <Route path="/admin/products/:slug" component={AdminEditProductPage}/>
+          <Route path="/admin/orders" component={AdminOrdersPage} exact />
+          <Route path="/admin/orders/:id" component={AdminEditOrderPage} />
           {/*
           <Route path="/admin/products/create" component={AdminCreateProductPage} />
-          <Route path="/admin/orders" component={AdminOrdersPage} exact />
-          <Route path="/admin/orders/:id" component={AdminEditOrderPage} /> */}
+           */}
 
           <Route
             path="/products/categories/:category"
