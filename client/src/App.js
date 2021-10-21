@@ -12,6 +12,7 @@ import AdminProductsPage from "./pages/AdminProductsPage";
 import AdminEditProductPage from "./pages/AdminEditProductPage";
 import Footer from "./components/Footer";
 import { UserContext } from "./contexts/UserContext";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -50,6 +51,7 @@ function App() {
           <Route path="/cart" component={ShoppingCartPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
+          <Route path="/profile" component={ProfilePage} />
           <Route path="/admin/products" component={AdminProductsPage} exact />
           <Route
             path="/admin/products/:slug"

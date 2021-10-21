@@ -1,0 +1,38 @@
+.profile_container {
+  min-height: 66vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  align-items: center;
+}
+
+.details_card {
+  background-color: #fafafa;
+  border-radius: 5px;
+  padding: 80px;
+  box-shadow: 10px 5px 20px 1px rgba(0, 0, 0, 0.05);
+  width: 500px;
+}
+
+.details_card button {
+  margin-top: 20px;
+  float: right;
+}
+.details_card button:disabled {
+  opacity: 0.3;
+}
+.card_line {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.details_card span {
+  font-weight: bold;
+}
+
+.details_card input {
+  padding: 10px;
+  border: none;
+}
