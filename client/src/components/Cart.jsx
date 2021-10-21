@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/Cart.module.css";
 import Button from "./Button";
@@ -8,6 +8,7 @@ const Cart = () => {
   const { user } = useContext(UserContext);
   const [products, setProducts] = useState(null);
   const [cart, setCart] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
 
@@ -29,10 +30,6 @@ const Cart = () => {
     });
   }, [user]);
 
-  useEffect(() => {
-    if (user) setCart(user.cart);
-  }, [user]);
-
   const changeQuantityHandler = (productId, fn) => {
     //update product
     let indexOfProduct;
@@ -47,7 +44,28 @@ const Cart = () => {
     let updatedCart = cart;
     updatedCart[indexOfProduct] = updatedProduct;
     setCart(updatedCart);
+    calculateTotal();
   };
+
+  const calculateTotal = useCallback(() => {
+    if (cart !== null) {
+      const total = cart.reduce((previousValue, product) => {
+        const unitPrice = products.find((item) => {
+          return item._id === product.productId;
+        }).price;
+        const subTotal = product.amount * unitPrice;
+        return previousValue + subTotal;
+      }, 0);
+      setTotalPrice(total.toFixed(2));
+    }
+  }, [cart, products]);
+
+  useEffect(() => {
+    if (user && products) {
+      setCart(user.cart);
+      calculateTotal();
+    }
+  }, [user, products, calculateTotal]);
 
   if (isLoading) {
     return (
@@ -94,7 +112,7 @@ const Cart = () => {
                 <div className={styles.totalprice}>Total</div>
                 <div className={styles.items}>2 items</div>
               </div>
-              <div className={styles.total_amount}>$8.98</div>
+              <div className={styles.total_amount}>${totalPrice}</div>
             </div>
             <div className={styles.button}>
               <Button type="primary" text="Checkout" />

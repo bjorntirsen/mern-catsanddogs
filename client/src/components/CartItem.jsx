@@ -47,7 +47,7 @@ const CartItem = ({ product, amount, changeQuantityHandler }) => {
         </span>
       </div>
       <div className={styles.prices}>
-        <div className={styles.amount}>${product.price}</div>
+        <div className={styles.amount}>${product.price} each</div>
         <div className={styles.remove}>Remove</div>
       </div>
     </div>
