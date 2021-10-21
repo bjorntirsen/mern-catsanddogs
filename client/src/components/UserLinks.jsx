@@ -14,7 +14,7 @@ const UserLinks = ({ logoutHandler }) => {
         .map((item) => item.amount)
         .reduce((previousValue, currentValue) => {
           return previousValue + currentValue;
-        });
+        }, 0);
       setCartSum(sum);
     }
   });
