@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./styles/App.css";
+import AdminOrdersPage from "./pages/AdminOrdersPage";
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
@@ -57,6 +58,7 @@ function App() {
             path="/admin/products/:slug"
             component={AdminEditProductPage}
           />
+          <Route path="/admin/orders" component={AdminOrdersPage} />
           {/*
           <Route path="/admin/products/create" component={AdminCreateProductPage} />
           <Route path="/admin/orders" component={AdminOrdersPage} exact />

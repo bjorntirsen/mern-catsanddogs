@@ -1,10 +1,10 @@
 import { React } from "react";
-import AdminProducts from "../components/AdminProducts"
+import AdminProducts from "../components/AdminProducts";
 
 export default function AdminProductsPage() {
-	return (
-  <div>
+  return (
+    <div>
       <AdminProducts />
-  </div>
-	);
+    </div>
+  );
 }
