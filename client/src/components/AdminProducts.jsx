@@ -12,7 +12,14 @@ const AdminProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const url = "/api/products";
-      const response = await fetch(url);
+      const token = localStorage.getItem("tkn");
+      const obj = {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await fetch(url, obj);
 
       if (!response.ok) {
         throw new Error("Something went wrong!");
