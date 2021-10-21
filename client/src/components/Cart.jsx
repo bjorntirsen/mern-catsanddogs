@@ -5,12 +5,13 @@ import Button from "./Button";
 import CartItem from "./CartItem";
 
 const Cart = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [products, setProducts] = useState(null);
   const [cart, setCart] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
+  const [wasChanged, setWasChanged] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -45,6 +46,7 @@ const Cart = () => {
     updatedCart[indexOfProduct] = updatedProduct;
     setCart(updatedCart);
     calculateTotal();
+    setWasChanged(true);
   };
 
   const calculateTotal = useCallback(() => {
@@ -66,6 +68,27 @@ const Cart = () => {
       calculateTotal();
     }
   }, [user, products, calculateTotal]);
+
+  const handleSaveCart = async () => {
+    console.log("save");
+    const token = localStorage.getItem("tkn");
+    const url = "/api/carts/update";
+    const obj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ updatedCart: cart }),
+    };
+    const response = await fetch(url, obj);
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    }
+    const responseData = await response.json();
+    setUser(responseData.data.user);
+    setWasChanged(false);
+  };
 
   if (isLoading) {
     return (
@@ -117,6 +140,11 @@ const Cart = () => {
             <div className={styles.button}>
               <Button type="primary" text="Checkout" />
             </div>
+            {wasChanged && (
+              <div className={styles.button} onClick={handleSaveCart}>
+                <Button type="secondary" text="Save cart" />
+              </div>
+            )}
           </div>
         </div>
       </section>
