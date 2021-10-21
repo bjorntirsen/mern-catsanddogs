@@ -1,11 +1,13 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useContext } from "react";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "./Button";
+import { UserContext } from "../contexts/UserContext";
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -25,8 +27,6 @@ const AdminOrders = () => {
 
       const responseData = await response.json();
 
-      console.log(responseData);
-
       setOrders(responseData.data.orders);
       setIsLoading(false);
     };
@@ -36,7 +36,13 @@ const AdminOrders = () => {
     });
   }, []);
 
-  console.log(orders);
+  if (!user || !user.adminUser) {
+    return (
+      <section>
+        <p>You do not have permisson to access this page</p>
+      </section>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -63,8 +69,9 @@ const AdminOrders = () => {
           <table className={styles.ap_table}>
             <thead>
               <tr>
-                <th className={styles.th_big}>Product</th>
-                <th className={styles.th_small}>Stock</th>
+                <th className={styles.th_big}>Order Id</th>
+                <th className={styles.th_small}>Status</th>
+                <th className={styles.th_small}>Address</th>
                 <th className={styles.th_small}>Edit</th>
                 <th className={styles.th_small}>Delete</th>
               </tr>
@@ -72,13 +79,12 @@ const AdminOrders = () => {
             <tbody>
               {orders.map((order) => {
                 return (
-                  <tr key={order.slug}>
-                    <td className={styles.th_big}>{order.customerId}</td>
-                    <td>{order.datePlaced}</td>
+                  <tr key={order._id}>
+                    <td className={styles.th_big}>{order._id}</td>
+                    <td>{order.status}</td>
+                    <td>{order.deliveryAddress}</td>
                     <td>
-                      <a href={`/admin/products/${order.slug}`}>
-                        <Button type="primary" text="Update" />
-                      </a>
+                      <Button type="primary" text="Update" />
                     </td>
                     <td>
                       <Button type="secondary" text="Delete" />
@@ -94,9 +100,9 @@ const AdminOrders = () => {
   }
 
   return (
-    <div>
-      <h1>Admin Orders Page</h1>
-    </div>
+    <section className={styles.ErrorMessage}>
+      <p>"Something went wrong!"</p>
+    </section>
   );
 };
 
