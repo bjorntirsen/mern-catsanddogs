@@ -1,27 +1,32 @@
 /************ BUTTON STYLES ************/
 .btn {
-	border-radius: 12px;
-	border: none;
-	outline: none;
-	padding: 10px;
-	display: inline-block;
-	font-size: 16px;
-	text-align: center;
-	text-decoration: none;
-	background-color: var(--lightgrey);
-	color: var(--black);
-	cursor: pointer;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  background-color: var(--lightgrey);
+  color: var(--black);
+  cursor: pointer;
 }
 .btn:hover {
-	opacity: 0.5;
+  opacity: 0.5;
+}
+
+.btn:disabled {
+  opacity: 0.3;
+  background-color: var(--lightgrey);
 }
 
 .btnPrimary {
-	background-color: var(--yellow);
-	color: var(--black);
+  background-color: var(--yellow);
+  color: var(--black);
 }
 
 .btnSecondary {
-	background-color: var(--darkgrey);
-	color: var(--white);
+  background-color: var(--darkgrey);
+  color: var(--white);
 }
