@@ -73,7 +73,6 @@ const AdminOrders = () => {
                 <th className={styles.th_small}>Status</th>
                 <th className={styles.th_small}>Address</th>
                 <th className={styles.th_small}>Edit</th>
-                <th className={styles.th_small}>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -85,9 +84,6 @@ const AdminOrders = () => {
                     <td>{order.deliveryAddress}</td>
                     <td>
                       <Button type="primary" text="Update" />
-                    </td>
-                    <td>
-                      <Button type="secondary" text="Delete" />
                     </td>
                   </tr>
                 );
