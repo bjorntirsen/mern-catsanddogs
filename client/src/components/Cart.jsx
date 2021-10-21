@@ -5,10 +5,11 @@ import Button from "./Button";
 import CartItem from "./CartItem";
 
 const Cart = () => {
+  const { user } = useContext(UserContext);
   const [products, setProducts] = useState(null);
+  const [cart, setCart] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
-  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -19,13 +20,42 @@ const Cart = () => {
       }
       const responseData = await response.json();
       setProducts(responseData.data.products);
+
       setIsLoading(false);
     };
     fetchProducts().catch((error) => {
       setIsLoading(false);
       setErrorMessage(error.message);
     });
-  }, []);
+  }, [user]);
+
+  useEffect(() => {
+    if (user) setCart(user.cart);
+  }, [user]);
+
+  const reduceQuantityHandler = async (productId) => {
+    console.log(productId);
+    console.log(cart[0].productId);
+    //update product
+    // let indexOfProduct;
+    console.log(typeof cart);
+    const product = await cart.find((item) => item.productId === productId);
+    console.log(product);
+    // const { amount } = product;
+    // const updatedProduct = { amount: amount - 1, ...product };
+    // // insert updated product in array
+    // let updatedCart = cart;
+    // updatedCart[indexOfProduct] = updatedProduct;
+    // setCart(updatedCart);
+  };
+
+  // const increaseQuantityHandler = () => {
+  //   setQuantity(quantity + 1);
+  // };
+
+  // const onChangeHandler = (e) => {
+  //   setQuantity(parseInt(e.target.value));
+  // };
 
   if (isLoading) {
     return (
@@ -43,16 +73,17 @@ const Cart = () => {
     );
   }
 
-  if (!isLoading && user)
+  if (!isLoading && cart)
     return (
       <section className={styles.body}>
+        {console.log(cart)}
         <div className={styles.cart_container}>
           <div className={styles.header}>
             <h2>Shopping Cart</h2>
             <h5 className={styles.action}>Remove all</h5>
           </div>
 
-          {user.cart.map((product) => {
+          {cart.map((product) => {
             const fullProduct = products.find((item) => {
               return item._id === product.productId;
             });
@@ -61,6 +92,7 @@ const Cart = () => {
                 key={product.productId}
                 product={fullProduct}
                 amount={product.amount}
+                reduceQuantityHandler={reduceQuantityHandler}
               />
             );
           })}
