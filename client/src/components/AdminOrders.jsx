@@ -70,10 +70,9 @@ const AdminOrders = () => {
             <thead>
               <tr>
                 <th className={styles.th_big}>Order Id</th>
-                <th className={styles.th_small}>Status</th>
                 <th className={styles.th_small}>Address</th>
+                <th className={styles.th_small}>Status</th>
                 <th className={styles.th_small}>Edit</th>
-                <th className={styles.th_small}>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -81,13 +80,12 @@ const AdminOrders = () => {
                 return (
                   <tr key={order._id}>
                     <td className={styles.th_big}>{order._id}</td>
-                    <td>{order.status}</td>
                     <td>{order.deliveryAddress}</td>
+                    <td>{order.status}</td>
                     <td>
-                      <Button type="primary" text="Update" />
-                    </td>
-                    <td>
-                      <Button type="secondary" text="Delete" />
+                      <a href={`/admin/orders/${order._id}`}>
+                        <Button type="primary" text="Update status" />
+                      </a>
                     </td>
                   </tr>
                 );
