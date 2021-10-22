@@ -58,7 +58,8 @@ const OrderDetailsPage = ({ match }) => {
             <span>Order id:</span> {order._id}
           </p>
           <p className={styles.card_line}>
-            <span>Date placed:</span> {new Date(order.datePlaced).toLocaleString("en-US")}
+            <span>Date placed:</span>{" "}
+            {new Date(order.datePlaced).toLocaleString("en-US")}
           </p>
           <p className={styles.card_line}>
             <span>Order status:</span> {order.status}

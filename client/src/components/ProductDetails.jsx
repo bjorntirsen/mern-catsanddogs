@@ -8,7 +8,7 @@ const ProductDetails = ({ product }) => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [quantity, setQuantity] = useState(1);
-  const [btnText, setBtnText] = useState("");
+  const [btnText, setBtnText] = useState("Add to Cart");
   const [btnDisabled, setBtnDisabled] = useState(false);
 
   const reduceQuantityHandler = () => {
