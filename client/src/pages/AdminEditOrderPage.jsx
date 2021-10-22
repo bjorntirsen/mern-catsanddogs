@@ -3,8 +3,9 @@ import styles from "../styles/AdminEditProduct.module.css";
 import { UserContext } from "../contexts/UserContext";
 
 const AdminEditOrderPage = ({ match }) => {
-  const [orders, setOrders] = useState(null);
   const [order, setOrder] = useState(null);
+  const [orderStatus, setOrderStatus] = useState(null);
+  const [wasChanged, setWasChanged] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
   const { user } = useContext(UserContext);
@@ -14,7 +15,7 @@ const AdminEditOrderPage = ({ match }) => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const url = "/api/orders";
+      const url = `/api/orders/${orderId}`;
       const token = localStorage.getItem("tkn");
       const obj = {
         headers: {
@@ -26,66 +27,53 @@ const AdminEditOrderPage = ({ match }) => {
         throw new Error("Something went wrong!");
       }
       const responseData = await response.json();
-      setOrders(responseData.data.orders);
+      setOrderStatus(responseData.data.order.status);
+      setOrder(responseData.data.order);
       setIsLoading(false);
     };
     fetchOrders().catch((error) => {
       setIsLoading(false);
       setErrorMessage(error.message);
     });
-  }, [match]);
+  }, [orderId]);
 
-  useEffect(() => {
-    if (orders) {
-      const [item] = orders.filter((item) => item._id === orderId);
-      if (!item)
-        return setErrorMessage(
-          "No item with that slug was found in the database"
-        );
-      setOrder(item);
-    }
-  }, [orders, orderId]);
-
-  function renderInputs(keyList) {
-    return Object.entries(order)
-      .filter(([k, v]) => keyList.includes(k))
-      .map(([k, v]) => (
-        <tr key={k}>
-          <th className={styles.th}>{k}</th>
-          <td>
-            <input
-              className={styles.input}
-              type="text"
-              name={k}
-              value={v || ""}
-              size={50}
-              onChange={getHandleChange(k)}
-            />
-          </td>
-        </tr>
-      ));
-  }
-
-  const getHandleChange = (k) => (event) => {
-    setOrder({ ...order, [k]: event.target.value });
+  const handleOnChange = (event) => {
+    event.preventDefault();
+    setOrderStatus(event.target.value);
+    setWasChanged(true);
+    setMessage("");
   };
 
-  const handleOnSubmit = (orderId) => async (event) => {
+  const handleOnSubmit = async (event) => {
     event.preventDefault();
-    const url = `/api/orders/${orderId}`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(order)
-    });
-    if (!response.ok) {
-      const responseErrorMessage = await response.json();
-      setMessage(responseErrorMessage);
+    if (orderStatus.trim() === "")
+      return setMessage("Please enter a status for the order.");
+    try {
+      const url = `/api/orders/status/${orderId}`;
+      const token = localStorage.getItem("tkn");
+      const obj = {
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: orderStatus }),
+      };
+      const response = await fetch(url, obj);
+      const responseData = await response.json();
+      if (!response.ok) {
+        const responseErrorMessage = await response.json();
+        setMessage(responseErrorMessage);
+      }
+      if (response.ok) {
+        setOrderStatus(responseData.data.order.status);
+        setMessage("Successfully updated order's status!");
+        setWasChanged(false);
+      }
+    } catch (err) {
+      console.log(err);
     }
-    if (response.ok) {
-      setMessage("Successfully updated order's status!");
-    }
-  }
+  };
 
   if (!user || !user.adminUser) {
     return (
@@ -116,20 +104,32 @@ const AdminEditOrderPage = ({ match }) => {
       <div className={styles.ap_container}>
         <h2 className={styles.header}>Admin Page</h2>
         <h3 className={styles.header}>Edit order</h3>
-        <form onSubmit={handleOnSubmit}>
-          <table className={styles.ap_table}>
-            <tbody>
-              <tr>
-                <th>Order ID</th>
-                <td className={styles.th_id}>{order._id}</td>
-              </tr>
-              {renderInputs([
-                "status",
-              ])}
-            </tbody>
-          </table>
-          <button type="submit">Update status</button>
-        </form>
+        <table className={styles.ap_table}>
+          <tbody>
+            <tr>
+              <th>Order ID</th>
+              <td className={styles.th_id}>{order._id}</td>
+            </tr>
+            <tr>
+              <th className={styles.th}>Status:</th>
+              <td>
+                <input
+                  className={styles.input}
+                  type="text"
+                  name="status"
+                  value={orderStatus}
+                  size={50}
+                  onChange={handleOnChange}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {wasChanged && (
+          <button type="submit" onClick={handleOnSubmit}>
+            Update status
+          </button>
+        )}
         <p className={styles.message}>{message}</p>
       </div>
     </div>
