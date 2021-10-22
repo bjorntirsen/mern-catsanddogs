@@ -189,6 +189,38 @@ router.post("/:orderId", protect, restrictToAdmin, async (req, res, next) => {
   }
 });
 
+// UPDATE status of order by orderId
+router.patch(
+  "/status/:id",
+  protect,
+  restrictToAdmin,
+  async (req, res, next) => {
+    try {
+      if (!req.body.status) {
+        return res
+          .status(400)
+          .json("You need to provide the status of the order.");
+      }
+      const order = await Order.findById(req.params.id);
+      if (!order) return res.status(404).json("No order with that id found.");
+      const updatedOrder = await Order.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          status: req.body.status,
+        }
+      );
+      res.status(200).json({
+        status: "success",
+        data: {
+          order: updatedOrder,
+        },
+      });
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  }
+);
+
 // DELETE one order by id
 router.delete("/:orderId", protect, restrictToAdmin, async (req, res, next) => {
   try {
