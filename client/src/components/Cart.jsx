@@ -53,7 +53,7 @@ const Cart = () => {
   };
 
   const calculateTotal = useCallback(() => {
-    if (cart !== null) {
+    if (cart && cart.length > 0) {
       const total = cart.reduce((previousValue, product) => {
         const unitPrice = products.find((item) => {
           return item._id === product.productId;
@@ -61,7 +61,6 @@ const Cart = () => {
         const subTotal = product.amount * unitPrice;
         return previousValue + subTotal;
       }, 15);
-
       setTotalPrice(total.toFixed(2));
     }
   }, [cart, products]);
@@ -125,6 +124,26 @@ const Cart = () => {
     history.push(`/orders/${responseData.data.order._id}`);
   };
 
+  const handleRemoveAllClick = async () => {
+    const token = localStorage.getItem("tkn");
+    const url = "/api/carts/emptyCart";
+    const obj = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(url, obj);
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    }
+    const responseData = await response.json();
+    setUser(responseData.data.user);
+    setCart(null);
+    setTotalPrice(0);
+  };
+
   if (isLoading) {
     return (
       <section className={styles.IsLoading}>
@@ -147,7 +166,9 @@ const Cart = () => {
         <div className={styles.cart_container}>
           <div className={styles.header}>
             <h2>Shopping Cart</h2>
-            <h5 className={styles.action}>Remove all</h5>
+            <h5 onClick={handleRemoveAllClick} className={styles.action}>
+              Remove all
+            </h5>
           </div>
 
           {cart.map((product) => {
@@ -171,7 +192,7 @@ const Cart = () => {
               </div>
               <div className={styles.total_amount}>${totalPrice}</div>
             </div>
-            <div className={styles.items}>including $15 postage</div>
+            <div className={styles.items}>including $15 shipping</div>
             <div className={styles.button}>
               <Button
                 type="primary"
