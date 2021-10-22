@@ -6,7 +6,11 @@ import Button from "../components/Button";
 const Product = ({ product }) => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
-  const [btnText, setBtnText] = useState("");
+  const [btnText, setBtnText] = useState("Add to cart");
+
+  const delayAddtoCartBtn = () => {
+    setBtnText("Add to cart");
+  };
 
   const addToCart = () => {
     if (product.stock === 0) return null;
@@ -51,7 +55,7 @@ const Product = ({ product }) => {
     if (item.stock === 0) {
       setBtnText("Sold Out");
     } else {
-      setBtnText("Add to cart");
+      setTimeout(delayAddtoCartBtn, 1500);
     }
   };
 
