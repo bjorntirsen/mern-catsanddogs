@@ -79,12 +79,10 @@ const AdminEditOrderPage = ({ match }) => {
       body: JSON.stringify(order)
     });
     if (!response.ok) {
-      console.log("do not worry");
       const responseErrorMessage = await response.json();
       setMessage(responseErrorMessage);
     }
     if (response.ok) {
-      console.log("entre-1");
       setMessage("Successfully updated order's status!");
     }
   }

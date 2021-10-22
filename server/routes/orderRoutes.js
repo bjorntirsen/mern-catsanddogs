@@ -136,7 +136,6 @@ router.get("/:orderId", protect, async (req, res, next) => {
         .status(403)
         .json("You don't have permission to access this resource");
     }
-    console.log("test");
     res.status(200).json({
       status: "success",
       data: {
