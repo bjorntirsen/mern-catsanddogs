@@ -1,11 +1,13 @@
 const express = require("express");
 const Product = require("../models/productModel");
+const { protect, restrictToAdmin } = require("../controllers/authControllers");
 
 const router = express.Router();
 
 //CRUD operations
 //CREATE one product
-router.post("/", async (req, res, next) => {
+// ADMIN ONLY
+router.post("/", protect, restrictToAdmin, async (req, res, next) => {
   try {
     if (
       !req.body.title ||
@@ -95,7 +97,8 @@ router.get("/:slug", async (req, res, next) => {
 });
 
 // UPDATE one product by slug
-router.post("/:slug", async (req, res, next) => {
+// ADMIN ONLY
+router.post("/:slug", protect, restrictToAdmin, async (req, res, next) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug });
     if (!product) {
@@ -136,7 +139,8 @@ router.post("/:slug", async (req, res, next) => {
 });
 
 // DELETE one product by slug
-router.delete("/:slug", async (req, res, next) => {
+// ADMIN ONLY
+router.delete("/:slug", protect, restrictToAdmin, async (req, res, next) => {
   try {
     const product = await Product.findOneAndDelete({ slug: req.params.slug });
     if (!product) {

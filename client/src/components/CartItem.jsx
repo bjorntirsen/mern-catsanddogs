@@ -1,23 +1,60 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/CartItem.module.css";
 
-const CartItem = ({ product, amount, changeQuantityHandler }) => {
+const CartItem = ({
+  setCart,
+  setTotalPrice,
+  product,
+  amount,
+  changeQuantityHandler,
+}) => {
   const [quantity, setQuantity] = useState(amount);
-
-  const handleIncrease = () => {
-    changeQuantityHandler(product._id, (amount) => amount + 1);
-    setQuantity(quantity + 1);
-  };
+  const { user, setUser } = useContext(UserContext);
 
   const handleChange = (e) => {
     changeQuantityHandler(product._id, (_amount) => parseInt(e.target.value));
     setQuantity(parseInt(e.target.value));
   };
 
+  const handleIncrease = () => {
+    if (quantity === product.stock) return null;
+    else {
+      changeQuantityHandler(product._id, (amount) => amount + 1);
+      setQuantity(quantity + 1);
+    }
+  };
+
   const handleReduce = () => {
-    changeQuantityHandler(product._id, (amount) => amount - 1);
-    setQuantity(quantity - 1);
+    if (quantity > 1) {
+      changeQuantityHandler(product._id, (amount) => amount - 1);
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const handleRemoveClick = async (productId) => {
+    const updatedCart = user.cart.filter(
+      (item) => item.productId !== productId
+    );
+
+    const token = localStorage.getItem("tkn");
+    const url = "/api/carts/update";
+    const obj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ updatedCart }),
+    };
+    const response = await fetch(url, obj);
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    }
+    const responseData = await response.json();
+    setUser(responseData.data.user);
+    setCart(updatedCart);
+    if (responseData.data.user.cart.length === 0) setTotalPrice(0);
   };
 
   return (
@@ -48,7 +85,12 @@ const CartItem = ({ product, amount, changeQuantityHandler }) => {
       </div>
       <div className={styles.prices}>
         <div className={styles.amount}>${product.price} each</div>
-        <div className={styles.remove}>Remove</div>
+        <div
+          onClick={() => handleRemoveClick(product._id)}
+          className={styles.remove}
+        >
+          Remove
+        </div>
       </div>
     </div>
   );

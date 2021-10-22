@@ -11,13 +11,18 @@ const AdminLinks = ({ logoutHandler }) => {
     <div className={styles.right}>
       <ul className={styles.nav}>
         <li className={styles.li}>
-          <NavLink to={`/getme`} className={styles.a}>
+          <NavLink to={`/profile`} className={styles.a}>
             Logged in as: {user.fullName}
           </NavLink>
         </li>
         <li className={styles.li}>
-          <NavLink to={`/admin`} className={styles.a}>
-            Admin
+          <NavLink to={`/admin/products`} className={styles.a}>
+            AdminProducts
+          </NavLink>
+        </li>
+        <li className={styles.li}>
+          <NavLink to={`/admin/orders`} className={styles.a}>
+            AdminOrders
           </NavLink>
         </li>
         <li className={styles.li}>

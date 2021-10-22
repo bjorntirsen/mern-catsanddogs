@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import styles from "../styles/OrderDetailsPage.module.css";
 
@@ -67,18 +67,18 @@ const OrderDetailsPage = ({ match }) => {
           <h2>Content:</h2>
           {order.content.map((content) => {
             return (
-              <>
-                <p className={styles.card_small_line}>
+              <Fragment key={content.productId}>
+                <p key={content.productId} className={styles.card_small_line}>
                   <span>Product id:</span> {content.productId}
                 </p>
-                <p className={styles.card_small_line}>
+                <p key={content.amount} className={styles.card_small_line}>
                   <span>Amount:</span> {content.amount}
                 </p>
-                <p className={styles.card_line}>
-                  <span>Price each at purchase:</span>$
-                  {content.unitPriceAtPurchase}
+                <p key={content.unitPriceAtPurchase} className={styles.card_line}>
+                  <span>Price each at purchase:</span>
+                  ${content.unitPriceAtPurchase}
                 </p>
-              </>
+              </Fragment>
             );
           })}
         </div>
