@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./styles/App.css";
+
 import LandingPage from "./pages/LandingPage";
-import Navbar from "./components/Navbar";
-import ProductDetailsPage from "./pages/ProductDetailsPage";
-import ProductsListPage from "./pages/ProductsListPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
+import ProductsListPage from "./pages/ProductsListPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
+import ProfilePage from "./pages/ProfilePage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
 import UserOrdersPage from "./pages/UserOrdersPage";
 import AdminProductsPage from "./pages/AdminProductsPage";
 import AdminEditProductPage from "./pages/AdminEditProductPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminEditOrderPage from "./pages/AdminEditOrderPage";
-import ProfilePage from "./pages/ProfilePage";
-import { UserContext } from "./contexts/UserContext";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { UserContext } from "./contexts/UserContext";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -54,7 +56,8 @@ function App() {
           <Route path="/cart" component={ShoppingCartPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/orders" component={UserOrdersPage} />
+          <Route path="/orders" component={UserOrdersPage} exact />
+          <Route path="/orders/:id" component={OrderDetailsPage} exact />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/admin/products" component={AdminProductsPage} exact />
           <Route path="/admin/products/:slug" component={AdminEditProductPage}/>
@@ -63,6 +66,7 @@ function App() {
           {/*
           <Route path="/admin/products/create" component={AdminCreateProductPage} />
            */}
+          <Route path="/admin/orders/:id" component={AdminEditOrderPage} />
 
           <Route
             path="/products/categories/:category"
