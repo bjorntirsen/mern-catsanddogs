@@ -106,11 +106,11 @@ const AdminEditOrderPage = ({ match }) => {
         <h3 className={styles.header}>Edit order</h3>
         <table className={styles.ap_table}>
           <tbody>
-            <tr>
+            <tr key={order._id}>
               <th>Order ID</th>
               <td className={styles.th_id}>{order._id}</td>
             </tr>
-            <tr>
+            <tr key={order.status}>
               <th className={styles.th}>Status:</th>
               <td>
                 <input
