@@ -128,11 +128,15 @@ router.get("/:orderId", protect, async (req, res, next) => {
     if (!order) {
       return res.status(404).json("No order with that id was found.");
     }
-    if (order.customerId !== req.user._id && !req.user.adminUser) {
+    if (
+      !order.customerId.equals(ObjectId(req.user._id)) &&
+      !req.user.adminUser
+    ) {
       return res
         .status(403)
         .json("You don't have permission to access this resource");
     }
+    console.log("test");
     res.status(200).json({
       status: "success",
       data: {
