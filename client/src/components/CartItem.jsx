@@ -11,8 +11,11 @@ const CartItem = ({ product, amount, changeQuantityHandler }) => {
   };
 
   const handleIncrease = () => {
-    changeQuantityHandler(product._id, (amount) => amount + 1);
-    setQuantity(quantity + 1);
+    if (quantity === product.stock) return null;
+    else {
+      changeQuantityHandler(product._id, (amount) => amount + 1);
+      setQuantity(quantity + 1);
+    }
   };
 
   const handleReduce = () => {
