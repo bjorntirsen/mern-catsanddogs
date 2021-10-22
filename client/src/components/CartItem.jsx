@@ -2,7 +2,13 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/CartItem.module.css";
 
-const CartItem = ({ product, amount, changeQuantityHandler }) => {
+const CartItem = ({
+  setCart,
+  setTotalPrice,
+  product,
+  amount,
+  changeQuantityHandler,
+}) => {
   const [quantity, setQuantity] = useState(amount);
   const { user, setUser } = useContext(UserContext);
   const handleIncrease = () => {
@@ -41,6 +47,8 @@ const CartItem = ({ product, amount, changeQuantityHandler }) => {
     }
     const responseData = await response.json();
     setUser(responseData.data.user);
+    setCart(updatedCart);
+    if (responseData.data.user.cart.length === 0) setTotalPrice(0);
   };
 
   return (

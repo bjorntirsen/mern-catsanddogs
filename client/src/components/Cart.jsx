@@ -178,7 +178,9 @@ const Cart = () => {
             return (
               <CartItem
                 key={product.productId}
+                setCart={setCart}
                 product={fullProduct}
+                setTotalPrice={setTotalPrice}
                 amount={product.amount}
                 changeQuantityHandler={changeQuantityHandler}
               />
