@@ -5,19 +5,21 @@ import styles from "../styles/CartItem.module.css";
 const CartItem = ({ product, amount, changeQuantityHandler }) => {
   const [quantity, setQuantity] = useState(amount);
 
-  const handleIncrease = () => {
-    changeQuantityHandler(product._id, (amount) => amount + 1);
-    setQuantity(quantity + 1);
-  };
-
   const handleChange = (e) => {
     changeQuantityHandler(product._id, (_amount) => parseInt(e.target.value));
     setQuantity(parseInt(e.target.value));
   };
 
+  const handleIncrease = () => {
+    changeQuantityHandler(product._id, (amount) => amount + 1);
+    setQuantity(quantity + 1);
+  };
+
   const handleReduce = () => {
-    changeQuantityHandler(product._id, (amount) => amount - 1);
-    setQuantity(quantity - 1);
+    if (quantity > 1) {
+      changeQuantityHandler(product._id, (amount) => amount - 1);
+      setQuantity(quantity - 1);
+    }
   };
 
   return (
