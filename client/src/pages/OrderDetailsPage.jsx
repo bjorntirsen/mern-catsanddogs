@@ -6,7 +6,6 @@ const OrderDetailsPage = ({ match }) => {
   const [order, setOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
-  console.log(match.params.id);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -43,7 +42,7 @@ const OrderDetailsPage = ({ match }) => {
   if (errorMessage) {
     return (
       <section className={styles.container}>
-        <div classNamef={styles.ErrorMessage}>
+        <div className={styles.ErrorMessage}>
           <p>{errorMessage}</p>
         </div>
       </section>
