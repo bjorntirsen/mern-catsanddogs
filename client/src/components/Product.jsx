@@ -44,11 +44,15 @@ const Product = ({ product }) => {
     fetchAndAddOneToCart().catch((error) => {
       console.log(error);
     });
+    setBtnText("Added!");
   };
 
   const checkStock = (item) => {
-    if (item.stock === 0) setBtnText("Sold Out");
-    else setBtnText("Add to Cart");
+    if (item.stock === 0) {
+      setBtnText("Sold Out");
+    } else {
+      setBtnText("Add to cart");
+    }
   };
 
   useEffect(() => {

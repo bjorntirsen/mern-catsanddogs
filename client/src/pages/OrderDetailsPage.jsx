@@ -58,7 +58,8 @@ const OrderDetailsPage = ({ match }) => {
             <span>Order id:</span> {order._id}
           </p>
           <p className={styles.card_line}>
-            <span>Date placed:</span> {new Date(order.datePlaced).toLocaleString("en-US")}
+            <span>Date placed:</span>{" "}
+            {new Date(order.datePlaced).toLocaleString("en-US")}
           </p>
           <p className={styles.card_line}>
             <span>Order status:</span> {order.status}
@@ -74,8 +75,8 @@ const OrderDetailsPage = ({ match }) => {
                   <span>Amount:</span> {content.amount}
                 </p>
                 <p className={styles.card_line}>
-                  <span>Price each at purchase:</span>
-                  ${content.unitPriceAtPurchase}
+                  <span>Price each at purchase:</span>$
+                  {content.unitPriceAtPurchase}
                 </p>
               </>
             );
