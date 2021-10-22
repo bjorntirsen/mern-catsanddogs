@@ -12,6 +12,7 @@ import ProfilePage from "./pages/ProfilePage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import UserOrdersPage from "./pages/UserOrdersPage";
 import AdminProductsPage from "./pages/AdminProductsPage";
+import AdminCreateProductsPage from "./pages/AdminCreateProductsPage";
 import AdminEditProductPage from "./pages/AdminEditProductPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminEditOrderPage from "./pages/AdminEditOrderPage";
@@ -66,6 +67,11 @@ function App() {
             component={ProductsListPage}
           />
           <Route path="/products/:slug" component={ProductDetailsPage} />
+          <Route
+            path="/admin/products/create"
+            component={AdminCreateProductsPage}
+            exact
+          />
           <Route path="/admin/products" component={AdminProductsPage} exact />
           <Route
             path="/admin/products/:slug"
