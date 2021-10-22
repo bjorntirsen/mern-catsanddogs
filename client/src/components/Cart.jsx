@@ -152,6 +152,14 @@ const Cart = () => {
     );
   }
 
+  if (cart && cart.length === 0) {
+    return (
+      <section className={styles.body}>
+        <p>Your Cart is Empty</p>
+      </section>
+    );
+  }
+
   if (errorMessage) {
     return (
       <section className={styles.ErrorMessage}>
@@ -179,8 +187,8 @@ const Cart = () => {
               <CartItem
                 key={product.productId}
                 setCart={setCart}
-                product={fullProduct}
                 setTotalPrice={setTotalPrice}
+                product={fullProduct}
                 amount={product.amount}
                 changeQuantityHandler={changeQuantityHandler}
               />
