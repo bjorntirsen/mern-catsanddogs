@@ -207,6 +207,9 @@ router.patch(
         { _id: req.params.id },
         {
           status: req.body.status,
+        },
+        {
+          new: true,
         }
       );
       res.status(200).json({
