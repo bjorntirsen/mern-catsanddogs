@@ -1,4 +1,4 @@
-import { React, useState, useContext, useEffect, useCallback } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 import Button from "../components/Button";
@@ -11,21 +11,12 @@ const ProductDetails = ({ product }) => {
   const [btnText, setBtnText] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(false);
 
-  const productAvailable = useCallback(() => {
-    const prodInCart = user.cart.find((item) => item.productId === product._id);
-    if (prodInCart) {
-      const prodAvailable = product.stock - prodInCart.amount;
-      return quantity < prodAvailable;
-    }
-    return quantity < product.stock;
-  }, [product, quantity, user]);
-
   const reduceQuantityHandler = () => {
     quantity > 1 && setQuantity(quantity - 1);
   };
 
   const increaseQuantityHandler = () => {
-    if (!productAvailable()) return null;
+    if (quantity === product.stock) return null;
     else setQuantity(quantity + 1);
   };
 
@@ -37,8 +28,6 @@ const ProductDetails = ({ product }) => {
     if (!user) {
       history.push("/login");
     }
-    // Check if product is sold out
-    if (product.stock === 0) return null;
 
     const fetchAndAddOneOrManyToCart = async () => {
       if (localStorage.getItem("tkn")) {
@@ -72,25 +61,24 @@ const ProductDetails = ({ product }) => {
     });
   };
 
-  const checkStockAndSetBtnText = (item) => {
-    if (item.stock === 0) setBtnText("Sold Out");
-    else setBtnText("Add to Cart");
+  const productAvailable = (product) => {
+    if (product.stock === 0) return false;
+    else return true;
   };
 
   useEffect(() => {
     setQuantity(1);
-    checkStockAndSetBtnText(product);
     if (user) {
-      if (!productAvailable()) {
+      if (!productAvailable(product)) {
         setQuantity(0);
-        setBtnText("Max limit reached");
+        setBtnText("Sold Out");
         setBtnDisabled(true);
       } else {
         setBtnDisabled(false);
         setBtnText("Add to Cart");
       }
     }
-  }, [product, user, productAvailable]);
+  }, [product, user]);
 
   return (
     <div className={styles.details_top}>
@@ -111,6 +99,9 @@ const ProductDetails = ({ product }) => {
       <div className={styles.details_top_content}>
         <h1>{product.title}</h1>
         <p>{product.description}</p>
+        <span>
+          <strong>Number in stock: {product.stock}</strong>
+        </span>
         <div className={styles.price_wrapper}>
           <span>{`$${product.price}`}</span>
         </div>
