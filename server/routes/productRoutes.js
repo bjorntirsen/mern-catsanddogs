@@ -14,15 +14,38 @@ router.post("/", async (req, res, next) => {
       !req.body.description ||
       !req.body.imageUrl ||
       !req.body.weight ||
-      !req.body.maker
+      !req.body.maker ||
+      !req.body.stock
     ) {
       return res
         .status(401)
         .json(
-          "You need to provide title, price, category, description, imageUrl, weight, maker to add a new product."
+          "You need to provide title, price, category, description, imageUrl, weight, maker and stock to add a new product."
         );
     }
-    const newProduct = await Product.create(req.body);
+    const {
+      title,
+      price,
+      category,
+      description,
+      imageUrl,
+      weight,
+      maker,
+      stock,
+    } = req.body;
+
+    const product = {
+      title,
+      price: parseInt(price, 10),
+      category,
+      description,
+      imageUrl,
+      weight,
+      maker,
+      stock: parseInt(stock, 10),
+    };
+
+    const newProduct = await Product.create(product);
     res.status(201).json({
       status: "success",
       data: {
