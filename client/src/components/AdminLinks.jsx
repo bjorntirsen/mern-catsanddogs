@@ -17,7 +17,12 @@ const AdminLinks = ({ logoutHandler }) => {
         </li>
         <li className={styles.li}>
           <NavLink to={`/admin/products`} className={styles.a}>
-            Admin
+            AdminProducts
+          </NavLink>
+        </li>
+        <li className={styles.li}>
+          <NavLink to={`/admin/orders`} className={styles.a}>
+            AdminOrders
           </NavLink>
         </li>
         <li className={styles.li}>
