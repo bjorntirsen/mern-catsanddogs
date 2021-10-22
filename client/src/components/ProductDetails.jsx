@@ -8,7 +8,7 @@ const ProductDetails = ({ product }) => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [quantity, setQuantity] = useState(1);
-  const [btnText, setBtnText] = useState("");
+  const [btnText, setBtnText] = useState("Add to Cart");
   const [btnDisabled, setBtnDisabled] = useState(false);
 
   const productAvailable = useCallback(() => {
@@ -70,11 +70,17 @@ const ProductDetails = ({ product }) => {
     fetchAndAddOneOrManyToCart().catch((error) => {
       console.log(error);
     });
+    setBtnText("Added!");
   };
 
   const checkStockAndSetBtnText = (item) => {
-    if (item.stock === 0) setBtnText("Sold Out");
-    else setBtnText("Add to Cart");
+    if (item.stock === 0) {
+      setBtnText("Sold Out");
+    } else {
+      setTimeout(() => {
+        setBtnText("Add to Cart");
+      }, 1500);
+    }
   };
 
   useEffect(() => {
@@ -87,7 +93,7 @@ const ProductDetails = ({ product }) => {
         setBtnDisabled(true);
       } else {
         setBtnDisabled(false);
-        setBtnText("Add to Cart");
+        //setBtnText("Add to Cart");
       }
     }
   }, [product, user, productAvailable]);
