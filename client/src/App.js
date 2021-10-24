@@ -62,11 +62,20 @@ function App() {
           <Route path="/orders/:id" component={OrderDetailsPage} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/products" component={ProductsListPage} exact />
-          <Route path="/products/categories/:category" component={ProductsListPage} />
+          <Route
+            path="/products/categories/:category"
+            component={ProductsListPage}
+          />
           <Route path="/products/:slug" component={ProductDetailsPage} />
           <Route path="/admin/products" component={AdminProductsPage} exact />
-          <Route  path="/admin/products/:slug"component={AdminEditProductPage}/>
-          <Route path="/admin/products/create" component={AdminCreateProductsPage} />
+          <Route
+            path="/admin/products/:slug"
+            component={AdminEditProductPage}
+          />
+          <Route
+            path="/admin/products/create"
+            component={AdminCreateProductsPage}
+          />
           <Route path="/admin/orders" component={AdminOrdersPage} exact />
           <Route path="/admin/orders/:id" component={AdminEditOrderPage} />
         </Switch>
