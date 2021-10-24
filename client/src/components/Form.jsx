@@ -142,6 +142,7 @@ export default function Form({ type, title }) {
           className={styles.formContainer}
           action=""
         >
+          <h1 className={styles.header}>{title}</h1>
           <div className={styles.formCol}>
             <label htmlFor="email">Email*</label>
             <input
