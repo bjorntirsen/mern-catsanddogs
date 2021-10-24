@@ -57,7 +57,6 @@ const cartIsValid = async (updatedCart) => {
 
 // Helper function to update Stock
 const updateStock = async (order) => {
-  console.log(order);
   const productsPromises = [];
   order.forEach((orderItem) => {
     const update = {
