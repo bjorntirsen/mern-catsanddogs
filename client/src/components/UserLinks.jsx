@@ -17,7 +17,7 @@ const UserLinks = ({ logoutHandler }) => {
         }, 0);
       setCartSum(sum);
     }
-  });
+  }, [user]);
 
   return (
     <div className={styles.right}>
