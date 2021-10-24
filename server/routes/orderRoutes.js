@@ -55,13 +55,31 @@ const cartIsValid = async (updatedCart) => {
   return !arrayOfProducts.some((el) => el === null);
 };
 
+// Helper function to update Stock
+const updateStock = async (order) => {
+  const productsPromises = [];
+  order.forEach((orderItem) => {
+    const update = {
+      $inc: { stock: -orderItem.amount },
+    };
+    productsPromises.push(
+      Product.findOneAndUpdate({ _id: orderItem.productId }, update, {
+        new: true,
+      })
+    );
+  });
+
+  await Promise.all(productsPromises);
+  return true;
+};
+
 //CRUD operations
 //CREATE one order
 router.post("/", protect, async (req, res, next) => {
   // const missingOrderItem = await isMissingOrderItem(req.body.content);
-  const validCart = await cartIsValid(req.body.content);
-  const customerId = req.user._id;
   try {
+    const validCart = await cartIsValid(req.body.content);
+    const customerId = req.user._id;
     if (!req.body.content || !validCart) {
       return res
         .status(401)
@@ -69,14 +87,14 @@ router.post("/", protect, async (req, res, next) => {
           "You need to provide price, a valid product id, amount, shipping cost and delivery address to place an order."
         );
     }
+    const { content } = req.body;
     const orderPayLoad = {
-      ...req.body,
+      content,
       customerId,
       deliveryAddress: req.user.address,
       shippingCost: 15,
     };
     const newOrder = await Order.create(orderPayLoad);
-
     // Empty cart array in User
     const filter = { _id: customerId };
     const update = {
@@ -86,12 +104,14 @@ router.post("/", protect, async (req, res, next) => {
       new: true,
     });
     if (!updatedUser) return res.status(500).json("Could not empty array");
-
+    // Update Stock according to order
+    const stockWasUpdated = await updateStock(content);
     res.status(201).json({
       status: "success",
       data: {
         user: updatedUser,
         order: newOrder,
+        stockWasUpdated,
       },
     });
   } catch (err) {
