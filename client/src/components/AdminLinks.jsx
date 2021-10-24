@@ -12,17 +12,22 @@ const AdminLinks = ({ logoutHandler }) => {
       <ul className={styles.nav}>
         <li className={styles.li}>
           <NavLink to={`/profile`} className={styles.a}>
-            Logged in as: {user.fullName}
-          </NavLink>
-        </li>
-        <li className={styles.li}>
-          <NavLink to={`/admin/products`} className={styles.a}>
-            AdminProducts
+            Logged in admin: {user.fullName}
           </NavLink>
         </li>
         <li className={styles.li}>
           <NavLink to={`/admin/orders`} className={styles.a}>
-            AdminOrders
+            Orders
+          </NavLink>
+        </li>
+        <li className={styles.li}>
+          <NavLink to={`/admin/products`} className={styles.a}>
+            Products
+          </NavLink>
+        </li>
+        <li className={styles.li}>
+          <NavLink to={`/admin/products/create`} className={styles.a}>
+            Create Product
           </NavLink>
         </li>
         <li className={styles.li}>
