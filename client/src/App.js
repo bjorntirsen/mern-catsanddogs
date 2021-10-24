@@ -69,12 +69,13 @@ function App() {
           <Route path="/products/:slug" component={ProductDetailsPage} />
           <Route path="/admin/products" component={AdminProductsPage} exact />
           <Route
-            path="/admin/products/:slug"
-            component={AdminEditProductPage}
-          />
-          <Route
             path="/admin/products/create"
             component={AdminCreateProductsPage}
+            exact
+          />
+          <Route
+            path="/admin/products/:slug"
+            component={AdminEditProductPage}
           />
           <Route path="/admin/orders" component={AdminOrdersPage} exact />
           <Route path="/admin/orders/:id" component={AdminEditOrderPage} />
