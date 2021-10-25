@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import Button from "../components/Button";
+import Input from '../components/Input';
 
 import styles from "../styles/Form.module.css";
 
 const AdminCreateProductsPage = () => {
   const [formFields, setFormFields] = useState(null);
+  const [titleIsValid, setTitleIsValid] = useState(false);
   const history = useHistory();
 
   const handleChange = (value, fieldId) => {
@@ -37,18 +39,14 @@ const AdminCreateProductsPage = () => {
     history.push(`/admin/products`);
   };
 
+  let formIsValid = false;
+
+  if (titleIsValid) formIsValid = true;
+
   return (
     <form onSubmit={handleCreateProduct} className={styles.formContainer}>
       <h1 className={styles.header}>Create product</h1>
-      <div className={styles.formCol}>
-        <label htmlFor="title">title*</label>
-        <input
-          onChange={(e) => handleChange(e.target.value, e.target.id)}
-          id="title"
-          type="text"
-          autoComplete="off"
-        />
-      </div>
+      <Input label="Title*" inputId="title" type="text" errorMessage="Has to be 5 caracters." validationFunction={(value) => value.trim() !== ''} isValid={titleIsValid} setTitleIsValid={setTitleIsValid} />
       <div className={styles.formCol}>
         <label htmlFor="price">price*</label>
         <input
@@ -113,7 +111,7 @@ const AdminCreateProductsPage = () => {
         />
       </div>
       <div className={styles.formCol}>
-        <Button text="Create" type="primary" />
+        <Button text="Create" type="primary" disabled={!formIsValid} />
         <Button text="Cancel" type="secondary" onClick={handleCancel} />
       </div>
     </form>

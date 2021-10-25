@@ -1,0 +1,14 @@
+.error_text {
+  color: red;
+}
+
+.formCol {
+  display: grid;
+  grid-row-gap: 12px;
+}
+
+.formCol_invalid {
+  display: grid;
+  grid-row-gap: 12px;
+  border: 1px solid red;
+}
