@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
+import useInput from "../hooks/use-input";
 import Button from "../components/Button";
-import Input from '../components/Input';
 
 import styles from "../styles/Form.module.css";
 
+const validTitle = (value) =>
+  value.trim() !== "" && value.trim().length > 4 && value.trim().length < 41;
+
 const AdminCreateProductsPage = () => {
   const [formFields, setFormFields] = useState(null);
-  const [titleIsValid, setTitleIsValid] = useState(false);
   const history = useHistory();
+  const {
+    value: titleValue,
+    isValid: titleIsValid,
+    hasError: titleHasError,
+    valueChangeHandler: titleChangeHandler,
+    inputBlurHandler: titleBlurHandler,
+    reset: resetTitle,
+  } = useInput(validTitle);
 
   const handleChange = (value, fieldId) => {
     const payload = { ...formFields };
@@ -32,6 +42,7 @@ const AdminCreateProductsPage = () => {
     if (!response.ok) {
       throw new Error("Something went wrong!");
     }
+    resetTitle();
     history.push(`/admin/products`);
   };
 
@@ -43,18 +54,23 @@ const AdminCreateProductsPage = () => {
 
   if (titleIsValid) formIsValid = true;
 
+  // const titleClasses = titleHasError ? 'form-control invalid' : 'form-control';
+
   return (
     <form onSubmit={handleCreateProduct} className={styles.formContainer}>
       <h1 className={styles.header}>Create product</h1>
-      <Input label="Title*" inputId="title" type="text" errorMessage="Has to be 5 caracters." validationFunction={(value) => value.trim() !== ''} isValid={titleIsValid} setTitleIsValid={setTitleIsValid} />
       <div className={styles.formCol}>
-        <label htmlFor="price">price*</label>
+        <label htmlFor="title">Title*</label>
         <input
-          onChange={(e) => handleChange(e.target.value, e.target.id)}
-          id="price"
-          type="number"
-          autoComplete="off"
+          type="text"
+          id="title"
+          value={titleValue}
+          onChange={titleChangeHandler}
+          onBlur={titleBlurHandler}
         />
+        {titleHasError && (
+          <p>Please enter a title between 5-40 characters long.</p>
+        )}
       </div>
       <div className={styles.formCol}>
         <label htmlFor="category">category*</label>

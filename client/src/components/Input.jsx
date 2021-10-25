@@ -11,13 +11,14 @@ const Input = ({
   errorMessage,
   validationFunction,
   isValid,
+  setIsValid
 }) => {
   const {
     value: enteredValue,
     hasError: inputHasError,
     valueChangeHandler,
     inputBlurHandler,
-  } = useInput(validationFunction, isValid);
+  } = useInput(validationFunction, isValid, setIsValid);
 
   const ValidClasses = inputHasError
     ? classes.formCol_invalid
