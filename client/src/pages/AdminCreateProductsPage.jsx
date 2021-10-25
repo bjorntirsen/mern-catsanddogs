@@ -10,11 +10,14 @@ const validTitle = (value) =>
   value.trim() !== "" && value.trim().length > 4 && value.trim().length < 41;
 const validCategory = (value) =>
   value.trim() === "dog" || value.trim() === "cat";
+const validDescription = (value) =>
+  value.trim() !== "" && value.trim().length > 14 && value.trim().length < 1025;
 
 const AdminCreateProductsPage = () => {
   const [formFields, setFormFields] = useState(null);
   const [titleIsValid, setTitleIsValid] = useState(false);
   const [categoryIsValid, setCategoryIsValid] = useState(false);
+  const [descriptionIsValid, setDescriptionIsValid] = useState(false);
   const history = useHistory();
 
   const handleChange = (value, fieldId) => {
@@ -49,7 +52,7 @@ const AdminCreateProductsPage = () => {
 
   let formIsValid = false;
 
-  if (titleIsValid && categoryIsValid) formIsValid = true;
+  if (titleIsValid && categoryIsValid && descriptionIsValid) formIsValid = true;
 
   return (
     <form
@@ -76,24 +79,15 @@ const AdminCreateProductsPage = () => {
         isValid={categoryIsValid}
         setIsValid={setCategoryIsValid}
       />
-      <div className={styles.formCol}>
-        <label htmlFor="category">category*</label>
-        <input
-          onChange={changeHandler}
-          id="category"
-          type="text"
-          autoComplete="off"
-        />
-      </div>
-      <div className={styles.formCol}>
-        <label htmlFor="description">description*</label>
-        <input
-          onChange={(e) => handleChange(e.target.value, e.target.id)}
-          id="description"
-          type="text"
-          autoComplete="off"
-        />
-      </div>
+      <Input
+        label="Description*"
+        inputId="description"
+        type="text"
+        errorMessage="Please enter a description between 15-1024 characters long."
+        validationFunction={validDescription}
+        isValid={descriptionIsValid}
+        setIsValid={setDescriptionIsValid}
+      />
       <div className={styles.formCol}>
         <label htmlFor="imageUrl">imageUrl*</label>
         <input
