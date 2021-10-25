@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import useInput from "../hooks/use-input";
 import Button from "../components/Button";
+import Input from "../components/Input";
 
 import styles from "../styles/Form.module.css";
 
@@ -11,6 +12,7 @@ const validTitle = (value) =>
 
 const AdminCreateProductsPage = () => {
   const [formFields, setFormFields] = useState(null);
+  const [title2IsValid, setTitle2IsValid] = useState(false);
   const history = useHistory();
   const {
     value: titleValue,
@@ -52,7 +54,7 @@ const AdminCreateProductsPage = () => {
 
   let formIsValid = false;
 
-  if (titleIsValid) formIsValid = true;
+  if (titleIsValid && title2IsValid) formIsValid = true;
 
   // const titleClasses = titleHasError ? 'form-control invalid' : 'form-control';
 
@@ -72,6 +74,15 @@ const AdminCreateProductsPage = () => {
           <p>Please enter a title between 5-40 characters long.</p>
         )}
       </div>
+      <Input
+        label="Title*"
+        inputId="title2"
+        type="text"
+        errorMessage="Please enter a title between 5-40 characters long."
+        validationFunction={validTitle}
+        isValid={title2IsValid}
+        setIsValid={setTitle2IsValid}
+      />
       <div className={styles.formCol}>
         <label htmlFor="category">category*</label>
         <input
