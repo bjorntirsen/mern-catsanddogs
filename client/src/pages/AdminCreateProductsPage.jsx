@@ -8,10 +8,13 @@ import styles from "../styles/Form.module.css";
 
 const validTitle = (value) =>
   value.trim() !== "" && value.trim().length > 4 && value.trim().length < 41;
+const validCategory = (value) =>
+  value.trim() === "dog" || value.trim() === "cat";
 
 const AdminCreateProductsPage = () => {
   const [formFields, setFormFields] = useState(null);
   const [titleIsValid, setTitleIsValid] = useState(false);
+  const [categoryIsValid, setCategoryIsValid] = useState(false);
   const history = useHistory();
 
   const handleChange = (value, fieldId) => {
@@ -19,6 +22,8 @@ const AdminCreateProductsPage = () => {
     payload[fieldId] = value;
     setFormFields(payload);
   };
+
+  const changeHandler = (e) => handleChange(e.target.value, e.target.id);
 
   const handleCreateProduct = async () => {
     const token = localStorage.getItem("tkn");
@@ -44,26 +49,37 @@ const AdminCreateProductsPage = () => {
 
   let formIsValid = false;
 
-  if (titleIsValid) formIsValid = true;
-
-  // const titleClasses = titleHasError ? 'form-control invalid' : 'form-control';
+  if (titleIsValid && categoryIsValid) formIsValid = true;
 
   return (
-    <form onSubmit={handleCreateProduct} className={styles.formContainer}>
+    <form
+      onSubmit={handleCreateProduct}
+      className={styles.formContainer}
+      onChange={changeHandler}
+    >
       <h1 className={styles.header}>Create product</h1>
       <Input
         label="Title*"
-        inputId="title2"
+        inputId="title"
         type="text"
         errorMessage="Please enter a title between 5-40 characters long."
         validationFunction={validTitle}
         isValid={titleIsValid}
         setIsValid={setTitleIsValid}
       />
+      <Input
+        label="Category*"
+        inputId="category"
+        type="text"
+        errorMessage="Available categories is either cat or dog"
+        validationFunction={validCategory}
+        isValid={categoryIsValid}
+        setIsValid={setCategoryIsValid}
+      />
       <div className={styles.formCol}>
         <label htmlFor="category">category*</label>
         <input
-          onChange={(e) => handleChange(e.target.value, e.target.id)}
+          onChange={changeHandler}
           id="category"
           type="text"
           autoComplete="off"

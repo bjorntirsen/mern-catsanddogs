@@ -1,6 +1,4 @@
-import React from "react";
-
-import useInput from "../hooks/use-input";
+import { useState, useEffect } from "react";
 
 import classes from "../styles/Input.module.css";
 
@@ -11,18 +9,26 @@ const Input = ({
   errorMessage,
   validationFunction,
   isValid,
-  setIsValid
+  setIsValid,
 }) => {
-  const {
-    value: enteredValue,
-    hasError: inputHasError,
-    valueChangeHandler,
-    inputBlurHandler,
-  } = useInput(validationFunction, isValid, setIsValid);
+  const [enteredValue, setEnteredValue] = useState("");
+  const [isTouched, setIsTouched] = useState(false);
 
-  const ValidClasses = inputHasError
-    ? classes.invalid
-    : '';
+  useEffect(() => {
+    setIsValid(validationFunction(enteredValue));
+  }, [enteredValue, setIsValid, validationFunction]);
+
+  const hasError = !isValid && isTouched;
+
+  const valueChangeHandler = (event) => {
+    setEnteredValue(event.target.value);
+  };
+
+  const inputBlurHandler = (event) => {
+    setIsTouched(true);
+  };
+
+  const ValidClasses = hasError ? classes.invalid : "";
 
   return (
     <div className={`${ValidClasses} ${classes.formCol}`}>
@@ -34,7 +40,7 @@ const Input = ({
         onBlur={inputBlurHandler}
         value={enteredValue}
       />
-      {inputHasError && <span className={classes.error_text}>{errorMessage}</span>}
+      {hasError && <span className={classes.error_text}>{errorMessage}</span>}
     </div>
   );
 };
