@@ -21,11 +21,11 @@ const Input = ({
   } = useInput(validationFunction, isValid, setIsValid);
 
   const ValidClasses = inputHasError
-    ? classes.formCol_invalid
-    : classes.formCol;
+    ? classes.invalid
+    : '';
 
   return (
-    <div className={ValidClasses}>
+    <div className={`${ValidClasses} ${classes.formCol}`}>
       <label htmlFor={inputId}>{label}</label>
       <input
         type={type}
@@ -34,7 +34,7 @@ const Input = ({
         onBlur={inputBlurHandler}
         value={enteredValue}
       />
-      {inputHasError && <p className={classes.error_text}>{errorMessage}</p>}
+      {inputHasError && <span className={classes.error_text}>{errorMessage}</span>}
     </div>
   );
 };
