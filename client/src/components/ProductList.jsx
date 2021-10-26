@@ -10,6 +10,7 @@ const ProductList = (props) => {
   const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
+    let isMounted = true;
     const fetchProducts = async () => {
       let url = "/api/products";
       if (props.category) {
@@ -25,14 +26,20 @@ const ProductList = (props) => {
       }
 
       const responseData = await response.json();
-
-      setProducts(responseData.data.products);
-      setIsLoading(false);
+      if (isMounted) {
+        setProducts(responseData.data.products);
+        setIsLoading(false);
+      }
     };
     fetchProducts().catch((error) => {
-      setIsLoading(false);
-      setErrorMessage(error.message);
+      if (isMounted) {
+        setIsLoading(false);
+        setErrorMessage(error.message);
+      }
     });
+    return () => {
+      isMounted = false;
+    };
   }, [props]);
 
   if (isLoading) {
@@ -54,7 +61,7 @@ const ProductList = (props) => {
   if (products) {
     return (
       <section className={styles.container}>
-        <SearchBar products={products}/>
+        <SearchBar products={products} />
         {props.category ? (
           <h1>{props.category.substring(0, 3)} products:</h1>
         ) : (
