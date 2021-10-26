@@ -26,16 +26,6 @@ const StandardLinks = () => {
               <span className={styles.a}>Shop</span>
             </NavLink>
           </li>
-          <li className={styles.li}>
-            <NavLink to="/contact">
-              <span className={styles.a}>Contact</span>
-            </NavLink>
-          </li>
-          <li className={styles.li}>
-            <NavLink to="/about">
-              <span className={styles.a}>About us</span>
-            </NavLink>
-          </li>
         </ul>
       </div>
     </>
