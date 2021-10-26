@@ -26,7 +26,7 @@ const isValidHttpUrl = (value) => {
   }
   return url.protocol === "http:" || url.protocol === "https:";
 };
-const isNotEmpty = (value) => value.trim() !== '';
+const isNotEmpty = (value) => value.trim() !== "";
 
 const AdminCreateProductsPage = () => {
   const [formFields, setFormFields] = useState(null);
@@ -48,7 +48,8 @@ const AdminCreateProductsPage = () => {
 
   const changeHandler = (e) => handleChange(e.target.value, e.target.id);
 
-  const handleCreateProduct = async () => {
+  const handleCreateProduct = async (e) => {
+    e.preventDefault();
     const token = localStorage.getItem("tkn");
     const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
     const obj = {
@@ -102,7 +103,7 @@ const AdminCreateProductsPage = () => {
       />
       <Input
         label="Price:"
-        inputId="title"
+        inputId="price"
         type="number"
         errorMessage="Please enter a price."
         validationFunction={isNumeric}
