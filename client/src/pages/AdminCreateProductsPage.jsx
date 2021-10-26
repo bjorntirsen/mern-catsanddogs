@@ -26,7 +26,7 @@ const isValidHttpUrl = (value) => {
   }
   return url.protocol === "http:" || url.protocol === "https:";
 };
-const isNotEmpty = (value) => value.trim() !== '';
+const isNotEmpty = (value) => value.trim() !== "";
 
 const AdminCreateProductsPage = () => {
   const [formFields, setFormFields] = useState(null);
@@ -50,7 +50,7 @@ const AdminCreateProductsPage = () => {
 
   const handleCreateProduct = async () => {
     const token = localStorage.getItem("tkn");
-    const url = "/api/products";
+    const url = "http://localhost:5000/api/products";
     const obj = {
       method: "POST",
       headers: {
