@@ -37,8 +37,18 @@ export default function AdminProductsPage() {
   }, []);
 
   const handleDelete = (slug) => async (event) => {
+    const confirm = window.confirm(`Are you sure you want to delete ${slug}`);
+    if (!confirm) return;
+    const token = localStorage.getItem("tkn");
     const url = `/api/products/${slug}`;
-    const response = await fetch(url, { method: "DELETE" });
+    const obj = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(url, obj);
 
     if (!response.ok) {
       throw new Error("Something went wrong!");
