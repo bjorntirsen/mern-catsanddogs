@@ -26,6 +26,7 @@ const isValidHttpUrl = (value) => {
   }
   return url.protocol === "http:" || url.protocol === "https:";
 };
+const isNotEmpty = (value) => value.trim() !== '';
 
 const AdminCreateProductsPage = () => {
   const [formFields, setFormFields] = useState(null);
@@ -34,6 +35,9 @@ const AdminCreateProductsPage = () => {
   const [categoryIsValid, setCategoryIsValid] = useState(false);
   const [descriptionIsValid, setDescriptionIsValid] = useState(false);
   const [imageUrlIsValid, setImageUrlIsValid] = useState(false);
+  const [weightIsValid, setWeightIsValid] = useState(false);
+  const [makerIsValid, setMakerIsValid] = useState(false);
+  const [stockIsValid, setStockIsValid] = useState(false);
   const history = useHistory();
 
   const handleChange = (value, fieldId) => {
@@ -73,7 +77,10 @@ const AdminCreateProductsPage = () => {
     priceIsValid &&
     categoryIsValid &&
     descriptionIsValid &&
-    imageUrlIsValid
+    imageUrlIsValid &&
+    weightIsValid &&
+    makerIsValid &&
+    stockIsValid
   )
     formIsValid = true;
 
@@ -85,7 +92,7 @@ const AdminCreateProductsPage = () => {
     >
       <h1 className={styles.header}>Create product</h1>
       <Input
-        label="Title *"
+        label="Title:"
         inputId="title"
         type="text"
         errorMessage="Please enter a title between 5-40 characters long."
@@ -94,7 +101,7 @@ const AdminCreateProductsPage = () => {
         setIsValid={setTitleIsValid}
       />
       <Input
-        label="Price *"
+        label="Price:"
         inputId="title"
         type="number"
         errorMessage="Please enter a price."
@@ -103,7 +110,7 @@ const AdminCreateProductsPage = () => {
         setIsValid={setPriceIsValid}
       />
       <Input
-        label="Category *"
+        label="Category:"
         inputId="category"
         type="text"
         errorMessage="Available categories is either cat or dog"
@@ -112,7 +119,7 @@ const AdminCreateProductsPage = () => {
         setIsValid={setCategoryIsValid}
       />
       <Input
-        label="Description *"
+        label="Description:"
         inputId="description"
         type="text"
         errorMessage="Please enter a description between 15-1024 characters long."
@@ -121,7 +128,7 @@ const AdminCreateProductsPage = () => {
         setIsValid={setDescriptionIsValid}
       />
       <Input
-        label="URL to image *"
+        label="URL to image:"
         inputId="imageUrl"
         type="url"
         errorMessage="Please enter a valid URL."
@@ -129,33 +136,33 @@ const AdminCreateProductsPage = () => {
         isValid={imageUrlIsValid}
         setIsValid={setImageUrlIsValid}
       />
-      <div className={styles.formCol}>
-        <label htmlFor="weight">weight*</label>
-        <input
-          onChange={(e) => handleChange(e.target.value, e.target.id)}
-          id="weight"
-          type="text"
-          autoComplete="off"
-        />
-      </div>
-      <div className={styles.formCol}>
-        <label htmlFor="maker">maker*</label>
-        <input
-          onChange={(e) => handleChange(e.target.value, e.target.id)}
-          id="maker"
-          type="text"
-          autoComplete="off"
-        />
-      </div>
-      <div className={styles.formCol}>
-        <label htmlFor="stock">stock*</label>
-        <input
-          onChange={(e) => handleChange(e.target.value, e.target.id)}
-          id="stock"
-          type="number"
-          autoComplete="off"
-        />
-      </div>
+      <Input
+        label="Weight:"
+        inputId="weight"
+        type="text"
+        errorMessage="Please enter a weight."
+        validationFunction={isNotEmpty}
+        isValid={weightIsValid}
+        setIsValid={setWeightIsValid}
+      />
+      <Input
+        label="Maker:"
+        inputId="maker"
+        type="text"
+        errorMessage="Please enter a maker."
+        validationFunction={isNotEmpty}
+        isValid={makerIsValid}
+        setIsValid={setMakerIsValid}
+      />
+      <Input
+        label="Stock:"
+        inputId="stock"
+        type="number"
+        errorMessage="Please enter stock."
+        validationFunction={isNumeric}
+        isValid={stockIsValid}
+        setIsValid={setStockIsValid}
+      />
       <div className={styles.formCol}>
         <Button text="Create" type="primary" disabled={!formIsValid} />
         <Button text="Cancel" type="secondary" onClick={handleCancel} />
