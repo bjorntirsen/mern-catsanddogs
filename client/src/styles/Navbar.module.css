@@ -7,7 +7,7 @@ nav {
   padding: 0;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 3fr;
   grid-auto-rows: auto;
   align-items: center;
   text-align: center;
@@ -21,7 +21,8 @@ nav {
 
 .center {
   grid-column: 2;
-  justify-self: center;
+  justify-items: center;
+  text-transform: uppercase;
 }
 
 .right {
@@ -52,6 +53,10 @@ span {
 span:hover {
   color: var(--lightgrey);
   cursor: pointer;
+}
+
+.adminname {
+  color: orangered;
 }
 
 .logo {
@@ -86,3 +91,4 @@ span:hover {
   height: 25px;
   border-radius: 100%;
 }
+
