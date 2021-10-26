@@ -9,6 +9,10 @@ import styles from "../styles/Form.module.css";
 // Functions used to validate
 const validTitle = (value) =>
   value.trim() !== "" && value.trim().length > 4 && value.trim().length < 41;
+const isNumeric = (value) => {
+  if (typeof value != "string") return false;
+  return !isNaN(value) && !isNaN(parseFloat(value));
+};
 const validCategory = (value) =>
   value.trim() === "dog" || value.trim() === "cat";
 const validDescription = (value) =>
@@ -26,6 +30,7 @@ const isValidHttpUrl = (value) => {
 const AdminCreateProductsPage = () => {
   const [formFields, setFormFields] = useState(null);
   const [titleIsValid, setTitleIsValid] = useState(false);
+  const [priceIsValid, setPriceIsValid] = useState(false);
   const [categoryIsValid, setCategoryIsValid] = useState(false);
   const [descriptionIsValid, setDescriptionIsValid] = useState(false);
   const [imageUrlIsValid, setImageUrlIsValid] = useState(false);
@@ -63,7 +68,14 @@ const AdminCreateProductsPage = () => {
 
   let formIsValid = false;
 
-  if (titleIsValid && categoryIsValid && descriptionIsValid) formIsValid = true;
+  if (
+    titleIsValid &&
+    priceIsValid &&
+    categoryIsValid &&
+    descriptionIsValid &&
+    imageUrlIsValid
+  )
+    formIsValid = true;
 
   return (
     <form
@@ -80,6 +92,15 @@ const AdminCreateProductsPage = () => {
         validationFunction={validTitle}
         isValid={titleIsValid}
         setIsValid={setTitleIsValid}
+      />
+      <Input
+        label="Price *"
+        inputId="title"
+        type="number"
+        errorMessage="Please enter a price."
+        validationFunction={isNumeric}
+        isValid={priceIsValid}
+        setIsValid={setPriceIsValid}
       />
       <Input
         label="Category *"
