@@ -1,4 +1,5 @@
 import { React, useEffect, useState, useContext } from "react";
+import { NavLink } from "react-router-dom";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "./Button";
 import { UserContext } from "../contexts/UserContext";
@@ -72,6 +73,7 @@ const AdminOrders = () => {
                 <th className={styles.th_big}>Order Id</th>
                 <th className={styles.th_small}>Order Date</th>
                 <th className={styles.th_small}>Address</th>
+                <th className={styles.th_small}>Order details</th>
                 <th className={styles.th_small}>Status</th>
                 <th className={styles.th_small}>Edit</th>
               </tr>
@@ -81,10 +83,13 @@ const AdminOrders = () => {
                 return (
                   <tr key={order._id}>
                     <td className={styles.th_big}>{order._id}</td>
-                    <td>
-                      {new Date(order.datePlaced).toLocaleString("en-US")}
-                    </td>
+                    <td>{new Date(order.datePlaced).toLocaleString("en-US")}</td>
                     <td>{order.deliveryAddress}</td>
+                    <td>
+                      <NavLink to={`/orders/${order._id}`}>
+                        <Button text={"Order details"} type={"primary"} />
+                      </NavLink>
+                    </td>
                     <td>{order.status}</td>
                     <td>
                       <a href={`/admin/orders/${order._id}`}>
