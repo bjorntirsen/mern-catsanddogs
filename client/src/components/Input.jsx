@@ -29,6 +29,7 @@ const Input = ({
   };
 
   const ValidClasses = hasError ? classes.invalid : "";
+  const placeholder = type === "url" ? "https://example.com" : "";
 
   return (
     <div className={`${ValidClasses} ${classes.formCol}`}>
@@ -39,6 +40,7 @@ const Input = ({
         onChange={valueChangeHandler}
         onBlur={inputBlurHandler}
         value={enteredValue}
+        placeholder={placeholder}
       />
       {hasError && <span className={classes.error_text}>{errorMessage}</span>}
     </div>

@@ -6,18 +6,29 @@ import Input from "../components/Input";
 
 import styles from "../styles/Form.module.css";
 
+// Functions used to validate
 const validTitle = (value) =>
   value.trim() !== "" && value.trim().length > 4 && value.trim().length < 41;
 const validCategory = (value) =>
   value.trim() === "dog" || value.trim() === "cat";
 const validDescription = (value) =>
   value.trim() !== "" && value.trim().length > 14 && value.trim().length < 1025;
+const isValidHttpUrl = (value) => {
+  let url;
+  try {
+    url = new URL(value);
+  } catch (_) {
+    return false;
+  }
+  return url.protocol === "http:" || url.protocol === "https:";
+};
 
 const AdminCreateProductsPage = () => {
   const [formFields, setFormFields] = useState(null);
   const [titleIsValid, setTitleIsValid] = useState(false);
   const [categoryIsValid, setCategoryIsValid] = useState(false);
   const [descriptionIsValid, setDescriptionIsValid] = useState(false);
+  const [imageUrlIsValid, setImageUrlIsValid] = useState(false);
   const history = useHistory();
 
   const handleChange = (value, fieldId) => {
@@ -62,7 +73,7 @@ const AdminCreateProductsPage = () => {
     >
       <h1 className={styles.header}>Create product</h1>
       <Input
-        label="Title*"
+        label="Title *"
         inputId="title"
         type="text"
         errorMessage="Please enter a title between 5-40 characters long."
@@ -71,7 +82,7 @@ const AdminCreateProductsPage = () => {
         setIsValid={setTitleIsValid}
       />
       <Input
-        label="Category*"
+        label="Category *"
         inputId="category"
         type="text"
         errorMessage="Available categories is either cat or dog"
@@ -80,7 +91,7 @@ const AdminCreateProductsPage = () => {
         setIsValid={setCategoryIsValid}
       />
       <Input
-        label="Description*"
+        label="Description *"
         inputId="description"
         type="text"
         errorMessage="Please enter a description between 15-1024 characters long."
@@ -88,15 +99,15 @@ const AdminCreateProductsPage = () => {
         isValid={descriptionIsValid}
         setIsValid={setDescriptionIsValid}
       />
-      <div className={styles.formCol}>
-        <label htmlFor="imageUrl">imageUrl*</label>
-        <input
-          onChange={(e) => handleChange(e.target.value, e.target.id)}
-          id="imageUrl"
-          type="text"
-          autoComplete="off"
-        />
-      </div>
+      <Input
+        label="URL to image *"
+        inputId="imageUrl"
+        type="url"
+        errorMessage="Please enter a valid URL."
+        validationFunction={isValidHttpUrl}
+        isValid={imageUrlIsValid}
+        setIsValid={setImageUrlIsValid}
+      />
       <div className={styles.formCol}>
         <label htmlFor="weight">weight*</label>
         <input
