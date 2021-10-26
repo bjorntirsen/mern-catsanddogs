@@ -15,8 +15,12 @@ const port = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://127.0.0.1:3000"], // allow to server to accept request from different origin
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    origin: [
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
+      "https://mern-catsanddogs.netlify.app/",
+    ],
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
   })
 );
 app.use(logger("dev"));
