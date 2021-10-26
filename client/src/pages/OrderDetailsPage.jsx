@@ -88,9 +88,12 @@ const OrderDetailsPage = ({ match }) => {
               (product) => product._id === content.productId
             );
             return (
-              <div key={OrderProducts[0]._id}>
+              <div key={content.productId}>
                 <p className={styles.card_small_line}>
-                  <span>Product Title:</span> {OrderProducts[0].title}
+                  <span>Product Title:</span>
+                  {OrderProducts[0]
+                    ? OrderProducts[0].title
+                    : content.productId}
                 </p>
                 <p className={styles.card_small_line}>
                   <span>Amount:</span> {content.amount}
