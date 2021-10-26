@@ -48,9 +48,10 @@ const AdminCreateProductsPage = () => {
 
   const changeHandler = (e) => handleChange(e.target.value, e.target.id);
 
-  const handleCreateProduct = async () => {
+  const handleCreateProduct = async (e) => {
+    e.preventDefault();
     const token = localStorage.getItem("tkn");
-    const url = "http://localhost:5000/api/products";
+    const url = "/api/products";
     const obj = {
       method: "POST",
       headers: {
@@ -102,7 +103,7 @@ const AdminCreateProductsPage = () => {
       />
       <Input
         label="Price:"
-        inputId="title"
+        inputId="price"
         type="number"
         errorMessage="Please enter a price."
         validationFunction={isNumeric}
