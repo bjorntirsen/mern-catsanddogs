@@ -74,10 +74,15 @@ const AdminEditProductPage = ({ match }) => {
   const handleOnSubmit = (slug) => async (event) => {
     event.preventDefault();
     const url = `/api/products/${slug}`;
+    const token = localStorage.getItem("tkn");
+
     const response = await fetch(url, {
       method: "POST",
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(product)
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(product),
     });
     if (!response.ok) {
       const responseErrorMessage = await response.json();
@@ -86,7 +91,7 @@ const AdminEditProductPage = ({ match }) => {
     if (response.ok) {
       setMessage("Successfully updated product!");
     }
-  }
+  };
 
   if (!user || !user.adminUser) {
     return (
