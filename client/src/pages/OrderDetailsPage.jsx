@@ -67,8 +67,6 @@ const OrderDetailsPage = ({ match }) => {
     );
   }
 
-  console.log(order);
-
   if (order) {
     return (
       <section className={styles.container}>
@@ -89,11 +87,10 @@ const OrderDetailsPage = ({ match }) => {
             const OrderProducts = products.filter(
               (product) => product._id === content.productId
             );
-            console.log(OrderProducts);
             return (
-              <tr key={OrderProducts[0]._id}>
+              <div key={OrderProducts[0]._id}>
                 <p className={styles.card_small_line}>
-                  <span>Product id:</span> {OrderProducts[0].title}
+                  <span>Product Title:</span> {OrderProducts[0].title}
                 </p>
                 <p className={styles.card_small_line}>
                   <span>Amount:</span> {content.amount}
@@ -102,7 +99,7 @@ const OrderDetailsPage = ({ match }) => {
                   <span>Price each at purchase:</span>$
                   {content.unitPriceAtPurchase}
                 </p>
-              </tr>
+              </div>
             );
           })}
         </div>
