@@ -70,6 +70,7 @@ const AdminOrders = () => {
             <thead>
               <tr>
                 <th className={styles.th_big}>Order Id</th>
+                <th className={styles.th_small}>Order Date</th>
                 <th className={styles.th_small}>Address</th>
                 <th className={styles.th_small}>Status</th>
                 <th className={styles.th_small}>Edit</th>
@@ -80,6 +81,7 @@ const AdminOrders = () => {
                 return (
                   <tr key={order._id}>
                     <td className={styles.th_big}>{order._id}</td>
+                    <td>{new Date(order.datePlaced).toLocaleString("en-US")}</td>
                     <td>{order.deliveryAddress}</td>
                     <td>{order.status}</td>
                     <td>
