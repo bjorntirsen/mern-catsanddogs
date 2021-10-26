@@ -17,6 +17,7 @@ export default function ShoppingCartPage() {
   const history = useHistory();
 
   useEffect(() => {
+    let isMounted = true;
     const fetchProducts = async () => {
       const url = "/api/products";
       const response = await fetch(url);
@@ -24,14 +25,20 @@ export default function ShoppingCartPage() {
         throw new Error("Something went wrong!");
       }
       const responseData = await response.json();
-      setProducts(responseData.data.products);
-
-      setIsLoading(false);
+      if (isMounted) {
+        setProducts(responseData.data.products);
+        setIsLoading(false);
+      }
     };
     fetchProducts().catch((error) => {
-      setIsLoading(false);
-      setErrorMessage(error.message);
+      if (isMounted) {
+        setIsLoading(false);
+        setErrorMessage(error.message);
+      }
     });
+    return () => {
+      isMounted = false;
+    };
   }, [user]);
 
   const changeQuantityHandler = (productId, fn) => {
