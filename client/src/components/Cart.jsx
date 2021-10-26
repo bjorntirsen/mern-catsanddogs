@@ -10,6 +10,7 @@ const Cart = () => {
   const { user, setUser } = useContext(UserContext);
   const [products, setProducts] = useState(null);
   const [cart, setCart] = useState(null);
+  const [productsNotAvailable, setProductsNotAvailable] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
@@ -115,6 +116,20 @@ const Cart = () => {
       },
       body: JSON.stringify({ content: updatedCart }),
     };
+    const cartItemsOverStock = updatedCart
+      .map((item) => item.productId)
+      .map((id) => {
+        return products.filter((prodItem) => prodItem._id === id)[0];
+      })
+      .filter((prodItem, index) => prodItem.stock < updatedCart[index].amount);
+
+    const isProdNotAvailable = cartItemsOverStock.length > 0;
+    if (isProdNotAvailable) {
+      console.log(updatedCart);
+      setProductsNotAvailable(cartItemsOverStock);
+      return -1;
+    }
+
     const response = await fetch(url, obj);
     if (!response.ok) {
       throw new Error("Something went wrong!");
@@ -220,6 +235,19 @@ const Cart = () => {
               </div>
             )}
           </div>
+          {productsNotAvailable &&
+            productsNotAvailable.map((item) => {
+              return (
+                <div className={styles.ErrorMessage} key={item._id}>
+                  <p>{item.title}: Not enough in stock</p>
+                  <p>
+                    Only {item.stock} unit
+                    {item.stock > 1 ? <>s</> : <></>} left in stock
+                  </p>
+                  <p>Please update your cart.</p>
+                </div>
+              );
+            })}
         </div>
       </section>
     );

@@ -41,6 +41,17 @@
   width: 2rem;
   margin: 0.5rem;
 }
+/* Chrome, Safari, Edge, Opera */
+.count::-webkit-outer-spin-button,
+.count::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.count input[type="number"] {
+  -moz-appearance: textfield;
+}
 .prices {
   text-align: right;
 }

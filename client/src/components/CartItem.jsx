@@ -18,7 +18,8 @@ const CartItem = ({
   };
 
   const handleIncrease = () => {
-    if (quantity === product.stock) return null;
+    console.log(quantity, product.stock);
+    if (quantity >= product.stock) return null;
     else {
       changeQuantityHandler(product._id, (amount) => amount + 1);
       setQuantity(quantity + 1);

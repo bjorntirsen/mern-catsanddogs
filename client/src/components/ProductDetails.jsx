@@ -90,20 +90,15 @@ const ProductDetails = ({ product }) => {
             alt="product"
           />
         </div>
-        <div className={styles.secondary_images_container}>
-          <div>Image 1</div>
-          <div>Image 2</div>
-          <div>Image 3</div>
-        </div>
       </div>
       <div className={styles.details_top_content}>
         <h1>{product.title}</h1>
         <p>{product.description}</p>
-        <span>
+        <p>
           <strong>Number in stock: {product.stock}</strong>
-        </span>
+        </p>
         <div className={styles.price_wrapper}>
-          <span>{`$${product.price}`}</span>
+          <p>{`$${product.price}`}</p>
         </div>
         <div className={styles.cta_area}>
           <label htmlFor="qty_input">Quantity:</label>
