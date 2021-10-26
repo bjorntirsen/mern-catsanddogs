@@ -25,21 +25,9 @@ export default function Footer() {
             Dog Products
           </Link>
         </div>
-        <div className={styles.footerCol}>
-          <h3>Shop</h3>
-          <Link className={styles.footerLink} to="/signup">
-            Sign Up
-          </Link>
-          <Link className={styles.footerLink} to="/login">
-            Login
-          </Link>
-          <Link className={styles.footerLink} to="/logout">
-            Logout
-          </Link>
-        </div>
       </div>
       <div
-        className={`${styles.footerContent} ${styles.footerCol} ${styles.footerEnd}`}
+        className={`${styles.footerContent} ${styles.footerCol}`}
       >
         <hr />
         <p>© Cats & Dogs 2021</p>
