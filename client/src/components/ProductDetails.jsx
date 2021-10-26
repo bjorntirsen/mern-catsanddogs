@@ -90,11 +90,6 @@ const ProductDetails = ({ product }) => {
             alt="product"
           />
         </div>
-        <div className={styles.secondary_images_container}>
-          <div>Image 1</div>
-          <div>Image 2</div>
-          <div>Image 3</div>
-        </div>
       </div>
       <div className={styles.details_top_content}>
         <h1>{product.title}</h1>
