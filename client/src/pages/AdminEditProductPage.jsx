@@ -58,7 +58,7 @@ const AdminEditProductPage = ({ match }) => {
               className={styles.input}
               type="text"
               name={k}
-              value={v || ""}
+              value={v}
               size={50}
               onChange={getHandleChange(k)}
             />

@@ -7,7 +7,7 @@ import axios from "axios";
 import { formValidateMessage } from "../utils/formValidateMessage";
 import { UserContext } from "../contexts/UserContext";
 
-export default function Form({ type }) {
+export default function Form({ type, title }) {
   const [formFields, setFormFields] = useState(null);
   const [submitStatus, setSubmitStatus] = useState(null);
   const { setUser } = useContext(UserContext);
@@ -60,6 +60,7 @@ export default function Form({ type }) {
           className={styles.formContainer}
           action=""
         >
+          <h1 className={styles.header}>{title}</h1>
           <div className={styles.formCol}>
             <label htmlFor="fullName">Fullname*</label>
             <input
@@ -141,6 +142,7 @@ export default function Form({ type }) {
           className={styles.formContainer}
           action=""
         >
+          <h1 className={styles.header}>{title}</h1>
           <div className={styles.formCol}>
             <label htmlFor="email">Email*</label>
             <input

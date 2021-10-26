@@ -95,7 +95,7 @@ const OrderDetailsPage = ({ match }) => {
                     ? OrderProducts[0].title
                     : content.productId}
                 </p>
-                <p className={styles.card_small_line}>
+                <p key={content.amount} className={styles.card_small_line}>
                   <span>Amount:</span> {content.amount}
                 </p>
                 <p className={styles.card_line}>

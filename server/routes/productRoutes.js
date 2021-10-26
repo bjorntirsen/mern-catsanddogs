@@ -1,11 +1,13 @@
 const express = require("express");
 const Product = require("../models/productModel");
+const { protect, restrictToAdmin } = require("../controllers/authControllers");
 
 const router = express.Router();
 
 //CRUD operations
 //CREATE one product
-router.post("/", async (req, res, next) => {
+// ADMIN ONLY
+router.post("/", protect, restrictToAdmin, async (req, res, next) => {
   try {
     if (
       !req.body.title ||
@@ -14,15 +16,38 @@ router.post("/", async (req, res, next) => {
       !req.body.description ||
       !req.body.imageUrl ||
       !req.body.weight ||
-      !req.body.maker
+      !req.body.maker ||
+      !req.body.stock
     ) {
       return res
         .status(401)
         .json(
-          "You need to provide title, price, category, description, imageUrl, weight, maker to add a new product."
+          "You need to provide title, price, category, description, imageUrl, weight, maker and stock to add a new product."
         );
     }
-    const newProduct = await Product.create(req.body);
+    const {
+      title,
+      price,
+      category,
+      description,
+      imageUrl,
+      weight,
+      maker,
+      stock,
+    } = req.body;
+
+    const product = {
+      title,
+      price: parseInt(price, 10),
+      category,
+      description,
+      imageUrl,
+      weight,
+      maker,
+      stock: parseInt(stock, 10),
+    };
+
+    const newProduct = await Product.create(product);
     res.status(201).json({
       status: "success",
       data: {
@@ -95,7 +120,8 @@ router.get("/:slug", async (req, res, next) => {
 });
 
 // UPDATE one product by slug
-router.post("/:slug", async (req, res, next) => {
+// ADMIN ONLY
+router.post("/:slug", protect, restrictToAdmin, async (req, res, next) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug });
     if (!product) {
@@ -136,7 +162,8 @@ router.post("/:slug", async (req, res, next) => {
 });
 
 // DELETE one product by slug
-router.delete("/:slug", async (req, res, next) => {
+// ADMIN ONLY
+router.delete("/:slug", protect, restrictToAdmin, async (req, res, next) => {
   try {
     const product = await Product.findOneAndDelete({ slug: req.params.slug });
     if (!product) {
