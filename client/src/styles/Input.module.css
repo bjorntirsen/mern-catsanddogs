@@ -1,0 +1,26 @@
+.error_text {
+  color: red;
+  margin: 0 auto;
+  padding: 0;
+  font-weight: 400;
+}
+
+.formCol {
+  display: grid;
+  grid-row-gap: 12px;
+}
+
+.formCol input {
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 0.5px solid var(--lightgrey);
+  border-radius: 6px;
+}
+
+.formCol label {
+  font-weight: 700;
+}
+
+.invalid input {
+  border: 1px solid red;
+}
