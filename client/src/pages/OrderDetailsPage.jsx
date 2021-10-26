@@ -71,7 +71,7 @@ const OrderDetailsPage = ({ match }) => {
     return (
       <section className={styles.container}>
         <div className={styles.card}>
-          <h1>Your order details and receipt</h1>
+          <h2 className={styles.header}>Order details and receipt</h2>
           <p className={styles.card_line}>
             <span>Order id:</span> {order._id}
           </p>
@@ -82,7 +82,7 @@ const OrderDetailsPage = ({ match }) => {
           <p className={styles.card_line}>
             <span>Order status:</span> {order.status}
           </p>
-          <h2>Content:</h2>
+          <h3 className={styles.header}>Content:</h3>
           {order.content.map((content) => {
             const OrderProducts = products.filter(
               (product) => product._id === content.productId

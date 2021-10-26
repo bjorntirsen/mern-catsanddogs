@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "devStart": "nodemon app.js",
-    "start": "node ./bin/www",
+    "start": "node app.js",
     "test": "mocha 'test/*' --recursive --timeout 10000 --exit",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
