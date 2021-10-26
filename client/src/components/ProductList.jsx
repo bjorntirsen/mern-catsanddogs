@@ -11,7 +11,7 @@ const ProductList = (props) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      let url = "/api/products";
+      let url = `${process.env.REACT_APP_BASE_URL}/api/products`;
       if (props.category) {
         const { category } = props;
         const singularCategory = category.substring(0, 3);
@@ -54,7 +54,7 @@ const ProductList = (props) => {
   if (products) {
     return (
       <section className={styles.container}>
-        <SearchBar products={products}/>
+        <SearchBar products={products} />
         {props.category ? (
           <h1>{props.category.substring(0, 3)} products:</h1>
         ) : (

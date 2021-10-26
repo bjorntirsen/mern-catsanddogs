@@ -20,14 +20,14 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { UserContext } from "./contexts/UserContext";
 
-function App() {
+const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       if (localStorage.getItem("tkn")) {
         const token = localStorage.getItem("tkn");
-        const url = "/api/users/getMe";
+        const url = `${process.env.REACT_APP_BASE_URL}/api/users/getMe`;
         const obj = {
           headers: {
             authorization: `Bearer ${token}`,
@@ -84,6 +84,6 @@ function App() {
       <Footer />
     </UserContext.Provider>
   );
-}
+};
 
 export default App;

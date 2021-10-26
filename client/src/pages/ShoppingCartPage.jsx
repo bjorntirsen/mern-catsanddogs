@@ -18,7 +18,7 @@ export default function ShoppingCartPage() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = "/api/products";
+      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Something went wrong!");
@@ -74,7 +74,7 @@ export default function ShoppingCartPage() {
 
   const handleSaveCart = async () => {
     const token = localStorage.getItem("tkn");
-    const url = "/api/carts/update";
+    const url = `${process.env.REACT_APP_BASE_URL}/api/carts/update`;
     const obj = {
       method: "POST",
       headers: {
@@ -106,7 +106,7 @@ export default function ShoppingCartPage() {
   const handleCreateOrder = async () => {
     const updatedCart = addUnitPriceToCart(cart);
     const token = localStorage.getItem("tkn");
-    const url = "/api/orders";
+    const url = `${process.env.REACT_APP_BASE_URL}/api/orders`;
     const obj = {
       method: "POST",
       headers: {
@@ -140,7 +140,7 @@ export default function ShoppingCartPage() {
 
   const handleRemoveAllClick = async () => {
     const token = localStorage.getItem("tkn");
-    const url = "/api/carts/emptyCart";
+    const url = `${process.env.REACT_APP_BASE_URL}/api/carts/emptyCart`;
     const obj = {
       method: "DELETE",
       headers: {

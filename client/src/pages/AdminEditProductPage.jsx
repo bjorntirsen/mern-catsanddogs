@@ -14,7 +14,7 @@ const AdminEditProductPage = ({ match }) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = "/api/products";
+      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
       const token = localStorage.getItem("tkn");
       const obj = {
         headers: {
@@ -73,7 +73,7 @@ const AdminEditProductPage = ({ match }) => {
 
   const handleOnSubmit = (slug) => async (event) => {
     event.preventDefault();
-    const url = `/api/products/${slug}`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/products/${slug}`;
     const token = localStorage.getItem("tkn");
 
     const response = await fetch(url, {

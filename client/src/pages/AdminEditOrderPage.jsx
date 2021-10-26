@@ -15,7 +15,7 @@ const AdminEditOrderPage = ({ match }) => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const url = `/api/orders/${orderId}`;
+      const url = `${process.env.REACT_APP_BASE_URL}/api/orders/${orderId}`;
       const token = localStorage.getItem("tkn");
       const obj = {
         headers: {
@@ -49,7 +49,7 @@ const AdminEditOrderPage = ({ match }) => {
     if (orderStatus.trim() === "")
       return setMessage("Please enter a status for the order.");
     try {
-      const url = `/api/orders/status/${orderId}`;
+      const url = `${process.env.REACT_APP_BASE_URL}/api/orders/status/${orderId}`;
       const token = localStorage.getItem("tkn");
       const obj = {
         method: "PATCH",
