@@ -50,7 +50,7 @@ const AdminCreateProductsPage = () => {
 
   const handleCreateProduct = async () => {
     const token = localStorage.getItem("tkn");
-    const url = "/api/products";
+    const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
     const obj = {
       method: "POST",
       headers: {

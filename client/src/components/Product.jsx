@@ -17,7 +17,7 @@ const Product = ({ product }) => {
     const fetchAndAddOneToCart = async () => {
       if (localStorage.getItem("tkn")) {
         const token = localStorage.getItem("tkn");
-        const url = "/api/carts/addOne";
+        const url = `${process.env.REACT_APP_BASE_URL}/api/carts/addOne`;
         const body = {
           id: product._id,
           amount: 1,

@@ -11,7 +11,7 @@ const AdminProducts = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = "/api/products";
+      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
       const token = localStorage.getItem("tkn");
       const obj = {
         headers: {
@@ -37,7 +37,7 @@ const AdminProducts = () => {
   }, []);
 
   const handleDelete = (slug) => async (event) => {
-    const url = `/api/products/${slug}`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/products/${slug}`;
     const response = await fetch(url, { method: "DELETE" });
 
     if (!response.ok) {

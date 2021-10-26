@@ -17,7 +17,7 @@ const ProductDetailsPage = ({ match }) => {
   // Store products from db in state
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = "/api/products";
+      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Something went wrong!");
