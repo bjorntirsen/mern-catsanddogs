@@ -6,6 +6,7 @@ const OrderDetailsPage = ({ match }) => {
   const [order, setOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
+  const [products, setProducts] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -30,6 +31,23 @@ const OrderDetailsPage = ({ match }) => {
       setErrorMessage(error.message);
     });
   }, [match]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const url = "/api/products";
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+      const responseData = await response.json();
+      setProducts(responseData.data.products);
+      setIsLoading(false);
+    };
+    fetchProducts().catch((error) => {
+      setIsLoading(false);
+      setErrorMessage(error.message);
+    });
+  }, []);
 
   if (isLoading) {
     return (
@@ -66,17 +84,23 @@ const OrderDetailsPage = ({ match }) => {
           </p>
           <h2>Content:</h2>
           {order.content.map((content) => {
+            const OrderProducts = products.filter(
+              (product) => product._id === content.productId
+            );
             return (
               <Fragment key={content.productId}>
-                <p key={content.productId} className={styles.card_small_line}>
-                  <span>Product id:</span> {content.productId}
+                <p className={styles.card_small_line}>
+                  <span>Product Title:</span>
+                  {OrderProducts[0]
+                    ? OrderProducts[0].title
+                    : content.productId}
                 </p>
                 <p key={content.amount} className={styles.card_small_line}>
                   <span>Amount:</span> {content.amount}
                 </p>
-                <p key={content.unitPriceAtPurchase} className={styles.card_line}>
-                  <span>Price each at purchase:</span>
-                  ${content.unitPriceAtPurchase}
+                <p className={styles.card_line}>
+                  <span>Price each at purchase:</span>$
+                  {content.unitPriceAtPurchase}
                 </p>
               </Fragment>
             );
