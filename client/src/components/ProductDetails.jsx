@@ -94,11 +94,11 @@ const ProductDetails = ({ product }) => {
       <div className={styles.details_top_content}>
         <h1>{product.title}</h1>
         <p>{product.description}</p>
-        <span>
+        <p>
           <strong>Number in stock: {product.stock}</strong>
-        </span>
+        </p>
         <div className={styles.price_wrapper}>
-          <span>{`$${product.price}`}</span>
+          <p>{`$${product.price}`}</p>
         </div>
         <div className={styles.cta_area}>
           <label htmlFor="qty_input">Quantity:</label>
