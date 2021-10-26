@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import styles from "../styles/OrderDetailsPage.module.css";
 
@@ -88,7 +88,7 @@ const OrderDetailsPage = ({ match }) => {
               (product) => product._id === content.productId
             );
             return (
-              <div key={content.productId}>
+              <Fragment key={content.productId}>
                 <p className={styles.card_small_line}>
                   <span>Product Title:</span>
                   {OrderProducts[0]
@@ -102,7 +102,7 @@ const OrderDetailsPage = ({ match }) => {
                   <span>Price each at purchase:</span>$
                   {content.unitPriceAtPurchase}
                 </p>
-              </div>
+              </Fragment>
             );
           })}
         </div>
