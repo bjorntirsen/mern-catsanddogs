@@ -6,6 +6,7 @@ const OrderDetailsPage = ({ match }) => {
   const [order, setOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
+  const [products, setProducts] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,6 +32,23 @@ const OrderDetailsPage = ({ match }) => {
     });
   }, [match]);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const url = "/api/products";
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+      const responseData = await response.json();
+      setProducts(responseData.data.products);
+      setIsLoading(false);
+    };
+    fetchProducts().catch((error) => {
+      setIsLoading(false);
+      setErrorMessage(error.message);
+    });
+  }, []);
+
   if (isLoading) {
     return (
       <section className={styles.IsLoading}>
@@ -49,6 +67,8 @@ const OrderDetailsPage = ({ match }) => {
     );
   }
 
+  console.log(order);
+
   if (order) {
     return (
       <section className={styles.container}>
@@ -58,26 +78,31 @@ const OrderDetailsPage = ({ match }) => {
             <span>Order id:</span> {order._id}
           </p>
           <p className={styles.card_line}>
-            <span>Date placed:</span> {new Date(order.datePlaced).toLocaleString("en-US")}
+            <span>Date placed:</span>{" "}
+            {new Date(order.datePlaced).toLocaleString("en-US")}
           </p>
           <p className={styles.card_line}>
             <span>Order status:</span> {order.status}
           </p>
           <h2>Content:</h2>
           {order.content.map((content) => {
+            const OrderProducts = products.filter(
+              (product) => product._id === content.productId
+            );
+            console.log(OrderProducts);
             return (
-              <>
+              <tr key={OrderProducts[0]._id}>
                 <p className={styles.card_small_line}>
-                  <span>Product id:</span> {content.productId}
+                  <span>Product id:</span> {OrderProducts[0].title}
                 </p>
                 <p className={styles.card_small_line}>
                   <span>Amount:</span> {content.amount}
                 </p>
                 <p className={styles.card_line}>
-                  <span>Price each at purchase:</span>
-                  ${content.unitPriceAtPurchase}
+                  <span>Price each at purchase:</span>$
+                  {content.unitPriceAtPurchase}
                 </p>
-              </>
+              </tr>
             );
           })}
         </div>
