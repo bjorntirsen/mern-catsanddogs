@@ -32,6 +32,11 @@ const UserLinks = ({ logoutHandler }) => {
             Logout
           </span>
         </li>
+        <li className={styles.li}>
+          <NavLink to={`/orders`} className={styles.a}>
+            My orders
+          </NavLink>
+        </li>
         <li className={`${styles.li} ${styles.cartLi}`}>
           <NavLink to="/cart">
             <img className={styles.cart} src={Cart} alt="cart-icon" />
