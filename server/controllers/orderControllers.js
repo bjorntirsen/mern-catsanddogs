@@ -5,7 +5,7 @@ const User = require("../models/userModel");
 
 // Helper function to see if cart is valid
 const cartIsValid = async (updatedCart) => {
-  console.log("DEBUG", updatedCart);
+  // console.log("DEBUG", updatedCart);
   const productsPromises = [];
   updatedCart.forEach((orderItem) => {
     productsPromises.push(
@@ -18,6 +18,24 @@ const cartIsValid = async (updatedCart) => {
   const arrayOfProducts = await Promise.all(productsPromises);
 
   return !arrayOfProducts.some((el) => el === null);
+};
+
+// Helper function to see if we have enough stock
+const checkEnoughStock = async (validOrder) => {
+  console.log("DEBUG2", validOrder);
+  const productsPromises = [];
+  validOrder.forEach(async (orderItem) => {
+    let enoughStock = true;
+    const product = await Product.findById(orderItem.productId);
+    if (orderItem.amount > product.stock) enoughStock = false;
+    productsPromises.push(enoughStock);
+  });
+
+  const arrayOfProducts = await Promise.all(productsPromises);
+  console.log("DEBUG3", arrayOfProducts);
+
+  // return !arrayOfProducts.some((el) => el === null);
+  return arrayOfProducts;
 };
 
 // Helper function to update Stock
@@ -50,6 +68,12 @@ const createOrder = async (req, res, next) => {
           "You need to provide price, a valid product id, amount, shipping cost and delivery address to place an order."
         );
     }
+    const enoughStock = await checkEnoughStock(req.body.content);
+    return res.status(200).json(enoughStock);
+    // if (!enoughStock)
+    //   return res
+    //     .status(401)
+    //     .json("We do not have enough stock to cover that order.");
     const { content } = req.body;
     const orderPayLoad = {
       content,
