@@ -19,7 +19,7 @@ export default function Form({ type, title }) {
     const validateMessage = formValidateMessage(formFields, type);
 
     if (validateMessage === "validates") {
-      const url = `http://localhost:5000/api/users/${type}`;
+      const url = `${process.env.REACT_APP_BASE_URL}/api/users/${type}`;
       try {
         const { data } = await axios.post(url, formFields);
         localStorage.setItem("tkn", data.token);

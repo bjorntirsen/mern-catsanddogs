@@ -32,7 +32,7 @@ const ProductDetails = ({ product }) => {
     const fetchAndAddOneOrManyToCart = async () => {
       if (localStorage.getItem("tkn")) {
         const token = localStorage.getItem("tkn");
-        const url = "/api/carts/addMany";
+        const url = `${process.env.REACT_APP_BASE_URL}/api/carts/addMany`;
         const body = {
           id: product._id,
           amount: quantity,
