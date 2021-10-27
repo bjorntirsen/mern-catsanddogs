@@ -160,6 +160,7 @@ const updateOneProduct = async (req, res, next) => {
 // DELETE one product by slug
 // ADMIN ONLY
 const deleteOneProduct = async (req, res, next) => {
+  console.log(req.body);
   try {
     const product = await Product.findOneAndDelete({ slug: req.params.slug });
     if (!product) {
