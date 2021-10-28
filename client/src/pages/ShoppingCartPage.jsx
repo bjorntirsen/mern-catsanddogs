@@ -131,7 +131,7 @@ export default function ShoppingCartPage() {
 
     const isProdNotAvailable = cartItemsOverStock.length > 0;
     if (isProdNotAvailable) {
-      console.log(updatedCart);
+      console.error(updatedCart);
       setProductsNotAvailable(cartItemsOverStock);
       return -1;
     }
