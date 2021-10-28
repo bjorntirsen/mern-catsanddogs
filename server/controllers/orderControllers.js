@@ -2,6 +2,8 @@ const { ObjectId } = require("mongoose").Types;
 const Order = require("../models/orderModel");
 const Product = require("../models/productModel");
 const User = require("../models/userModel");
+const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/AppError");
 
 async function isMissingOrderItem(order) {
   let missingOrderItem = false;
@@ -77,184 +79,158 @@ const updateStock = async (order) => {
   return true;
 };
 
-const createOrder = async (req, res, next) => {
-  try {
-    const validCart = await cartIsValid(req.body.content);
-    const customerId = req.user._id;
-    if (!req.body.content || validCart === "invalid products") {
-      return res
-        .status(401)
-        .json(
-          "You need to provide price, a valid product id, amount, shipping cost and delivery address to place an order."
-        );
-    }
-    if (validCart === "not enough stock") {
-      return res
-        .status(401)
-        .json("We do not have enough stock to cover that order.");
-    }
-    const { content } = req.body;
-    const orderPayLoad = {
-      content,
-      customerId,
-      deliveryAddress: req.user.address,
-      shippingCost: 15,
-    };
-    const newOrder = await Order.create(orderPayLoad);
-    // Empty cart array in User
-    const filter = { _id: customerId };
-    const update = {
-      $set: { cart: [] },
-    };
-    const updatedUser = await User.findOneAndUpdate(filter, update, {
-      new: true,
-    });
-    if (!updatedUser) return res.status(500).json("Could not empty array");
-    // Update Stock according to order
-    const stockWasUpdated = await updateStock(content);
-    res.status(201).json({
-      status: "success",
-      data: {
-        user: updatedUser,
-        order: newOrder,
-        stockWasUpdated,
-      },
-    });
-  } catch (err) {
-    res.status(400).json(err);
-  }
-};
-
-const getOrders = async (req, res, next) => {
+const createOrder = catchAsync(async (req, res, next) => {
+  const validCart = await cartIsValid(req.body.content);
   const customerId = req.user._id;
-  try {
-    //Will only limit query by customerId for non-admins
-    const limitQuery = req.user.adminUser ? {} : { customerId: customerId };
-    const orders = await Order.find(limitQuery);
-    if (!orders) {
-      return res.status(404).json("No orders found.");
-    }
-    res.status(200).json({
-      status: "success",
-      ordersPlaced: orders.length,
-      data: {
-        orders,
-      },
-    });
-  } catch (err) {
-    res.status(400).json(err);
+  if (!req.body.content || validCart === "invalid products") {
+    return next(
+      new AppError(
+        "You need to provide price, a valid product id, amount, shipping cost and delivery address to place an order.",
+        401
+      )
+    );
   }
-};
-
-const getOrderById = async (req, res, next) => {
-  try {
-    const order = await Order.findOne({ _id: req.params.orderId });
-    if (!order) {
-      return res.status(404).json("No order with that id was found.");
-    }
-    if (
-      !order.customerId.equals(ObjectId(req.user._id)) &&
-      !req.user.adminUser
-    ) {
-      return res
-        .status(403)
-        .json("You don't have permission to access this resource");
-    }
-    res.status(200).json({
-      status: "success",
-      data: {
-        order,
-      },
-    });
-  } catch (err) {
-    res.status(400).json(err);
+  if (validCart === "not enough stock") {
+    return next(
+      new AppError("We do not have enough stock to cover that order.", 401)
+    );
   }
-};
+  const { content } = req.body;
+  const orderPayLoad = {
+    content,
+    customerId,
+    deliveryAddress: req.user.address,
+    shippingCost: 15,
+  };
+  const newOrder = await Order.create(orderPayLoad);
+  // Empty cart array in User
+  const filter = { _id: customerId };
+  const update = {
+    $set: { cart: [] },
+  };
+  const updatedUser = await User.findOneAndUpdate(filter, update, {
+    new: true,
+  });
+  if (!updatedUser) return next(new AppError("Could not empty array", 500));
+  // Update Stock according to order
+  const stockWasUpdated = await updateStock(content);
+  res.status(201).json({
+    status: "success",
+    data: {
+      user: updatedUser,
+      order: newOrder,
+      stockWasUpdated,
+    },
+  });
+});
 
-const updateOrderById = async (req, res, next) => {
+const getOrders = catchAsync(async (req, res, next) => {
+  const customerId = req.user._id;
+  //Will only limit query by customerId for non-admins
+  const limitQuery = req.user.adminUser ? {} : { customerId: customerId };
+  const orders = await Order.find(limitQuery);
+  if (!orders) {
+    return next(new AppError("No orders found.", 404));
+  }
+  res.status(200).json({
+    status: "success",
+    ordersPlaced: orders.length,
+    data: {
+      orders,
+    },
+  });
+});
+
+const getOrderById = catchAsync(async (req, res, next) => {
+  const order = await Order.findOne({ _id: req.params.orderId });
+  if (!order) {
+    return res.status(404).json("No order with that id was found.");
+  }
+  if (!order.customerId.equals(ObjectId(req.user._id)) && !req.user.adminUser) {
+    return next(
+      new AppError("You don't have permission to access this resource", 403)
+    );
+  }
+  res.status(200).json({
+    status: "success",
+    data: {
+      order,
+    },
+  });
+});
+
+const updateOrderById = catchAsync(async (req, res, next) => {
   const missingOrderItem = await isMissingOrderItem(req.body.content);
-
-  try {
-    const order = await Order.findOne({ _id: req.params.orderId });
-    if (!order) {
-      return res.status(404).json("No order with that id found.");
-    }
-    if (
-      !req.body.customerId ||
-      !req.body.deliveryAddress ||
-      !req.body.status ||
-      !req.body.content ||
-      !req.body.shippingCost ||
-      missingOrderItem
-    ) {
-      return res
-        .status(401)
-        .json(
-          "You need to provide content, status and delivery address to place an order."
-        );
-    }
-    const updatedOrder = await Order.findOneAndUpdate(
-      { _id: order._id },
-      req.body,
-      {
-        new: true,
-        runValidators: true,
-      }
+  const order = await Order.findOne({ _id: req.params.orderId });
+  if (!order) {
+    return next(new AppError("No order with that id found.", 404));
+  }
+  if (
+    !req.body.customerId ||
+    !req.body.deliveryAddress ||
+    !req.body.status ||
+    !req.body.content ||
+    !req.body.shippingCost ||
+    missingOrderItem
+  ) {
+    return next(
+      new AppError(
+        "You need to provide content, status and delivery address to place an order.",
+        401
+      )
     );
-    res.status(200).json({
-      status: "success",
-      data: {
-        order: updatedOrder,
-      },
-    });
-  } catch (err) {
-    res.status(400).json(err);
   }
-};
-
-const updateStatusById = async (req, res, next) => {
-  try {
-    if (!req.body.status) {
-      return res
-        .status(400)
-        .json("You need to provide the status of the order.");
+  const updatedOrder = await Order.findOneAndUpdate(
+    { _id: order._id },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
     }
-    const order = await Order.findById(req.params.id);
-    if (!order) return res.status(404).json("No order with that id found.");
-    const updatedOrder = await Order.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        status: req.body.status,
-      },
-      {
-        new: true,
-      }
+  );
+  res.status(200).json({
+    status: "success",
+    data: {
+      order: updatedOrder,
+    },
+  });
+});
+
+const updateStatusById = catchAsync(async (req, res, next) => {
+  if (!req.body.status) {
+    return next(
+      new AppError("You need to provide the status of the order.", 400)
     );
-    res.status(200).json({
-      status: "success",
-      data: {
-        order: updatedOrder,
-      },
-    });
-  } catch (err) {
-    res.status(400).json(err);
   }
-};
-
-const deleteOrderById = async (req, res, next) => {
-  try {
-    const order = await Order.findOneAndDelete({ _id: req.params.orderId });
-    if (!order) {
-      return res.status(404).json("No order with that orderId found.");
+  const order = await Order.findById(req.params.id);
+  if (!order) return next(new AppError("No order with that id found.", 404));
+  const updatedOrder = await Order.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      status: req.body.status,
+    },
+    {
+      new: true,
     }
-    res.status(204).json({
-      status: "success",
-      data: null,
-    });
-  } catch (err) {
-    res.status(400).json(err);
+  );
+  res.status(200).json({
+    status: "success",
+    data: {
+      order: updatedOrder,
+    },
+  });
+});
+
+const deleteOrderById = catchAsync(async (req, res, next) => {
+  const order = await Order.findOneAndDelete({ _id: req.params.orderId });
+  if (!order) {
+    return next(new AppError("No order with that orderId found.", 404));
   }
-};
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
+});
 
 module.exports = {
   createOrder,
