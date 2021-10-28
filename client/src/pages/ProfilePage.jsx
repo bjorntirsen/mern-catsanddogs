@@ -12,7 +12,7 @@ export default function ProfilePage() {
     const fetchUser = async () => {
       if (localStorage.getItem("tkn")) {
         const token = localStorage.getItem("tkn");
-        const url = "/api/users/getMe";
+        const url = `${process.env.REACT_APP_BASE_URL}/api/users/getMe`;
         const obj = {
           headers: {
             authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ export default function ProfilePage() {
 
     if (localStorage.getItem("tkn")) {
       const token = localStorage.getItem("tkn");
-      const url = "/api/users/updateMe";
+      const url = `${process.env.REACT_APP_BASE_URL}/api/users/updateMe`;
       const payload = {
         method: "PATCH",
         headers: {

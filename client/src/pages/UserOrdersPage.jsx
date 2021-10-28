@@ -12,7 +12,7 @@ export default function UserOrdersPage() {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const url = "/api/orders";
+      const url = `${process.env.REACT_APP_BASE_URL}/api/orders`;
       const token = localStorage.getItem("tkn");
       const obj = {
         headers: {

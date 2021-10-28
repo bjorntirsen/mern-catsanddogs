@@ -39,7 +39,7 @@ const CartItem = ({
     );
 
     const token = localStorage.getItem("tkn");
-    const url = "/api/carts/update";
+    const url = `${process.env.REACT_APP_BASE_URL}/api/carts/update`;
     const obj = {
       method: "POST",
       headers: {

@@ -11,7 +11,7 @@ const OrderDetailsPage = ({ match }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       const token = localStorage.getItem("tkn");
-      const url = `/api/orders/${match.params.id}`;
+      const url = `${process.env.REACT_APP_BASE_URL}/api/orders/${match.params.id}`;
       const obj = {
         headers: {
           authorization: `Bearer ${token}`,
@@ -34,7 +34,7 @@ const OrderDetailsPage = ({ match }) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = "/api/products";
+      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Something went wrong!");

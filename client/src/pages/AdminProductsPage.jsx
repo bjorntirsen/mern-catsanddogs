@@ -11,7 +11,7 @@ export default function AdminProductsPage() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = "/api/products";
+      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
       const token = localStorage.getItem("tkn");
       const obj = {
         headers: {
@@ -40,7 +40,7 @@ export default function AdminProductsPage() {
     const confirm = window.confirm(`Are you sure you want to delete ${slug}`);
     if (!confirm) return;
     const token = localStorage.getItem("tkn");
-    const url = `/api/products/${slug}`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/products/${slug}`;
     const obj = {
       method: "DELETE",
       headers: {
