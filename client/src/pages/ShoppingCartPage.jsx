@@ -4,7 +4,12 @@ import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/Cart.module.css";
 import Button from "../components/Button";
 import CartItem from "../components/CartItem";
-import { appPostRequest, appFetchCall, appDeleteCall } from "../utils/apiCalls";
+import {
+  appPostRequest,
+  appFetchCall,
+  appDeleteCall,
+  appRemoveAllFromCart,
+} from "../utils/apiCalls";
 
 export default function ShoppingCartPage() {
   const { user, setUser } = useContext(UserContext);
@@ -118,7 +123,7 @@ export default function ShoppingCartPage() {
 
   const handleRemoveAllClick = async () => {
     const url = `${process.env.REACT_APP_BASE_URL}/api/carts/emptyCart`;
-    const responseData = await appDeleteCall(url);
+    const responseData = await appRemoveAllFromCart(url);
     setUser(responseData.data.user);
 
     setCart(null);
