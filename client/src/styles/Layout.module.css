@@ -1,5 +1,6 @@
 .main {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-column-gap: 24px;
+  margin: 3rem auto;
+  width: 90%;
+  max-width: 80rem;
+  min-height: calc(100vh - 413px);
 }

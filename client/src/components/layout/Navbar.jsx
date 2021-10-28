@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { UserContext } from "../../contexts/UserContext";
 import StandardLinks from "../../components/StandardLinks";
@@ -8,10 +8,13 @@ import UserLinks from "../../components/UserLinks";
 import AdminLinks from "../../components/AdminLinks";
 
 import styles from "../../styles/Navbar.module.css";
+import Hero from "../Hero";
 
 const Navbar = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
+  const location = useLocation();
+  const path = location.pathname;
 
   const handleLogout = () => {
     localStorage.removeItem("tkn");
@@ -21,31 +24,40 @@ const Navbar = () => {
 
   if (!user) {
     return (
-      <div>
-        <nav className={styles.nav}>
-          <StandardLinks />
-          <LoginLinks />
-        </nav>
-      </div>
+      <>
+        <header>
+          <nav className={styles.nav}>
+            <StandardLinks />
+            <LoginLinks />
+          </nav>
+        </header>
+        {path === "/" && <Hero />}
+      </>
     );
   }
   if (user && !user.adminUser) {
     return (
-      <div>
-        <nav className={styles.nav}>
-          <StandardLinks />
-          <UserLinks logoutHandler={handleLogout} />
-        </nav>
-      </div>
+      <>
+        <header>
+          <nav className={styles.nav}>
+            <StandardLinks />
+            <UserLinks logoutHandler={handleLogout} />
+          </nav>
+        </header>
+        {path === "/" && <Hero />}
+      </>
     );
   }
   return (
-    <div>
-      <nav className={styles.nav}>
-        <StandardLinks />
-        <AdminLinks logoutHandler={handleLogout} />
-      </nav>
-    </div>
+    <>
+      <header>
+        <nav className={styles.nav}>
+          <StandardLinks />
+          <AdminLinks logoutHandler={handleLogout} />
+        </nav>
+      </header>
+      {path === "/" && <Hero />}
+    </>
   );
 };
 

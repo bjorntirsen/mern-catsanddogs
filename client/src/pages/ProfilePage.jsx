@@ -84,7 +84,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className={styles.profile_container}>
+    <section className={styles.profile_container}>
       {isLoading && <p>Loading...</p>}
       {userToChange && !isLoading && (
         <div className={styles.details_card}>
@@ -150,10 +150,10 @@ export default function ProfilePage() {
         </div>
       )}
       {!userToChange && !isLoading && (
-        <div className={styles.card_line}>
+        <section className={styles.card_line}>
           You need to be logged in to see this page
-        </div>
+        </section>
       )}
-    </div>
+    </section>
   );
 }

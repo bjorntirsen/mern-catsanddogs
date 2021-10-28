@@ -4,7 +4,7 @@ import Button from "./Button";
 
 export default function Hero() {
   return (
-    <div className={styles.hero_container}>
+    <section className={styles.hero_container}>
       <Link to="/products/categories/cats">
         <div className={styles.cats}>
           <Button type="primary" text="Shop Cat Toys" />
@@ -15,6 +15,6 @@ export default function Hero() {
           <Button type="primary" text="Shop Dog Toys" />
         </div>
       </Link>
-    </div>
+    </section>
   );
 }
