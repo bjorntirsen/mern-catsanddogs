@@ -1,6 +1,7 @@
 import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminEditProduct.module.css";
 import { UserContext } from "../contexts/UserContext";
+import { appUpdateCall } from "../utils/apiCalls";
 
 const AdminEditOrderPage = ({ match }) => {
   const [order, setOrder] = useState(null);
@@ -50,26 +51,11 @@ const AdminEditOrderPage = ({ match }) => {
       return setMessage("Please enter a status for the order.");
     try {
       const url = `${process.env.REACT_APP_BASE_URL}/api/orders/status/${orderId}`;
-      const token = localStorage.getItem("tkn");
-      const obj = {
-        method: "PATCH",
-        headers: {
-          authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: orderStatus }),
-      };
-      const response = await fetch(url, obj);
-      const responseData = await response.json();
-      if (!response.ok) {
-        const responseErrorMessage = await response.json();
-        setMessage(responseErrorMessage);
-      }
-      if (response.ok) {
-        setOrderStatus(responseData.data.order.status);
-        setMessage("Successfully updated order's status!");
-        setWasChanged(false);
-      }
+      const responseData = await appUpdateCall(url, { status: orderStatus });
+      setOrderStatus(responseData.data.order.status);
+      setMessage("Successfully updated order's status!");
+      setWasChanged(false);
+      //}
     } catch (err) {
       console.error(err);
     }

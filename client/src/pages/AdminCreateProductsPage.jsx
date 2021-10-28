@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 
 import styles from "../styles/Form.module.css";
+import { appPostRequest } from "../utils/apiCalls";
 
 // Functions used to validate
 const validTitle = (value) =>
@@ -49,22 +50,10 @@ const AdminCreateProductsPage = () => {
   const changeHandler = (event) =>
     handleChange(event.target.value, event.target.id);
 
-  const handleCreateProduct = async (event) => {
-    event.preventDefault();
-    const token = localStorage.getItem("tkn");
+  const handleCreateProduct = async (e) => {
+    e.preventDefault();
     const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-    const obj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(formFields),
-    };
-    const response = await fetch(url, obj);
-    if (!response.ok) {
-      throw new Error("Something went wrong!");
-    }
+    await appPostRequest(url, formFields);
     history.push(`/admin/products`);
   };
 

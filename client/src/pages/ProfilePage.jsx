@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "../styles/ProfilePage.module.css";
 import { useHistory } from "react-router-dom";
+import { appUpdateCall } from "../utils/apiCalls";
+import { UserContext } from "../contexts/UserContext";
 export default function ProfilePage() {
+  const { setUser } = useContext(UserContext);
   const [editMode, setEditMode] = useState(false);
   const [userToChange, setUserToChange] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,26 +56,12 @@ export default function ProfilePage() {
     }
 
     if (localStorage.getItem("tkn")) {
-      const token = localStorage.getItem("tkn");
       const url = `${process.env.REACT_APP_BASE_URL}/api/users/updateMe`;
-      const payload = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(userToChange),
-      };
-
-      const response = await fetch(url, payload);
-
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-
-      const responseData = await response.json();
+      const responseData = await appUpdateCall(url, userToChange);
+      setUser(responseData.data.user);
       setUserToChange(responseData.data.user);
-      history.push("/");
+      setEditMode(false);
+      history.push("/profile");
     }
   };
 
@@ -92,7 +81,9 @@ export default function ProfilePage() {
             <span>Name:</span>
             {editMode ? (
               <input
-                onChange={(event) => handleChange(event.target.value, event.target.id)}
+                onChange={(event) =>
+                  handleChange(event.target.value, event.target.id)
+                }
                 placeholder={userToChange.fullName}
                 id="fullName"
                 type="text"
@@ -105,7 +96,9 @@ export default function ProfilePage() {
             <span>Email:</span>
             {editMode ? (
               <input
-                onChange={(event) => handleChange(event.target.value, event.target.id)}
+                onChange={(event) =>
+                  handleChange(event.target.value, event.target.id)
+                }
                 placeholder={userToChange.email}
                 id="email"
                 type="email"
@@ -118,7 +111,9 @@ export default function ProfilePage() {
             <span>Address:</span>
             {editMode ? (
               <input
-                onChange={(event) => handleChange(event.target.value, event.target.id)}
+                onChange={(event) =>
+                  handleChange(event.target.value, event.target.id)
+                }
                 placeholder={userToChange.address}
                 id="address"
                 type="text"
@@ -131,7 +126,9 @@ export default function ProfilePage() {
             <span>Phone Number:</span>
             {editMode ? (
               <input
-                onChange={(event) => handleChange(event.target.value, event.target.id)}
+                onChange={(event) =>
+                  handleChange(event.target.value, event.target.id)
+                }
                 placeholder={userToChange.phone}
                 id="phone"
                 type="text"

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/CartItem.module.css";
+import { appPostRequest } from "../utils/apiCalls";
 
 const CartItem = ({
   setCart,
@@ -36,22 +37,10 @@ const CartItem = ({
     const updatedCart = user.cart.filter(
       (item) => item.productId !== productId
     );
-
-    const token = localStorage.getItem("tkn");
     const url = `${process.env.REACT_APP_BASE_URL}/api/carts/update`;
-    const obj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ updatedCart }),
-    };
-    const response = await fetch(url, obj);
-    if (!response.ok) {
-      throw new Error("Something went wrong!");
-    }
-    const responseData = await response.json();
+
+    const responseData = await appPostRequest(url, { updatedCart });
+
     setUser(responseData.data.user);
     setCart(updatedCart);
     if (responseData.data.user.cart.length === 0) setTotalPrice(0);

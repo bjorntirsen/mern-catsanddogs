@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 
 import styles from "../styles/OrderDetailsPage.module.css";
+import { appFetchCall } from "../utils/apiCalls";
 
 const OrderDetailsPage = ({ match }) => {
   const [order, setOrder] = useState(null);
@@ -9,44 +10,29 @@ const OrderDetailsPage = ({ match }) => {
   const [products, setProducts] = useState(null);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const token = localStorage.getItem("tkn");
-      const url = `${process.env.REACT_APP_BASE_URL}/api/orders/${match.params.id}`;
-      const obj = {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      };
-      const response = await fetch(url, obj);
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const responseData = await response.json();
-
-      setOrder(responseData.data.order);
-      setIsLoading(false);
-    };
-    fetchProducts().catch((error) => {
-      setIsLoading(false);
-      setErrorMessage(error.message);
-    });
+    const url = `${process.env.REACT_APP_BASE_URL}/api/orders/${match.params.id}`;
+    appFetchCall(url)
+      .then((responseData) => {
+        setOrder(responseData.data.order);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setErrorMessage(error.message);
+      });
   }, [match]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const responseData = await response.json();
-      setProducts(responseData.data.products);
-      setIsLoading(false);
-    };
-    fetchProducts().catch((error) => {
-      setIsLoading(false);
-      setErrorMessage(error.message);
-    });
+    const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
+    appFetchCall(url)
+      .then((responseData) => {
+        setProducts(responseData.data.products);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setErrorMessage(error.message);
+      });
   }, []);
 
   if (isLoading) {

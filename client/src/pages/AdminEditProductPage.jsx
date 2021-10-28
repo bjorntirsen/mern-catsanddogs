@@ -1,6 +1,7 @@
 import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminEditProduct.module.css";
 import { UserContext } from "../contexts/UserContext";
+import { appPostRequest, appFetchCall } from "../utils/apiCalls";
 
 const AdminEditProductPage = ({ match }) => {
   const [products, setProducts] = useState(null);
@@ -13,27 +14,16 @@ const AdminEditProductPage = ({ match }) => {
   const slug = match.url.split("/")[3];
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-      const token = localStorage.getItem("tkn");
-      const obj = {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      };
-
-      const response = await fetch(url, obj);
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const responseData = await response.json();
-      setProducts(responseData.data.products);
-      setIsLoading(false);
-    };
-    fetchProducts().catch((error) => {
-      setIsLoading(false);
-      setErrorMessage(error.message);
-    });
+    const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
+    appFetchCall(url)
+      .then((responseData) => {
+        setProducts(responseData.data.products);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setErrorMessage(error.message);
+      });
   }, [match]);
 
   useEffect(() => {
@@ -74,22 +64,12 @@ const AdminEditProductPage = ({ match }) => {
   const handleOnSubmit = (slug) => async (event) => {
     event.preventDefault();
     const url = `${process.env.REACT_APP_BASE_URL}/api/products/${slug}`;
-    const token = localStorage.getItem("tkn");
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(product),
-    });
-    if (!response.ok) {
-      const responseErrorMessage = await response.json();
-      setMessage(responseErrorMessage);
-    }
-    if (response.ok) {
-      setMessage("Successfully updated product!");
+    try {
+      await appPostRequest(url, product);
+      setMessage("Successfully updated product");
+    } catch (e) {
+      setMessage(e.message);
     }
   };
 

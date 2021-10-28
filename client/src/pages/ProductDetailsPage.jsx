@@ -4,6 +4,7 @@ import ProductDetails from "../components/ProductDetails.jsx";
 import RelatedProducts from "../components/RelatedProducts.jsx";
 
 import styles from "../styles/ProductDetailsPage.module.css";
+import { appFetchCall } from "../utils/apiCalls.js";
 
 const ProductDetailsPage = ({ match }) => {
   const [products, setProducts] = useState(null);
@@ -16,20 +17,16 @@ const ProductDetailsPage = ({ match }) => {
 
   // Store products from db in state
   useEffect(() => {
-    const fetchProducts = async () => {
-      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const responseData = await response.json();
-      setProducts(responseData.data.products);
-      setIsLoading(false);
-    };
-    fetchProducts().catch((error) => {
-      setIsLoading(false);
-      setErrorMessage(error.message);
-    });
+    const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
+    appFetchCall(url)
+      .then((responseData) => {
+        setProducts(responseData.data.products);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setErrorMessage(error.message);
+      });
   }, [match]);
 
   useEffect(() => {
