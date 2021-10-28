@@ -2,6 +2,8 @@
 
 ## a MERN Full-Stack Webshop
 
+Site link: https://mern-catsanddogs.netlify.app/
+
 ### Made by "Team 6" from Nackademin Class Webb20
 
 ### Members (in alphabetical order):
