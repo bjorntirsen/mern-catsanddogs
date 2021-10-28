@@ -14,9 +14,14 @@ nav {
   background-color: var(--yellow);
 }
 
+.title {
+  font-size: 2rem;
+}
+
 .left {
-  grid-column: 1;
-  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .center {

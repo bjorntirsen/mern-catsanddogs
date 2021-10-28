@@ -14,7 +14,7 @@ const StandardLinks = () => {
         </li>
         <li className={styles.li}>
           <NavLink to="/">
-            <span>Cats&Dogs</span>
+            <span className={styles.title}>Cats&Dogs</span>
           </NavLink>
         </li>
       </div>
