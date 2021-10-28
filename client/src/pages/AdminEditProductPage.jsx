@@ -1,6 +1,7 @@
 import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminEditProduct.module.css";
 import { UserContext } from "../contexts/UserContext";
+import { appPostRequest } from "../utils/apiCalls";
 
 const AdminEditProductPage = ({ match }) => {
   const [products, setProducts] = useState(null);
@@ -74,22 +75,12 @@ const AdminEditProductPage = ({ match }) => {
   const handleOnSubmit = (slug) => async (event) => {
     event.preventDefault();
     const url = `${process.env.REACT_APP_BASE_URL}/api/products/${slug}`;
-    const token = localStorage.getItem("tkn");
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(product),
-    });
-    if (!response.ok) {
-      const responseErrorMessage = await response.json();
-      setMessage(responseErrorMessage);
-    }
-    if (response.ok) {
-      setMessage("Successfully updated product!");
+    try {
+      await appPostRequest(url, product);
+      setMessage("Successfully updated product");
+    } catch (e) {
+      setMessage(e.message);
     }
   };
 

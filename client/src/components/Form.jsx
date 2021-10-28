@@ -3,9 +3,9 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "../styles/Form.module.css";
 import btnStyles from "../styles/Button.module.css";
 import Button from "./Button";
-import axios from "axios";
 import { formValidateMessage } from "../utils/formValidateMessage";
 import { UserContext } from "../contexts/UserContext";
+import { appPostRequest } from "../utils/apiCalls";
 
 export default function Form({ type, title }) {
   const [formFields, setFormFields] = useState(null);
@@ -21,9 +21,9 @@ export default function Form({ type, title }) {
     if (validateMessage === "validates") {
       const url = `${process.env.REACT_APP_BASE_URL}/api/users/${type}`;
       try {
-        const { data } = await axios.post(url, formFields);
-        localStorage.setItem("tkn", data.token);
-        setUser(data.data.user);
+        const responseData = await appPostRequest(url, formFields);
+        localStorage.setItem("tkn", responseData.token);
+        setUser(responseData.data.user);
         history.push("/");
       } catch (e) {
         if (e.response.data.errorCode === 11000) {
@@ -162,7 +162,6 @@ export default function Form({ type, title }) {
             />
           </div>
           <div className={styles.formCol}>
-            {/* Byt ut nedantående mot Button components */}
             <Button text="Login" type="primary" />
             <Link
               className={`${btnStyles.btn} ${btnStyles.btnSecondary}`}

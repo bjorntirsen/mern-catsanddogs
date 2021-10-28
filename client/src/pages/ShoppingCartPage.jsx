@@ -4,6 +4,7 @@ import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/Cart.module.css";
 import Button from "../components/Button";
 import CartItem from "../components/CartItem";
+import { appPostRequest } from "../utils/apiCalls";
 
 export default function ShoppingCartPage() {
   const { user, setUser } = useContext(UserContext);
@@ -80,21 +81,8 @@ export default function ShoppingCartPage() {
   }, [user, products, calculateTotal]);
 
   const handleSaveCart = async () => {
-    const token = localStorage.getItem("tkn");
     const url = `${process.env.REACT_APP_BASE_URL}/api/carts/update`;
-    const obj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ updatedCart: cart }),
-    };
-    const response = await fetch(url, obj);
-    if (!response.ok) {
-      throw new Error("Something went wrong!");
-    }
-    const responseData = await response.json();
+    const responseData = await appPostRequest(url, { updatedCart: cart });
     setUser(responseData.data.user);
     setWasChanged(false);
   };
@@ -112,16 +100,7 @@ export default function ShoppingCartPage() {
 
   const handleCreateOrder = async () => {
     const updatedCart = addUnitPriceToCart(cart);
-    const token = localStorage.getItem("tkn");
     const url = `${process.env.REACT_APP_BASE_URL}/api/orders`;
-    const obj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ content: updatedCart }),
-    };
     const cartItemsOverStock = updatedCart
       .map((item) => item.productId)
       .map((id) => {
@@ -136,11 +115,7 @@ export default function ShoppingCartPage() {
       return -1;
     }
 
-    const response = await fetch(url, obj);
-    if (!response.ok) {
-      throw new Error("Something went wrong!");
-    }
-    const responseData = await response.json();
+    const responseData = await appPostRequest(url, { content: updatedCart });
     setUser(responseData.data.user);
     history.push(`/orders/${responseData.data.order._id}`);
   };
