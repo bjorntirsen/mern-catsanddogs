@@ -37,25 +37,25 @@ export default function AdminOrdersPage() {
     });
   }, []);
 
-  if (!user || !user.adminUser) {
+  if (isLoading) {
     return (
-      <section>
-        <p>You do not have permisson to access this page</p>
+      <section className={styles.IsLoading}>
+        <p>Loading...</p>
       </section>
     );
   }
-
-  if (isLoading) {
+  
+  if (!user || !user.adminUser) {
     return (
-      <section>
-        <p>Loading...</p>
+      <section className={styles.ErrorMessage}>
+        <p>You do not have permisson to access this page</p>
       </section>
     );
   }
 
   if (errorMessage) {
     return (
-      <section>
+      <section className={styles.ErrorMessage}>
         <p>{errorMessage}</p>
       </section>
     );

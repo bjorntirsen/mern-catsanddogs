@@ -31,18 +31,18 @@ export default function AdminProductsPage() {
     setProducts((pp) => pp.filter((p) => p.slug !== slug));
   };
 
-  if (!user || !user.adminUser) {
-    return (
-      <section>
-        <p>You do not have permission to access this page</p>
-      </section>
-    );
-  }
-
   if (isLoading) {
     return (
       <section className={styles.IsLoading}>
         <p>Loading...</p>
+      </section>
+    );
+  }
+
+  if (!user || !user.adminUser) {
+    return (
+      <section className={styles.body}>
+        <p>You do not have permission to access this page</p>
       </section>
     );
   }

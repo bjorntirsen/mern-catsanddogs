@@ -36,26 +36,26 @@ export default function UserOrdersPage() {
       setErrorMessage(error.message);
     });
   }, []);
+  
+    if (isLoading) {
+      return (
+        <section className={styles.IsLoading}>
+          <p>Loading...</p>
+        </section>
+      );
+    }
 
   if (!user) {
     return (
-      <section>
+      <section className={styles.ErrorMessage}>
         <p>Please login to access this page</p>
-      </section>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <section>
-        <p>Loading...</p>
       </section>
     );
   }
 
   if (errorMessage) {
     return (
-      <section>
+      <section className={styles.ErrorMessage}>
         <p>{errorMessage}</p>
       </section>
     );
