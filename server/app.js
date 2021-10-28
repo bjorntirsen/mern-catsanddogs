@@ -42,6 +42,14 @@ app.use("/api/products", productsRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/carts", cartsRouter);
 
+// Global error handler
+app.use((err, req, res, next) =>
+  res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
+  })
+);
+
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
