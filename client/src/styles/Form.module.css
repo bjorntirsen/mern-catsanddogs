@@ -3,6 +3,12 @@
   margin: 1rem auto;
 }
 
+h1 {
+  font-size: 4rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
 .formContainer {
   width: 40vw;
   display: grid;

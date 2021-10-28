@@ -6,6 +6,12 @@
   align-items: center;
 }
 
+h1 {
+  font-size: 4rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
 .image_box {
   width: 15%;
   text-align: center;
