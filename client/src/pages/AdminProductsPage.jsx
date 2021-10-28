@@ -2,6 +2,7 @@ import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "../components/Button";
 import { UserContext } from "../contexts/UserContext";
+import { fetchProducts } from "../utils/apiCalls";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState(null);
@@ -10,30 +11,16 @@ export default function AdminProductsPage() {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-      const token = localStorage.getItem("tkn");
-      const obj = {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      };
-
-      const response = await fetch(url, obj);
-
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-
-      const responseData = await response.json();
-
-      setProducts(responseData.data.products);
-      setIsLoading(false);
-    };
-    fetchProducts().catch((error) => {
-      setIsLoading(false);
-      setErrorMessage(error.message);
-    });
+    const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
+    fetchProducts(url)
+      .then((responseData) => {
+        setProducts(responseData.data.products);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setErrorMessage(error.message);
+      });
   }, []);
 
   const handleDelete = (slug) => async (event) => {

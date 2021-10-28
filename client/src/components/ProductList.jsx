@@ -3,6 +3,7 @@ import { React, useState, useEffect } from "react";
 import Product from "./Product";
 import styles from "../styles/ProductList.module.css";
 import SearchBar from "../components/SearchBar";
+import { fetchProducts } from "../utils/apiCalls";
 
 const ProductList = (props) => {
   const [products, setProducts] = useState(null);
@@ -11,32 +12,26 @@ const ProductList = (props) => {
 
   useEffect(() => {
     let isMounted = true;
-    const fetchProducts = async () => {
-      let url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-      if (props.category) {
-        const { category } = props;
-        const singularCategory = category.substring(0, 3);
-        url += `/categories/${singularCategory}`;
-      }
+    let url = `${process.env.REACT_APP_BASE_URL}/api/products`;
+    if (props.category) {
+      const { category } = props;
+      const singularCategory = category.substring(0, 3);
+      url += `/categories/${singularCategory}`;
+    }
 
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-
-      const responseData = await response.json();
-      if (isMounted) {
-        setProducts(responseData.data.products);
-        setIsLoading(false);
-      }
-    };
-    fetchProducts().catch((error) => {
-      if (isMounted) {
-        setIsLoading(false);
-        setErrorMessage(error.message);
-      }
-    });
+    fetchProducts(url)
+      .then((responseData) => {
+        if (isMounted) {
+          setProducts(responseData.data.products);
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        if (isMounted) {
+          setIsLoading(false);
+          setErrorMessage(error.message);
+        }
+      });
     return () => {
       isMounted = false;
     };

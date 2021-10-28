@@ -4,7 +4,7 @@ import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/Cart.module.css";
 import Button from "../components/Button";
 import CartItem from "../components/CartItem";
-import { appPostRequest } from "../utils/apiCalls";
+import { appPostRequest, fetchProducts } from "../utils/apiCalls";
 
 export default function ShoppingCartPage() {
   const { user, setUser } = useContext(UserContext);
@@ -19,24 +19,20 @@ export default function ShoppingCartPage() {
 
   useEffect(() => {
     let isMounted = true;
-    const fetchProducts = async () => {
-      const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const responseData = await response.json();
-      if (isMounted) {
-        setProducts(responseData.data.products);
-        setIsLoading(false);
-      }
-    };
-    fetchProducts().catch((error) => {
-      if (isMounted) {
-        setIsLoading(false);
-        setErrorMessage(error.message);
-      }
-    });
+    const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
+    fetchProducts(url)
+      .then((responseData) => {
+        if (isMounted) {
+          setProducts(responseData.data.products);
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        if (isMounted) {
+          setIsLoading(false);
+          setErrorMessage(error.message);
+        }
+      });
     return () => {
       isMounted = false;
     };
