@@ -96,7 +96,7 @@ const OrderDetailsPage = ({ match }) => {
     );
   }
 
-  return <div>OrderDetailsPage</div>;
+  return <section>Something went wrong...</section>;
 };
 
 export default OrderDetailsPage;

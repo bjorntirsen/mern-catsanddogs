@@ -3,13 +3,18 @@
   margin: 1rem auto;
 }
 
+h1 {
+  font-size: 4rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
 .formContainer {
   width: 40vw;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-column-gap: 24px;
   border: 0.5px solid var(--lightgrey);
-  border-radius: 6px;
   padding: 24px;
   margin: 1rem auto;
 }
@@ -28,7 +33,6 @@
   margin-bottom: 12px;
   padding: 10px;
   border: 0.5px solid var(--lightgrey);
-  border-radius: 6px;
 }
 
 .formCol label {
@@ -40,15 +44,14 @@
   text-align: center;
   border: none;
   margin-top: 20px;
-  border-radius: 14px;
 }
 
 .success {
-  background-color: #d1fae5;
-  color: #065f46;
+  background-color: var(--lightmint);
+  color: var(--darkmint);
 }
 
 .error {
-  background-color: #fecaca;
-  color: #991b1b;
+  background-color: var(--lightpink);
+  color: var(--burgandyred);
 }

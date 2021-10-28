@@ -47,4 +47,22 @@ h3 {
   margin-bottom: 24px;
   color: var(--lightgrey);
   text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+p {
+  font-style: normal;
+  font-weight: 300;
+}
+
+p,
+h4 {
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+a {
+  text-decoration: none;
 }

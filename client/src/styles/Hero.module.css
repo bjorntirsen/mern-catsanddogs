@@ -2,7 +2,7 @@
   margin: auto;
   position: relative;
   width: 100vw !important;
-  background-color: #f4f4f4;
+  background-color: var(--lightbackground2);
   height: 800px;
   max-height: 800px;
   justify-content: space-around;

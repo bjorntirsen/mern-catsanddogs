@@ -21,8 +21,8 @@ const ProductDetails = ({ product }) => {
     else setQuantity(quantity + 1);
   };
 
-  const onChangeHandler = (e) => {
-    setQuantity(parseInt(e.target.value));
+  const onChangeHandler = (event) => {
+    setQuantity(parseInt(event.target.value));
   };
 
   const addToCart = () => {

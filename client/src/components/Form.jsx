@@ -54,7 +54,7 @@ export default function Form({ type, title }) {
 
   if (type === "signup") {
     return (
-      <>
+      <section>
         <form
           onSubmit={handleSubmit}
           className={styles.formContainer}
@@ -132,11 +132,11 @@ export default function Form({ type, title }) {
             </p>
           )}
         </form>
-      </>
+      </section>
     );
   } else if (type === "login") {
     return (
-      <>
+      <section>
         <form
           onSubmit={handleSubmit}
           className={styles.formContainer}
@@ -180,7 +180,7 @@ export default function Form({ type, title }) {
             </p>
           )}
         </form>
-      </>
+      </section>
     );
   }
 }

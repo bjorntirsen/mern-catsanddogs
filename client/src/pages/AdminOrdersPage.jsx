@@ -1,4 +1,5 @@
 import { React, useEffect, useState, useContext } from "react";
+import { NavLink } from "react-router-dom";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "../components/Button";
 import { UserContext } from "../contexts/UserContext";
@@ -62,7 +63,7 @@ export default function AdminOrdersPage() {
 
   if (orders) {
     return (
-      <div className={styles.body}>
+      <section className={styles.body}>
         <div className={styles.ap_container}>
           <h2 className={styles.header}>Admin Page</h2>
           <h3 className={styles.header}>Orders List</h3>
@@ -72,6 +73,7 @@ export default function AdminOrdersPage() {
                 <th className={styles.th_big}>Order Id</th>
                 <th className={styles.th_small}>Order Date</th>
                 <th className={styles.th_small}>Address</th>
+                <th className={styles.th_small}>Order details</th>
                 <th className={styles.th_small}>Status</th>
                 <th className={styles.th_small}>Edit</th>
               </tr>
@@ -85,6 +87,11 @@ export default function AdminOrdersPage() {
                       {new Date(order.datePlaced).toLocaleString("en-US")}
                     </td>
                     <td>{order.deliveryAddress}</td>
+                    <td>
+                      <NavLink to={`/orders/${order._id}`}>
+                        <Button text={"Order details"} type={"primary"} />
+                      </NavLink>
+                    </td>
                     <td>{order.status}</td>
                     <td>
                       <a href={`/admin/orders/${order._id}`}>
@@ -97,7 +104,7 @@ export default function AdminOrdersPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      </section>
     );
   }
 

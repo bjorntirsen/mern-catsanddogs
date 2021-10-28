@@ -4,11 +4,21 @@
 /************ GLOBAL COLORS ************/
 :root {
   --white: #fff;
-  --black: #000;
-  --lightgrey: #a4a4a4;
+  --lightbackground1: #fcfcfc;
+  --lightbackground2: #f9f9f9;
+  --lightmint: #d1fae5;
+  --black: #000000;
+  --lightblack: #0000000d;
   --darkgrey: #1d1d1b;
-  --satsumas: #ffce45;
+  --darkshade: #87878733;
+  --lightgrey: #a4a4a4;
+  --grey: #c2c2c2;
+  --lightpink: #fecaca;
+  --orangered: #ff4500;
+  --firered: #e44c4c;
+  --burgandyred: #991b1b;
   --yellow: #ffce45;
+  --darkmint: #065f46;
 }
 
 /************ GLOBAL STYLES ************/
@@ -25,71 +35,4 @@ html {
   height: 100%;
   background-color: var(--white);
   color: var(--darkgrey);
-}
-
-h1 {
-  font-size: 4rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-}
-
-a {
-  text-decoration: none;
-}
-
-/************ MENU STYLES ************/
-.navbar {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: var(--yellow);
-  display: flex;
-  align-items: center;
-}
-
-h2 {
-  font-size: 2.5rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-}
-
-h3 {
-  font-size: 1.5rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-}
-
-p {
-  font-style: normal;
-  font-weight: 300;
-}
-
-p,
-h4 {
-  font-size: 1.25rem;
-  letter-spacing: 0.02em;
-}
-
-/************ CONTAINERS ************/
-.container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-column-gap: 24px;
-}
-
-.products-container {
-  display: grid;
-  grid-column-gap: 24px;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.product-container {
-  border: 0.5px solid var(--lightgrey);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-  color: var(--darkgrey);
-  overflow: scroll;
-  height: 100%;
 }

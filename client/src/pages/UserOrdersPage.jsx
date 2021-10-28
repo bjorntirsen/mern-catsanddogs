@@ -65,7 +65,7 @@ export default function UserOrdersPage() {
 
   if (UserOrders) {
     return (
-      <div className={styles.body}>
+      <section className={styles.body}>
         <div className={styles.ap_container}>
           <h2 className={styles.header}>My Orders</h2>
           <table className={styles.ap_table}>
@@ -97,7 +97,7 @@ export default function UserOrdersPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      </section>
     );
   }
 }

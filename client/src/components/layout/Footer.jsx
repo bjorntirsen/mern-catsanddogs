@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "../styles/Footer.module.css";
-import logo from "../assets/logo-white.png";
+import styles from "../../styles/Footer.module.css";
+import logo from "../../assets/logo-white.png";
 
 export default function Footer() {
   return (
-    <div className={styles.footerContainer}>
+    <footer className={styles.footerContainer}>
       <div className={`${styles.footerContent} ${styles.footerMain}`}>
         <div className={styles.footerCol}>
           <img src={logo} alt="Logo" />
@@ -26,12 +26,10 @@ export default function Footer() {
           </Link>
         </div>
       </div>
-      <div
-        className={`${styles.footerContent} ${styles.footerCol}`}
-      >
+      <div className={`${styles.footerContent} ${styles.footerCol}`}>
         <hr />
         <p>© Cats & Dogs 2021</p>
       </div>
-    </div>
+    </footer>
   );
 }

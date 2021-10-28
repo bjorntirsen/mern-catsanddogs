@@ -1,13 +1,17 @@
 .body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom right, #fcfcfc, #f9f9f9);
+  background: linear-gradient(
+    to bottom right,
+    var(--lightbackground1),
+    var(--lightbackground2)
+  );
   display: flex;
   justify-content: center;
   align-items: center;
- }
+}
 
- .IsLoading {
+.IsLoading {
   text-align: center;
   padding: 1rem;
 }
@@ -18,24 +22,24 @@
   padding: 1rem;
 }
 
- .ap_container {
+.ap_container {
   width: 70%;
-  background-color: #ffffff;
+  background-color: var(--white);
   border-radius: 20px;
-  box-shadow: 0px 25px 40px #87878733;
+  box-shadow: 0px 25px 40px var(--darkshade);
   margin-bottom: 1rem;
   padding-bottom: 2rem;
- }
- .header {
+}
+.header {
   margin: auto;
   width: 90%;
   height: 15%;
   display: flex;
   justify-content: space-between;
   align-items: center;
- }
+}
 
- .ap_table {
+.ap_table {
   width: 90%;
   border-collapse: collapse;
   margin: 0 auto;
@@ -48,7 +52,7 @@
 }
 
 .th_id {
-  background-color: #ffce45;
+  background-color: var(--yellow);
 }
 
 .input {
@@ -59,26 +63,31 @@
 }
 
 button {
-	border-radius: 12px;
-	border: none;
-	outline: none;
-	padding: 10px;
-	display: inline-block;
-	font-size: 16px;
-	text-align: center;
-	text-decoration: none;
-	background-color: var(--yellow);
-	color: var(--black);
+  border: none;
+  outline: none;
+  padding: 10px;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  background-color: var(--yellow);
+  color: var(--black);
   margin-left: 3rem;
   cursor: pointer;
 }
 
 button:hover {
-	opacity: 0.5;
+  opacity: 0.5;
 }
 
 .message {
   margin: 1.5rem 3rem 0 3rem;
   font-weight: bold;
-  color: orangered;
+  color: var(--orangered);
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
 }

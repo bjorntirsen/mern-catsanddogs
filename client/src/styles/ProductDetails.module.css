@@ -1,7 +1,7 @@
 .container {
-  width: 100vw;
+  width: 100%;
   max-width: 1280px;
-  background-color: #fff;
+  background-color: var(--white);
   margin: 100px auto 0 auto;
 }
 
@@ -9,9 +9,21 @@
   font-size: 2rem;
 }
 
+h2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
 .container h3 {
   font-size: 1.25rem;
 }
+
+h4 {
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
 .container p {
   font-size: 1rem;
 }
@@ -29,7 +41,7 @@
 }
 
 .details_top_content {
-  background-color: #fafafa;
+  background-color: var(--lightbackground2);
   padding: 40px 60px;
   width: 600px;
   height: 650px;
@@ -50,7 +62,7 @@
 .main_image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .secondary_images_container {
@@ -95,7 +107,6 @@
   width: 32%;
   align-items: center;
   margin: 25px;
-  border-radius: 15px;
   padding-top: 0px;
   padding-bottom: 0px;
 }
@@ -118,7 +129,7 @@
 }
 .cta_area .quantity {
   margin-left: 10px;
-  border: 1px solid #c1c1c1;
+  border: 1px solid var(--grey);
 }
 .quantity :first-child {
   margin-left: 5px;
@@ -158,7 +169,7 @@
   overflow: hidden;
 }
 .related_products div img {
-  border: 1px solid #f4f4f4;
+  border: 1px solid var(--lightbackground2);
   width: 100%;
   height: 300px;
   object-fit: cover;

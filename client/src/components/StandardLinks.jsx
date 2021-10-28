@@ -12,6 +12,11 @@ const StandardLinks = () => {
             <img className={styles.logo} src={logo} alt="logo" />
           </NavLink>
         </li>
+        <li className={styles.li}>
+          <NavLink to="/">
+            <span>Cats&Dogs</span>
+          </NavLink>
+        </li>
       </div>
 
       <div className={styles.center}>

@@ -47,7 +47,8 @@ const AdminCreateProductsPage = () => {
     setFormFields(payload);
   };
 
-  const changeHandler = (e) => handleChange(e.target.value, e.target.id);
+  const changeHandler = (event) =>
+    handleChange(event.target.value, event.target.id);
 
   const handleCreateProduct = async (e) => {
     e.preventDefault();
@@ -75,89 +76,91 @@ const AdminCreateProductsPage = () => {
     formIsValid = true;
 
   return (
-    <form
-      onSubmit={handleCreateProduct}
-      className={styles.formContainer}
-      onChange={changeHandler}
-    >
-      <h1 className={styles.header}>Create product</h1>
-      <Input
-        label="Title:"
-        inputId="title"
-        type="text"
-        errorMessage="Please enter a title between 5-40 characters long."
-        validationFunction={validTitle}
-        isValid={titleIsValid}
-        setIsValid={setTitleIsValid}
-      />
-      <Input
-        label="Price:"
-        inputId="price"
-        type="number"
-        errorMessage="Please enter a price."
-        validationFunction={isNumeric}
-        isValid={priceIsValid}
-        setIsValid={setPriceIsValid}
-      />
-      <Input
-        label="Category:"
-        inputId="category"
-        type="text"
-        errorMessage="Available categories is either cat or dog"
-        validationFunction={validCategory}
-        isValid={categoryIsValid}
-        setIsValid={setCategoryIsValid}
-      />
-      <Input
-        label="Description:"
-        inputId="description"
-        type="text"
-        errorMessage="Please enter a description between 15-1024 characters long."
-        validationFunction={validDescription}
-        isValid={descriptionIsValid}
-        setIsValid={setDescriptionIsValid}
-      />
-      <Input
-        label="URL to image:"
-        inputId="imageUrl"
-        type="url"
-        errorMessage="Please enter a valid URL."
-        validationFunction={isValidHttpUrl}
-        isValid={imageUrlIsValid}
-        setIsValid={setImageUrlIsValid}
-      />
-      <Input
-        label="Weight:"
-        inputId="weight"
-        type="text"
-        errorMessage="Please enter a weight."
-        validationFunction={isNotEmpty}
-        isValid={weightIsValid}
-        setIsValid={setWeightIsValid}
-      />
-      <Input
-        label="Maker:"
-        inputId="maker"
-        type="text"
-        errorMessage="Please enter a maker."
-        validationFunction={isNotEmpty}
-        isValid={makerIsValid}
-        setIsValid={setMakerIsValid}
-      />
-      <Input
-        label="Stock:"
-        inputId="stock"
-        type="number"
-        errorMessage="Please enter stock."
-        validationFunction={isNumeric}
-        isValid={stockIsValid}
-        setIsValid={setStockIsValid}
-      />
-      <div className={styles.formCol}>
-        <Button text="Create" type="primary" disabled={!formIsValid} />
-        <Button text="Cancel" type="secondary" onClick={handleCancel} />
-      </div>
-    </form>
+    <section>
+      <form
+        onSubmit={handleCreateProduct}
+        className={styles.formContainer}
+        onChange={changeHandler}
+      >
+        <h1 className={styles.header}>Create product</h1>
+        <Input
+          label="Title:"
+          inputId="title"
+          type="text"
+          errorMessage="Please enter a title between 5-40 characters long."
+          validationFunction={validTitle}
+          isValid={titleIsValid}
+          setIsValid={setTitleIsValid}
+        />
+        <Input
+          label="Price:"
+          inputId="price"
+          type="number"
+          errorMessage="Please enter a price."
+          validationFunction={isNumeric}
+          isValid={priceIsValid}
+          setIsValid={setPriceIsValid}
+        />
+        <Input
+          label="Category:"
+          inputId="category"
+          type="text"
+          errorMessage="Available categories is either cat or dog"
+          validationFunction={validCategory}
+          isValid={categoryIsValid}
+          setIsValid={setCategoryIsValid}
+        />
+        <Input
+          label="Description:"
+          inputId="description"
+          type="text"
+          errorMessage="Please enter a description between 15-1024 characters long."
+          validationFunction={validDescription}
+          isValid={descriptionIsValid}
+          setIsValid={setDescriptionIsValid}
+        />
+        <Input
+          label="URL to image:"
+          inputId="imageUrl"
+          type="url"
+          errorMessage="Please enter a valid URL."
+          validationFunction={isValidHttpUrl}
+          isValid={imageUrlIsValid}
+          setIsValid={setImageUrlIsValid}
+        />
+        <Input
+          label="Weight:"
+          inputId="weight"
+          type="text"
+          errorMessage="Please enter a weight."
+          validationFunction={isNotEmpty}
+          isValid={weightIsValid}
+          setIsValid={setWeightIsValid}
+        />
+        <Input
+          label="Maker:"
+          inputId="maker"
+          type="text"
+          errorMessage="Please enter a maker."
+          validationFunction={isNotEmpty}
+          isValid={makerIsValid}
+          setIsValid={setMakerIsValid}
+        />
+        <Input
+          label="Stock:"
+          inputId="stock"
+          type="number"
+          errorMessage="Please enter stock."
+          validationFunction={isNumeric}
+          isValid={stockIsValid}
+          setIsValid={setStockIsValid}
+        />
+        <div className={styles.formCol}>
+          <Button text="Create" type="primary" disabled={!formIsValid} />
+          <Button text="Cancel" type="secondary" onClick={handleCancel} />
+        </div>
+      </form>
+    </section>
   );
 };
 export default AdminCreateProductsPage;

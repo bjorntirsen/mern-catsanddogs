@@ -13,9 +13,9 @@ const CartItem = ({
   const [quantity, setQuantity] = useState(amount);
   const { user, setUser } = useContext(UserContext);
 
-  const handleChange = (e) => {
-    changeQuantityHandler(product._id, (_amount) => parseInt(e.target.value));
-    setQuantity(parseInt(e.target.value));
+  const handleChange = (event) => {
+    changeQuantityHandler(product._id, (_amount) => parseInt(event.target.value));
+    setQuantity(parseInt(event.target.value));
   };
 
   const handleIncrease = () => {
@@ -87,3 +87,4 @@ const CartItem = ({
 };
 
 export default CartItem;
+

@@ -39,26 +39,26 @@ const AdminEditProductPage = ({ match }) => {
 
   function renderInputs(keyList) {
     return Object.entries(product)
-      .filter(([k, v]) => keyList.includes(k))
-      .map(([k, v]) => (
-        <tr key={k}>
-          <th className={styles.th}>{k}</th>
+      .filter(([key, value]) => keyList.includes(key))
+      .map(([key, value]) => (
+        <tr key={key}>
+          <th className={styles.th}>{key}</th>
           <td>
             <input
               className={styles.input}
               type="text"
-              name={k}
-              value={v}
+              name={key}
+              value={value}
               size={50}
-              onChange={getHandleChange(k)}
+              onChange={getHandleChange(key)}
             />
           </td>
         </tr>
       ));
   }
 
-  const getHandleChange = (k) => (event) => {
-    setProduct({ ...product, [k]: event.target.value });
+  const getHandleChange = (key) => (event) => {
+    setProduct({ ...product, [key]: event.target.value });
   };
 
   const handleOnSubmit = (slug) => async (event) => {
@@ -75,9 +75,9 @@ const AdminEditProductPage = ({ match }) => {
 
   if (!user || !user.adminUser) {
     return (
-      <div>
+      <section>
         <p>You do not have permission to access this page</p>
-      </div>
+      </section>
     );
   }
 
@@ -98,7 +98,7 @@ const AdminEditProductPage = ({ match }) => {
   }
 
   return (
-    <div className={styles.body}>
+    <section className={styles.body}>
       <div className={styles.ap_container}>
         <h2 className={styles.header}>Admin Page</h2>
         <h3 className={styles.header}>Edit product</h3>
@@ -121,7 +121,7 @@ const AdminEditProductPage = ({ match }) => {
         </form>
         <p className={styles.message}>{message}</p>
       </div>
-    </div>
+    </section>
   );
 };
 
