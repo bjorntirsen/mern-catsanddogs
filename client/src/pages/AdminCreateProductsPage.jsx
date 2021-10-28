@@ -39,6 +39,7 @@ const AdminCreateProductsPage = () => {
   const [weightIsValid, setWeightIsValid] = useState(false);
   const [makerIsValid, setMakerIsValid] = useState(false);
   const [stockIsValid, setStockIsValid] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const history = useHistory();
 
   const handleChange = (value, fieldId) => {
@@ -53,8 +54,12 @@ const AdminCreateProductsPage = () => {
   const handleCreateProduct = async (e) => {
     e.preventDefault();
     const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-    await appPostRequest(url, formFields);
-    history.push(`/admin/products`);
+    try {
+      await appPostRequest(url, formFields);
+      history.push(`/admin/products`);
+    } catch (e) {
+      setErrorMessage(e.message);
+    }
   };
 
   const handleCancel = () => {
@@ -160,6 +165,7 @@ const AdminCreateProductsPage = () => {
           <Button text="Cancel" type="secondary" onClick={handleCancel} />
         </div>
       </form>
+      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
     </section>
   );
 };
