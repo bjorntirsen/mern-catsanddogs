@@ -7,12 +7,12 @@ export default function Hero() {
     <div className={styles.hero_container}>
       <Link to="/products/categories/cats">
         <div className={styles.cats}>
-          <Button type="primary" text="Shop Cats" />
+          <Button type="primary" text="Shop Cat Toys" />
         </div>
       </Link>
       <Link to="/products/categories/dogs">
         <div className={styles.dogs}>
-          <Button type="primary" text="Shop Dogs" />
+          <Button type="primary" text="Shop Dog Toys" />
         </div>
       </Link>
     </div>
