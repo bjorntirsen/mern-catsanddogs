@@ -3,6 +3,12 @@
   margin: 1rem auto;
 }
 
+h1 {
+  font-size: 4rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
 .formContainer {
   width: 40vw;
   display: grid;
@@ -41,11 +47,11 @@
 }
 
 .success {
-  background-color: #d1fae5;
-  color: #065f46;
+  background-color: var(--lightmint);
+  color: var(--darkmint);
 }
 
 .error {
-  background-color: #fecaca;
-  color: #991b1b;
+  background-color: var(--lightpink);
+  color: var(--burgandyred);
 }

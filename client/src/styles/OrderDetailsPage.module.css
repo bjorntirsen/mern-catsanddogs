@@ -30,10 +30,10 @@ h3.header {
 }
 
 .card {
-  background-color: #fafafa;
+  background-color: var(--lightbackground2);
   padding: 0.5rem 2rem 2rem 2rem;
   margin-bottom: 2rem;
-  box-shadow: 10px 5px 20px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 10px 5px 20px 1px var(--lightblack);
   width: 800px;
   max-width: 90%;
 }
