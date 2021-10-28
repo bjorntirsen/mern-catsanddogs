@@ -16,8 +16,7 @@ import AdminCreateProductsPage from "./pages/AdminCreateProductsPage";
 import AdminEditProductPage from "./pages/AdminEditProductPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminEditOrderPage from "./pages/AdminEditOrderPage";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Layout from "./components/layout/Layout";
 import { UserContext } from "./contexts/UserContext";
 
 const App = () => {
@@ -51,8 +50,7 @@ const App = () => {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <Navbar />
-      <div className="container">
+      <Layout>
         <Switch>
           <Route path="/" component={LandingPage} exact />
           <Route path="/signup" component={SignUpPage} />
@@ -80,8 +78,7 @@ const App = () => {
           <Route path="/admin/orders" component={AdminOrdersPage} exact />
           <Route path="/admin/orders/:id" component={AdminEditOrderPage} />
         </Switch>
-      </div>
-      <Footer />
+      </Layout>
     </UserContext.Provider>
   );
 };
