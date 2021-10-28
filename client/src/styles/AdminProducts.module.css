@@ -5,9 +5,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
- }
+}
 
- .IsLoading {
+.IsLoading {
   text-align: center;
   padding: 1rem;
 }
@@ -18,37 +18,37 @@
   padding: 1rem;
 }
 
- .ap_container {
+.ap_container {
   width: 70%;
   background-color: #ffffff;
-  border-radius: 20px;
   box-shadow: 0px 25px 40px #87878733;
   margin-bottom: 1rem;
   padding-bottom: 2rem;
- }
- .header {
+}
+.header {
   margin: auto;
   width: 90%;
   height: 15%;
   display: flex;
   justify-content: space-between;
   align-items: center;
- }
- .ap_table {
+}
+.ap_table {
   width: 90%;
   border-collapse: collapse;
   margin: 0 auto;
   text-align: center;
-  margin-bottom : 1rem;
+  margin-bottom: 1rem;
 }
 
-td, th {
+td,
+th {
   padding: 0.4rem;
   border: 1px solid black;
 }
 
 th {
-  background-color: #FFC200;
+  background-color: #ffc200;
 }
 
 .th_small {
@@ -60,20 +60,19 @@ th {
 }
 
 .btn_delete {
-	border-radius: 12px;
-	border: none;
-	outline: none;
-	padding: 10px;
-	display: inline-block;
-	font-size: 16px;
-	text-align: center;
-	text-decoration: none;
-	background-color: black;
-	color: #ffce45;
+  border: none;
+  outline: none;
+  padding: 10px;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  background-color: black;
+  color: #ffce45;
   margin-left: 3rem;
   cursor: pointer;
 }
 
 button:hover {
-	opacity: 0.5;
+  opacity: 0.5;
 }
