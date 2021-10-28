@@ -26,17 +26,10 @@ export default function Form({ type, title }) {
         setUser(responseData.data.user);
         history.push("/");
       } catch (e) {
-        if (e.response.data.errorCode === 11000) {
-          setSubmitStatus({
-            requestCompleted: false,
-            message: "This email is already registered.",
-          });
-        } else {
-          setSubmitStatus({
-            requestCompleted: false,
-            message: "Something went wrong",
-          });
-        }
+        setSubmitStatus({
+          requestCompleted: false,
+          message: e.message,
+        });
       }
     } else {
       setSubmitStatus({
