@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "../styles/ProfilePage.module.css";
 import { useHistory } from "react-router-dom";
 import { appUpdateCall } from "../utils/apiCalls";
+import { UserContext } from "../contexts/UserContext";
 export default function ProfilePage() {
+  const { setUser } = useContext(UserContext);
   const [editMode, setEditMode] = useState(false);
   const [userToChange, setUserToChange] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -56,9 +58,10 @@ export default function ProfilePage() {
     if (localStorage.getItem("tkn")) {
       const url = `${process.env.REACT_APP_BASE_URL}/api/users/updateMe`;
       const responseData = await appUpdateCall(url, userToChange);
-      console.log(responseData.data.user);
+      setUser(responseData.data.user);
       setUserToChange(responseData.data.user);
-      history.push("/");
+      setEditMode(false);
+      history.push("/profile");
     }
   };
 
