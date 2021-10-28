@@ -92,7 +92,7 @@ export default function ProfilePage() {
             <span>Name:</span>
             {editMode ? (
               <input
-                onChange={(e) => handleChange(e.target.value, e.target.id)}
+                onChange={(event) => handleChange(event.target.value, event.target.id)}
                 placeholder={userToChange.fullName}
                 id="fullName"
                 type="text"
@@ -105,7 +105,7 @@ export default function ProfilePage() {
             <span>Email:</span>
             {editMode ? (
               <input
-                onChange={(e) => handleChange(e.target.value, e.target.id)}
+                onChange={(event) => handleChange(event.target.value, event.target.id)}
                 placeholder={userToChange.email}
                 id="email"
                 type="email"
@@ -118,7 +118,7 @@ export default function ProfilePage() {
             <span>Address:</span>
             {editMode ? (
               <input
-                onChange={(e) => handleChange(e.target.value, e.target.id)}
+                onChange={(event) => handleChange(event.target.value, event.target.id)}
                 placeholder={userToChange.address}
                 id="address"
                 type="text"
@@ -131,7 +131,7 @@ export default function ProfilePage() {
             <span>Phone Number:</span>
             {editMode ? (
               <input
-                onChange={(e) => handleChange(e.target.value, e.target.id)}
+                onChange={(event) => handleChange(event.target.value, event.target.id)}
                 placeholder={userToChange.phone}
                 id="phone"
                 type="text"

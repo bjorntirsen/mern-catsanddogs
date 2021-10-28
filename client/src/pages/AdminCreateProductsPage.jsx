@@ -46,10 +46,10 @@ const AdminCreateProductsPage = () => {
     setFormFields(payload);
   };
 
-  const changeHandler = (e) => handleChange(e.target.value, e.target.id);
+  const changeHandler = (event) => handleChange(event.target.value, event.target.id);
 
-  const handleCreateProduct = async (e) => {
-    e.preventDefault();
+  const handleCreateProduct = async (event) => {
+    event.preventDefault();
     const token = localStorage.getItem("tkn");
     const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
     const obj = {

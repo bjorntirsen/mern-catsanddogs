@@ -111,8 +111,8 @@ const updateMe = async (req, res, next) => {
     // Filter out fields that are not allowed to be updated
     const filterObj = (obj, ...allowedFields) => {
       const newObj = {};
-      Object.keys(obj).forEach((el) => {
-        if (allowedFields.includes(el)) newObj[el] = obj[el];
+      Object.keys(obj).forEach((element) => {
+        if (allowedFields.includes(element)) newObj[element] = obj[element];
       });
       return newObj;
     };
