@@ -42,7 +42,7 @@ const Product = ({ product }) => {
       }
     };
     fetchAndAddOneToCart().catch((error) => {
-      console.log(error);
+      console.error(error);
     });
     setBtnText("Added!");
   };

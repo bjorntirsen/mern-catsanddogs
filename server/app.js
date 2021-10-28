@@ -30,11 +30,8 @@ app.use(cookieParser());
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const { connection } = mongoose;
-connection.on("open", () => {
-  console.log("MongoDB database connection established successfully!");
-});
 connection.on("error", (err) => {
-  console.log(`Error connecting to MongoDB: ${err}`);
+  console.error(`Error connecting to MongoDB: ${err}`);
 });
 
 app.use("/api/users", usersRouter);
@@ -56,8 +53,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
+app.listen(port);
 
 module.exports = app;

@@ -71,7 +71,7 @@ const AdminEditOrderPage = ({ match }) => {
         setWasChanged(false);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
