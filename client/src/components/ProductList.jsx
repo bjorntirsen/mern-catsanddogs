@@ -18,20 +18,17 @@ const ProductList = (props) => {
       const singularCategory = category.substring(0, 3);
       url += `/categories/${singularCategory}`;
     }
-
-    appFetchCall(url)
-      .then((responseData) => {
-        if (isMounted) {
+    if (isMounted) {
+      appFetchCall(url)
+        .then((responseData) => {
           setProducts(responseData.data.products);
           setIsLoading(false);
-        }
-      })
-      .catch((error) => {
-        if (isMounted) {
+        })
+        .catch((error) => {
           setIsLoading(false);
           setErrorMessage(error.message);
-        }
-      });
+        });
+    }
     return () => {
       isMounted = false;
     };

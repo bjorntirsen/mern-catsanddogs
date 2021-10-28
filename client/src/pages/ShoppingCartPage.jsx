@@ -7,7 +7,6 @@ import CartItem from "../components/CartItem";
 import {
   appPostRequest,
   appFetchCall,
-  appDeleteCall,
   appRemoveAllFromCart,
 } from "../utils/apiCalls";
 
