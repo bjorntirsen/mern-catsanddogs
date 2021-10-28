@@ -83,7 +83,7 @@ const OrderDetailsPage = ({ match }) => {
             <span>Order status:</span> {order.status}
           </p>
           <h3 className={styles.header}>Content:</h3>
-          {order.content.map((content) => {
+          {products && order.content.map((content) => {
             const OrderProducts = products.filter(
               (product) => product._id === content.productId
             );
