@@ -1,6 +1,12 @@
 /* eslint-disable no-undef */
 const request = require("supertest");
 const app = require("../app");
+require("dotenv").config();
+
+const adminEmail = process.env.ADMIN_USERNAME;
+const adminPassword = process.env.ADMIN_PASSWORD;
+
+let token;
 
 const testProduct = {
   title: "Test title",
@@ -29,10 +35,28 @@ const updatedTestProduct = {
 const sampleProductSlug = "test-title";
 
 describe("REST API Product routes", () => {
+  describe("Sending a POST request to /api/users/login with correct admin email and password", () => {
+    it("should respond with 200 and return json and jwt.", (done) => {
+      request(app)
+        .post("/api/users/login")
+        .send({
+          password: adminPassword,
+          email: adminEmail,
+        })
+        .expect("Content-Type", /json/)
+        .expect((res) => {
+          // eslint-disable-next-line prefer-destructuring
+          token = res.body.token;
+        })
+        .expect(200, done);
+    });
+  });
+
   describe("Sending a POST request to /api/products with product details", () => {
     it("should respond with 201 and return json.", (done) => {
       request(app)
         .post("/api/products")
+        .set({ Authorization: `Bearer ${token}` })
         .send(testProduct)
         .expect("Content-Type", /json/)
         .expect(201, done);
@@ -70,6 +94,7 @@ describe("REST API Product routes", () => {
     it("should respond with 200 and return json.", (done) => {
       request(app)
         .post(`/api/products/${sampleProductSlug}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(updatedTestProduct)
         .expect("Content-Type", /json/)
         .expect(200, done);
@@ -80,6 +105,7 @@ describe("REST API Product routes", () => {
     it("should respond with 204", (done) => {
       request(app)
         .delete(`/api/products/${sampleProductSlug}`)
+        .set({ Authorization: `Bearer ${token}` })
         .expect(204, done);
     });
   });
