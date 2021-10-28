@@ -50,11 +50,11 @@ h1 {
 }
 
 .success {
-  background-color: #d1fae5;
-  color: #065f46;
+  background-color: var(--lightmint);
+  color: var(--darkmint);
 }
 
 .error {
-  background-color: #fecaca;
-  color: #991b1b;
+  background-color: var(--lightpink);
+  color: var(--burgandyred);
 }

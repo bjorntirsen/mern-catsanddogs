@@ -4,11 +4,21 @@
 /************ GLOBAL COLORS ************/
 :root {
   --white: #fff;
-  --black: #000;
-  --lightgrey: #a4a4a4;
+  --lightbackground1: #fcfcfc;
+  --lightbackground2: #f9f9f9;
+  --lightmint: #d1fae5;
+  --black: #000000;
+  --lightblack: #0000000d;
   --darkgrey: #1d1d1b;
-  --satsumas: #ffce45;
+  --darkshade: #87878733;
+  --lightgrey: #a4a4a4;
+  --grey: #c2c2c2;
+  --lightpink: #fecaca;
+  --orangered: #ff4500;
+  --firered: #e44c4c;
+  --burgandyred: #991b1b;
   --yellow: #ffce45;
+  --darkmint: #065f46;
 }
 
 /************ GLOBAL STYLES ************/
