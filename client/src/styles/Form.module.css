@@ -15,7 +15,6 @@ h1 {
   grid-template-columns: repeat(1, 1fr);
   grid-column-gap: 24px;
   border: 0.5px solid var(--lightgrey);
-  border-radius: 6px;
   padding: 24px;
   margin: 1rem auto;
 }
@@ -34,7 +33,6 @@ h1 {
   margin-bottom: 12px;
   padding: 10px;
   border: 0.5px solid var(--lightgrey);
-  border-radius: 6px;
 }
 
 .formCol label {
@@ -46,7 +44,6 @@ h1 {
   text-align: center;
   border: none;
   margin-top: 20px;
-  border-radius: 14px;
 }
 
 .success {
