@@ -75,3 +75,21 @@ export const appDeleteCall = async (url) => {
     throw new Error("Something went wrong!");
   }
 };
+
+export const appRemoveAllFromCart = async (url) => {
+  const token = localStorage.getItem("tkn");
+  const obj = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await fetch(url, obj);
+  const responseData = await response.json();
+
+  if (!response.ok) {
+    throw new Error(responseData);
+  }
+  return responseData;
+};
