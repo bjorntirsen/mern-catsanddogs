@@ -135,26 +135,9 @@ const updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
-const deleteUser = catchAsync(async (req, res, next) => {
-  const user = await User.findByIdAndDelete(req.params.id);
-  if (!user) {
-    return next(new AppError("No user with that id found.", 404));
-  }
-  res.status(204).json({
-    status: "success",
-    data: null,
-  });
-});
-
-const getAdmin = (req, res, next) => {
-  res.status(200).json("You are an admin user!");
-};
-
 module.exports = {
   createUser,
   loginUser,
   getMe,
   updateMe,
-  deleteUser,
-  getAdmin,
 };
