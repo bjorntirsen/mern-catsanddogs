@@ -1,4 +1,6 @@
-1. Först visa vanlig kund
+# Plan för redovisning 29/10:
+
+1. Vanlig kund - Edvard
    signup
    logout
    login
@@ -6,7 +8,7 @@
    checkout
    kolla ordrar
 
-2. sedan admin funktioner
+2. Admin funktioner - Rodrigo
    logout
    login
    skapa produkt
@@ -16,11 +18,8 @@
    ändra status på order
 
 
-3. tekniskt
-
-4. 
-
-Björn - vill
-Edvard - vill
-Marta - vill
-Rodrigo - vill
+3. Arbetssätt - Björn
+   trello
+   möten 1. ideer 2. standup
+   pull requests
+   granskningar
