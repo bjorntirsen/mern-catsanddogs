@@ -3,9 +3,8 @@ const Order = require("../models/orderModel");
 const Product = require("../models/productModel");
 const User = require("../models/userModel");
 
-// Helper function to see if cart is valid
+// Helper function to see if cart is valid & enough stock
 const cartIsValid = async (updatedCart) => {
-  // console.log("DEBUG", updatedCart);
   const productsPromises = [];
   updatedCart.forEach((orderItem) => {
     productsPromises.push(
@@ -14,28 +13,18 @@ const cartIsValid = async (updatedCart) => {
         : null
     );
   });
-
   const arrayOfProducts = await Promise.all(productsPromises);
-
-  return !arrayOfProducts.some((el) => el === null);
-};
-
-// Helper function to see if we have enough stock
-const checkEnoughStock = async (validOrder) => {
-  console.log("DEBUG2", validOrder);
-  const productsPromises = [];
-  validOrder.forEach(async (orderItem) => {
-    let enoughStock = true;
-    const product = await Product.findById(orderItem.productId);
-    if (orderItem.amount > product.stock) enoughStock = false;
-    productsPromises.push(enoughStock);
+  //If any product in cart is not valid
+  if (arrayOfProducts.some((el) => el === null)) return "invalid products";
+  //If there is not enough stock to cover order
+  let notEnoughStock = false;
+  arrayOfProducts.forEach((item, index) => {
+    if (item.stock < updatedCart[index].amount) {
+      notEnoughStock = true;
+    }
   });
-
-  const arrayOfProducts = await Promise.all(productsPromises);
-  console.log("DEBUG3", arrayOfProducts);
-
-  // return !arrayOfProducts.some((el) => el === null);
-  return arrayOfProducts;
+  if (notEnoughStock) return "not enough stock";
+  return true;
 };
 
 // Helper function to update Stock
@@ -57,23 +46,21 @@ const updateStock = async (order) => {
 };
 
 const createOrder = async (req, res, next) => {
-  // const missingOrderItem = await isMissingOrderItem(req.body.content);
   try {
     const validCart = await cartIsValid(req.body.content);
     const customerId = req.user._id;
-    if (!req.body.content || !validCart) {
+    if (!req.body.content || validCart === "invalid products") {
       return res
         .status(401)
         .json(
           "You need to provide price, a valid product id, amount, shipping cost and delivery address to place an order."
         );
     }
-    const enoughStock = await checkEnoughStock(req.body.content);
-    return res.status(200).json(enoughStock);
-    // if (!enoughStock)
-    //   return res
-    //     .status(401)
-    //     .json("We do not have enough stock to cover that order.");
+    if (validCart === "not enough stock") {
+      return res
+        .status(401)
+        .json("We do not have enough stock to cover that order.");
+    }
     const { content } = req.body;
     const orderPayLoad = {
       content,
