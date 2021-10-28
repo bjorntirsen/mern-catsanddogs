@@ -2,7 +2,7 @@ import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "../components/Button";
 import { UserContext } from "../contexts/UserContext";
-import { fetchProducts } from "../utils/apiCalls";
+import { appDeleteCall, appFetchCall } from "../utils/apiCalls";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState(null);
@@ -12,7 +12,7 @@ export default function AdminProductsPage() {
 
   useEffect(() => {
     const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-    fetchProducts(url)
+    appFetchCall(url)
       .then((responseData) => {
         setProducts(responseData.data.products);
         setIsLoading(false);
@@ -26,21 +26,8 @@ export default function AdminProductsPage() {
   const handleDelete = (slug) => async (event) => {
     const confirm = window.confirm(`Are you sure you want to delete ${slug}`);
     if (!confirm) return;
-    const token = localStorage.getItem("tkn");
     const url = `${process.env.REACT_APP_BASE_URL}/api/products/${slug}`;
-    const obj = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    };
-    const response = await fetch(url, obj);
-
-    if (!response.ok) {
-      throw new Error("Something went wrong!");
-    }
-
+    await appDeleteCall(url);
     setProducts((pp) => pp.filter((p) => p.slug !== slug));
   };
 

@@ -4,7 +4,7 @@ import ProductDetails from "../components/ProductDetails.jsx";
 import RelatedProducts from "../components/RelatedProducts.jsx";
 
 import styles from "../styles/ProductDetailsPage.module.css";
-import { fetchProducts } from "../utils/apiCalls.js";
+import { appFetchCall } from "../utils/apiCalls.js";
 
 const ProductDetailsPage = ({ match }) => {
   const [products, setProducts] = useState(null);
@@ -18,7 +18,7 @@ const ProductDetailsPage = ({ match }) => {
   // Store products from db in state
   useEffect(() => {
     const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-    fetchProducts(url)
+    appFetchCall(url)
       .then((responseData) => {
         setProducts(responseData.data.products);
         setIsLoading(false);

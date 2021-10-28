@@ -4,7 +4,7 @@ import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/Cart.module.css";
 import Button from "../components/Button";
 import CartItem from "../components/CartItem";
-import { appPostRequest, fetchProducts } from "../utils/apiCalls";
+import { appPostRequest, appFetchCall, appDeleteCall } from "../utils/apiCalls";
 
 export default function ShoppingCartPage() {
   const { user, setUser } = useContext(UserContext);
@@ -20,7 +20,7 @@ export default function ShoppingCartPage() {
   useEffect(() => {
     let isMounted = true;
     const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-    fetchProducts(url)
+    appFetchCall(url)
       .then((responseData) => {
         if (isMounted) {
           setProducts(responseData.data.products);
@@ -117,21 +117,10 @@ export default function ShoppingCartPage() {
   };
 
   const handleRemoveAllClick = async () => {
-    const token = localStorage.getItem("tkn");
     const url = `${process.env.REACT_APP_BASE_URL}/api/carts/emptyCart`;
-    const obj = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    };
-    const response = await fetch(url, obj);
-    if (!response.ok) {
-      throw new Error("Something went wrong!");
-    }
-    const responseData = await response.json();
+    const responseData = await appDeleteCall(url);
     setUser(responseData.data.user);
+
     setCart(null);
     setTotalPrice(0);
   };

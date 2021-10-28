@@ -1,7 +1,7 @@
 import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminEditProduct.module.css";
 import { UserContext } from "../contexts/UserContext";
-import { appPostRequest, fetchProducts } from "../utils/apiCalls";
+import { appPostRequest, appFetchCall } from "../utils/apiCalls";
 
 const AdminEditProductPage = ({ match }) => {
   const [products, setProducts] = useState(null);
@@ -15,7 +15,7 @@ const AdminEditProductPage = ({ match }) => {
 
   useEffect(() => {
     const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-    fetchProducts(url)
+    appFetchCall(url)
       .then((responseData) => {
         setProducts(responseData.data.products);
         setIsLoading(false);

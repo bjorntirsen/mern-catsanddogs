@@ -3,7 +3,7 @@ import { React, useState, useEffect } from "react";
 import Product from "./Product";
 import styles from "../styles/ProductList.module.css";
 import SearchBar from "../components/SearchBar";
-import { fetchProducts } from "../utils/apiCalls";
+import { appFetchCall } from "../utils/apiCalls";
 
 const ProductList = (props) => {
   const [products, setProducts] = useState(null);
@@ -19,7 +19,7 @@ const ProductList = (props) => {
       url += `/categories/${singularCategory}`;
     }
 
-    fetchProducts(url)
+    appFetchCall(url)
       .then((responseData) => {
         if (isMounted) {
           setProducts(responseData.data.products);

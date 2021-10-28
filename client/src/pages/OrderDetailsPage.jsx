@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 
 import styles from "../styles/OrderDetailsPage.module.css";
-import { fetchProducts } from "../utils/apiCalls";
+import { appFetchCall } from "../utils/apiCalls";
 
 const OrderDetailsPage = ({ match }) => {
   const [order, setOrder] = useState(null);
@@ -11,7 +11,7 @@ const OrderDetailsPage = ({ match }) => {
 
   useEffect(() => {
     const url = `${process.env.REACT_APP_BASE_URL}/api/orders/${match.params.id}`;
-    fetchProducts(url)
+    appFetchCall(url)
       .then((responseData) => {
         setOrder(responseData.data.order);
         setIsLoading(false);
@@ -24,7 +24,7 @@ const OrderDetailsPage = ({ match }) => {
 
   useEffect(() => {
     const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
-    fetchProducts(url)
+    appFetchCall(url)
       .then((responseData) => {
         setProducts(responseData.data.products);
         setIsLoading(false);

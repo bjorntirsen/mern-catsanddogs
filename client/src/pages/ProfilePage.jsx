@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/ProfilePage.module.css";
 import { useHistory } from "react-router-dom";
+import { appUpdateCall } from "../utils/apiCalls";
 export default function ProfilePage() {
   const [editMode, setEditMode] = useState(false);
   const [userToChange, setUserToChange] = useState(null);
@@ -53,24 +54,8 @@ export default function ProfilePage() {
     }
 
     if (localStorage.getItem("tkn")) {
-      const token = localStorage.getItem("tkn");
       const url = `${process.env.REACT_APP_BASE_URL}/api/users/updateMe`;
-      const payload = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(userToChange),
-      };
-
-      const response = await fetch(url, payload);
-
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-
-      const responseData = await response.json();
+      const responseData = await appUpdateCall(url, userToChange);
       setUserToChange(responseData.data.user);
       history.push("/");
     }
