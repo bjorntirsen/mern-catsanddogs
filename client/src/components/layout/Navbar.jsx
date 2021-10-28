@@ -21,31 +21,31 @@ const Navbar = () => {
 
   if (!user) {
     return (
-      <div>
+      <header>
         <nav className={styles.nav}>
           <StandardLinks />
           <LoginLinks />
         </nav>
-      </div>
+      </header>
     );
   }
   if (user && !user.adminUser) {
     return (
-      <div>
+      <header>
         <nav className={styles.nav}>
           <StandardLinks />
           <UserLinks logoutHandler={handleLogout} />
         </nav>
-      </div>
+      </header>
     );
   }
   return (
-    <div>
+    <header>
       <nav className={styles.nav}>
         <StandardLinks />
         <AdminLinks logoutHandler={handleLogout} />
       </nav>
-    </div>
+    </header>
   );
 };
 

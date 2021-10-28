@@ -64,10 +64,10 @@ const ProductDetailsPage = ({ match }) => {
   }
 
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <ProductDetails product={product} />
       <RelatedProducts relatedProducts={relatedProducts} />
-    </div>
+    </section>
   );
 };
 

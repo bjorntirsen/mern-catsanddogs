@@ -77,9 +77,9 @@ const AdminEditOrderPage = ({ match }) => {
 
   if (!user || !user.adminUser) {
     return (
-      <div>
+      <section>
         <p>You do not have permission to access this page</p>
-      </div>
+      </section>
     );
   }
 
@@ -100,7 +100,7 @@ const AdminEditOrderPage = ({ match }) => {
   }
 
   return (
-    <div className={styles.body}>
+    <section className={styles.body}>
       <div className={styles.ap_container}>
         <h2 className={styles.header}>Admin Page</h2>
         <h3 className={styles.header}>Edit order</h3>
@@ -132,7 +132,7 @@ const AdminEditOrderPage = ({ match }) => {
         )}
         <p className={styles.message}>{message}</p>
       </div>
-    </div>
+    </section>
   );
 };
 

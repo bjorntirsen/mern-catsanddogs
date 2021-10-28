@@ -59,9 +59,9 @@ export default function AdminProductsPage() {
 
   if (!user || !user.adminUser) {
     return (
-      <div>
+      <section>
         <p>You do not have permission to access this page</p>
-      </div>
+      </section>
     );
   }
 
@@ -82,7 +82,7 @@ export default function AdminProductsPage() {
   }
   if (products) {
     return (
-      <div className={styles.body}>
+      <section className={styles.body}>
         <div className={styles.ap_container}>
           <h2 className={styles.header}>Admin Page</h2>
           <h3 className={styles.header}>Products List</h3>
@@ -120,7 +120,7 @@ export default function AdminProductsPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      </section>
     );
   }
 

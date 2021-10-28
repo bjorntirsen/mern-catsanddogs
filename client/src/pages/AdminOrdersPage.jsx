@@ -62,7 +62,7 @@ export default function AdminOrdersPage() {
 
   if (orders) {
     return (
-      <div className={styles.body}>
+      <section className={styles.body}>
         <div className={styles.ap_container}>
           <h2 className={styles.header}>Admin Page</h2>
           <h3 className={styles.header}>Orders List</h3>
@@ -97,7 +97,7 @@ export default function AdminOrdersPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      </section>
     );
   }
 
