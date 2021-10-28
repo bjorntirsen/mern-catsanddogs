@@ -43,12 +43,18 @@ app.use("/api/orders", orderRouter);
 app.use("/api/carts", cartsRouter);
 
 // Global error handler
-app.use((err, req, res, next) =>
+app.use((err, req, res, next) => {
+  if (err.code === 11000) {
+    const field = Object.keys(err.keyValue)[0];
+    const value = Object.values(err.keyValue)[0];
+    const message = `The ${field} must be unique, ${value} already exists in the Database. Please use another value.`;
+    return res.status(400).json({ message, errorCode: err.code });
+  }
   res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
-  })
-);
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
