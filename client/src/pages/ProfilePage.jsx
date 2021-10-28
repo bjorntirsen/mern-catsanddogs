@@ -56,6 +56,7 @@ export default function ProfilePage() {
     if (localStorage.getItem("tkn")) {
       const url = `${process.env.REACT_APP_BASE_URL}/api/users/updateMe`;
       const responseData = await appUpdateCall(url, userToChange);
+      console.log(responseData.data.user);
       setUserToChange(responseData.data.user);
       history.push("/");
     }
@@ -77,7 +78,9 @@ export default function ProfilePage() {
             <span>Name:</span>
             {editMode ? (
               <input
-                onChange={(event) => handleChange(event.target.value, event.target.id)}
+                onChange={(event) =>
+                  handleChange(event.target.value, event.target.id)
+                }
                 placeholder={userToChange.fullName}
                 id="fullName"
                 type="text"
@@ -90,7 +93,9 @@ export default function ProfilePage() {
             <span>Email:</span>
             {editMode ? (
               <input
-                onChange={(event) => handleChange(event.target.value, event.target.id)}
+                onChange={(event) =>
+                  handleChange(event.target.value, event.target.id)
+                }
                 placeholder={userToChange.email}
                 id="email"
                 type="email"
@@ -103,7 +108,9 @@ export default function ProfilePage() {
             <span>Address:</span>
             {editMode ? (
               <input
-                onChange={(event) => handleChange(event.target.value, event.target.id)}
+                onChange={(event) =>
+                  handleChange(event.target.value, event.target.id)
+                }
                 placeholder={userToChange.address}
                 id="address"
                 type="text"
@@ -116,7 +123,9 @@ export default function ProfilePage() {
             <span>Phone Number:</span>
             {editMode ? (
               <input
-                onChange={(event) => handleChange(event.target.value, event.target.id)}
+                onChange={(event) =>
+                  handleChange(event.target.value, event.target.id)
+                }
                 placeholder={userToChange.phone}
                 id="phone"
                 type="text"

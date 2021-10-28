@@ -70,10 +70,8 @@ export const appDeleteCall = async (url) => {
     },
   };
   const response = await fetch(url, obj);
-  const responseData = await response.json();
 
   if (!response.ok) {
-    throw new Error(responseData);
+    throw new Error("Something went wrong!");
   }
-  return responseData;
 };
