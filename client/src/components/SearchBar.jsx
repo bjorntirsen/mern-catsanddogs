@@ -7,8 +7,8 @@ export default function SearchBar({ products }) {
   let history = useHistory();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const search = (e) => {
-    e.preventDefault();
+  const search = (event) => {
+    event.preventDefault();
     const filtered = products.filter((product) => {
       if (searchTerm === "") return null;
       else if (product.title.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -32,7 +32,7 @@ export default function SearchBar({ products }) {
           type="text"
           placeholder="Search..."
           name="search"
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(event) => setSearchTerm(event.target.value)}
         />
         <button onClick={search}>
           <img

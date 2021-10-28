@@ -49,26 +49,26 @@ const AdminEditProductPage = ({ match }) => {
 
   function renderInputs(keyList) {
     return Object.entries(product)
-      .filter(([k, v]) => keyList.includes(k))
-      .map(([k, v]) => (
-        <tr key={k}>
-          <th className={styles.th}>{k}</th>
+      .filter(([key, value]) => keyList.includes(key))
+      .map(([key, value]) => (
+        <tr key={key}>
+          <th className={styles.th}>{key}</th>
           <td>
             <input
               className={styles.input}
               type="text"
-              name={k}
-              value={v}
+              name={key}
+              value={value}
               size={50}
-              onChange={getHandleChange(k)}
+              onChange={getHandleChange(key)}
             />
           </td>
         </tr>
       ));
   }
 
-  const getHandleChange = (k) => (event) => {
-    setProduct({ ...product, [k]: event.target.value });
+  const getHandleChange = (key) => (event) => {
+    setProduct({ ...product, [key]: event.target.value });
   };
 
   const handleOnSubmit = (slug) => async (event) => {
