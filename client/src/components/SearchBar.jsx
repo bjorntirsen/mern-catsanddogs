@@ -4,14 +4,14 @@ import searchIcon from "../search-icon.svg";
 import styles from "../styles/SearchBar.module.css";
 
 export default function SearchBar({ products }) {
-  let history = useHistory();
+  const history = useHistory();
   const [searchTerm, setSearchTerm] = useState("");
 
   const search = (event) => {
     event.preventDefault();
     const filtered = products.filter((product) => {
       if (searchTerm === "") return null;
-      else if (product.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (product.title.toLowerCase().includes(searchTerm.toLowerCase())) {
         return product;
       }
       return null;
@@ -34,7 +34,7 @@ export default function SearchBar({ products }) {
           name="search"
           onChange={(event) => setSearchTerm(event.target.value)}
         />
-        <button onClick={search}>
+        <button onClick={search} type="button">
           <img
             className={`${styles.cart}`}
             src={searchIcon}
@@ -46,19 +46,15 @@ export default function SearchBar({ products }) {
         {products
           .filter((product) => {
             if (searchTerm === "") return null;
-            else if (
-              product.title.toLowerCase().includes(searchTerm.toLowerCase())
-            )
+            if (product.title.toLowerCase().includes(searchTerm.toLowerCase()))
               return product;
             return null;
           })
-          .map((product) => {
-            return (
-              <Link key={product._id} to={`/products/${product.slug}`}>
-                <li>{product.title}</li>
-              </Link>
-            );
-          })}
+          .map((product) => (
+            <Link key={product._id} to={`/products/${product.slug}`}>
+              <li>{product.title}</li>
+            </Link>
+          ))}
       </ul>
     </div>
   );

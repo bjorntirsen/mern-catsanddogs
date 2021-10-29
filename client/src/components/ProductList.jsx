@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 
 import Product from "./Product";
 import styles from "../styles/ProductList.module.css";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "./SearchBar";
 import { appFetchCall } from "../utils/apiCalls";
 
 const ProductList = (props) => {
@@ -60,9 +60,10 @@ const ProductList = (props) => {
           <h1>products:</h1>
         )}
         <div className={styles.products}>
-          {products.map((product) => {
-            return <Product key={product._id} product={product} />;
-          })}
+          {products.map((product) => (
+            <Product key={product._id} product={product} />
+          ))}
+          ;
         </div>
       </section>
     );
@@ -70,7 +71,7 @@ const ProductList = (props) => {
 
   return (
     <section className={styles.ErrorMessage}>
-      <p>"Something went wrong!"</p>
+      <p>Something went wrong!</p>
     </section>
   );
 };

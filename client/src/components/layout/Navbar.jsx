@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
 import UserContext from "../../contexts/UserContext";
-import StandardLinks from "../../components/StandardLinks";
-import LoginLinks from "../../components/LoginLinks";
-import UserLinks from "../../components/UserLinks";
-import AdminLinks from "../../components/AdminLinks";
+import StandardLinks from "../StandardLinks";
+import LoginLinks from "../LoginLinks";
+import UserLinks from "../UserLinks";
+import AdminLinks from "../AdminLinks";
 
 import styles from "../../styles/Navbar.module.css";
 import Hero from "../Hero";

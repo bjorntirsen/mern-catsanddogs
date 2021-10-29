@@ -59,7 +59,6 @@ export default function Form({ type, title }) {
             <input
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="fullName"
-              name="fullName"
               type="text"
             />
           </div>
@@ -128,7 +127,8 @@ export default function Form({ type, title }) {
         </form>
       </section>
     );
-  } else if (type === "login") {
+  }
+  if (type === "login") {
     return (
       <section>
         <form

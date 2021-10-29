@@ -1,7 +1,7 @@
 import { React, useState, useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
-import Button from "../components/Button";
+import Button from "./Button";
 import { appPostRequest } from "../utils/apiCalls";
 
 const Product = ({ product }) => {
@@ -10,7 +10,7 @@ const Product = ({ product }) => {
   const [btnText, setBtnText] = useState("Add to cart");
 
   const addToCart = () => {
-    if (product.stock === 0) return null;
+    if (product.stock === 0) return;
 
     if (!user) {
       history.push("/login");
@@ -57,7 +57,12 @@ const Product = ({ product }) => {
       <span>
         <h4>${product.price}</h4>
       </span>
-      <div onClick={addToCart}>
+      <div
+        onClick={addToCart}
+        role="button"
+        onKeyPress={addToCart}
+        tabIndex={0}
+      >
         <Button type="primary" text={btnText} />
       </div>
     </div>

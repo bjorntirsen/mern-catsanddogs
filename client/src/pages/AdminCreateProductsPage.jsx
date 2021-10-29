@@ -11,7 +11,7 @@ import { appPostRequest } from "../utils/apiCalls";
 const validTitle = (value) =>
   value.trim() !== "" && value.trim().length > 4 && value.trim().length < 41;
 const isNumeric = (value) => {
-  if (typeof value != "string") return false;
+  if (typeof value !== "string") return false;
   return !isNaN(value) && !isNaN(parseFloat(value));
 };
 const validCategory = (value) =>
