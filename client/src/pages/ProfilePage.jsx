@@ -8,6 +8,7 @@ export default function ProfilePage() {
   const [editMode, setEditMode] = useState(false);
   const [userToChange, setUserToChange] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [canSendPayload, setCanSendPayload] = useState(false);
   const history = useHistory();
 
@@ -57,11 +58,15 @@ export default function ProfilePage() {
 
     if (localStorage.getItem("tkn")) {
       const url = `${process.env.REACT_APP_BASE_URL}/api/users/updateMe`;
-      const responseData = await appUpdateCall(url, userToChange);
-      setUser(responseData.data.user);
-      setUserToChange(responseData.data.user);
-      setEditMode(false);
-      history.push("/profile");
+      try {
+        const responseData = await appUpdateCall(url, userToChange);
+        setUser(responseData.data.user);
+        setUserToChange(responseData.data.user);
+        setEditMode(false);
+        history.push("/profile");
+      } catch (e) {
+        setErrorMessage(e.message);
+      }
     }
   };
 
@@ -146,6 +151,7 @@ export default function ProfilePage() {
           )}
         </div>
       )}
+      {errorMessage && <p className={styles.error_msg}>{errorMessage}</p>}
       {!userToChange && !isLoading && (
         <section className={styles.card_line}>
           You need to be logged in to see this page

@@ -111,17 +111,12 @@ const updateMe = catchAsync(async (req, res, next) => {
     "address"
   );
   if (
-    !req.body.fullName &&
-    !req.body.email &&
-    !req.body.phone &&
+    !req.body.fullName ||
+    !req.body.email ||
+    !req.body.phone ||
     !req.body.address
   ) {
-    return next(
-      new AppError(
-        "This route is for updating fullName, email, phone or address of an existing user.",
-        400
-      )
-    );
+    return next(new AppError("No field shall be left empty!", 400));
   }
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,

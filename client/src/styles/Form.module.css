@@ -52,6 +52,7 @@ h1 {
 }
 
 .error {
+  text-align: center;
   background-color: var(--lightpink);
   color: var(--burgandyred);
 }

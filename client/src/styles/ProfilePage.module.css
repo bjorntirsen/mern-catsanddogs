@@ -35,3 +35,9 @@
   padding: 10px;
   border: none;
 }
+
+.error_msg {
+  background-color: var(--lightpink);
+  color: var(--burgandyred);
+  padding: 10px 20px;
+}

@@ -18,7 +18,7 @@ export const appPostRequest = async (url, payload) => {
   const responseData = await response.json();
 
   if (!response.ok) {
-    throw new Error(responseData);
+    throw new Error(responseData.message);
   }
 
   return responseData;
@@ -55,7 +55,7 @@ export const appUpdateCall = async (url, body) => {
   const responseData = await response.json();
 
   if (!response.ok) {
-    throw new Error(responseData);
+    throw new Error(responseData.message);
   }
   return responseData;
 };
@@ -89,7 +89,7 @@ export const appRemoveAllFromCart = async (url) => {
   const responseData = await response.json();
 
   if (!response.ok) {
-    throw new Error(responseData);
+    throw new Error(responseData.message);
   }
   return responseData;
 };
