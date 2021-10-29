@@ -14,21 +14,22 @@ const CartItem = ({
   const { user, setUser } = useContext(UserContext);
 
   const handleChange = (event) => {
-    changeQuantityHandler(product._id, (_amount) => parseInt(event.target.value));
-    setQuantity(parseInt(event.target.value));
+    // eslint-disable-next-line no-unused-vars
+    changeQuantityHandler(product._id, (_amount) =>
+      parseInt(event.target.value, 10)
+    );
+    setQuantity(parseInt(event.target.value, 10));
   };
 
   const handleIncrease = () => {
-    if (quantity >= product.stock) return null;
-    else {
-      changeQuantityHandler(product._id, (amount) => amount + 1);
-      setQuantity(quantity + 1);
-    }
+    if (quantity >= product.stock) return;
+    changeQuantityHandler(product._id, (_amount) => _amount + 1);
+    setQuantity(quantity + 1);
   };
 
   const handleReduce = () => {
     if (quantity > 1) {
-      changeQuantityHandler(product._id, (amount) => amount - 1);
+      changeQuantityHandler(product._id, (_amount) => _amount - 1);
       setQuantity(quantity - 1);
     }
   };
@@ -57,7 +58,13 @@ const CartItem = ({
       </div>
       <h1 className={styles.title}>{product.title}</h1>
       <div className={styles.counter}>
-        <span className={styles.btn} onClick={handleReduce}>
+        <span
+          className={styles.btn}
+          onClick={handleReduce}
+          role="button"
+          onKeyPress={handleReduce}
+          tabIndex={0}
+        >
           -
         </span>
         <input
@@ -68,7 +75,13 @@ const CartItem = ({
           min="1"
           onChange={handleChange}
         />
-        <span className={styles.btn} onClick={handleIncrease}>
+        <span
+          className={styles.btn}
+          onClick={handleIncrease}
+          role="button"
+          onKeyPress={handleIncrease}
+          tabIndex={0}
+        >
           +
         </span>
       </div>
@@ -77,6 +90,9 @@ const CartItem = ({
         <div
           onClick={() => handleRemoveClick(product._id)}
           className={styles.remove}
+          role="button"
+          onKeyPress={() => handleRemoveClick(product._id)}
+          tabIndex={0}
         >
           Remove
         </div>
@@ -86,4 +102,3 @@ const CartItem = ({
 };
 
 export default CartItem;
-

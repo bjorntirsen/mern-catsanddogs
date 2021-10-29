@@ -25,10 +25,10 @@ export default function Form({ type, title }) {
         localStorage.setItem("tkn", responseData.token);
         setUser(responseData.data.user);
         history.push("/");
-      } catch (e) {
+      } catch (err) {
         setSubmitStatus({
           requestCompleted: false,
-          message: e.message,
+          message: err.message,
         });
       }
     } else {
@@ -59,6 +59,7 @@ export default function Form({ type, title }) {
             <input
               onChange={(e) => handleChange(e.target.value, e.target.id)}
               id="fullName"
+              name="fullName"
               type="text"
             />
           </div>

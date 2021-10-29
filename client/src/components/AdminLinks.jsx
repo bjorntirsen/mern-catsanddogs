@@ -12,9 +12,10 @@ const AdminLinks = ({ logoutHandler }) => {
     if (user) {
       const sum = user.cart
         .map((item) => item.amount)
-        .reduce((previousValue, currentValue) => {
-          return previousValue + currentValue;
-        }, 0);
+        .reduce(
+          (previousValue, currentValue) => previousValue + currentValue,
+          0
+        );
       setCartSum(sum);
     }
   }, [user]);
@@ -23,27 +24,33 @@ const AdminLinks = ({ logoutHandler }) => {
     <div className={styles.right}>
       <ul className={styles.nav}>
         <li className={styles.li}>
-          <NavLink to={`/profile`} className={styles.a}>
+          <NavLink to="/profile" className={styles.a}>
             Logged in admin: {user.fullName}
           </NavLink>
         </li>
         <li className={styles.li}>
-          <NavLink to={`/admin/orders`} className={styles.a}>
+          <NavLink to="/admin/orders" className={styles.a}>
             Orders
           </NavLink>
         </li>
         <li className={styles.li}>
-          <NavLink to={`/admin/products`} className={styles.a}>
+          <NavLink to="/admin/products" className={styles.a}>
             Products
           </NavLink>
         </li>
         <li className={styles.li}>
-          <NavLink to={`/admin/products/create`} className={styles.a}>
+          <NavLink to="/admin/products/create" className={styles.a}>
             Create Product
           </NavLink>
         </li>
         <li className={styles.li}>
-          <span className={styles.a} onClick={logoutHandler}>
+          <span
+            className={styles.a}
+            onClick={logoutHandler}
+            onKeyPress={logoutHandler}
+            role="button"
+            tabIndex={0}
+          >
             Logout
           </span>
         </li>

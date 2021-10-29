@@ -26,13 +26,13 @@
   "devDependencies": {
     "eslint": "^8.0.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.1",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1",
     "husky": "^6.0.0",
     "mocha": "^9.1.2",
     "nodemon": "^2.0.13",
-    "prettier": "^2.4.1",
     "supertest": "^6.1.6"
   }
 }
