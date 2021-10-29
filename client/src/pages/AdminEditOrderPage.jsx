@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminEditProduct.module.css";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 import { appUpdateCall } from "../utils/apiCalls";
 
 const AdminEditOrderPage = ({ match }) => {

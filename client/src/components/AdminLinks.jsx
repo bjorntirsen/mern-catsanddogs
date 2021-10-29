@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
 import Cart from "../bxs-cart.svg";
-import { NavLink } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 
 const AdminLinks = ({ logoutHandler }) => {
   const [cartSum, setCartSum] = useState(null);
@@ -10,7 +10,7 @@ const AdminLinks = ({ logoutHandler }) => {
 
   useEffect(() => {
     if (user) {
-      let sum = user.cart
+      const sum = user.cart
         .map((item) => item.amount)
         .reduce((previousValue, currentValue) => {
           return previousValue + currentValue;

@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import styles from "../styles/ProfilePage.module.css";
 import { useHistory } from "react-router-dom";
 import { appUpdateCall } from "../utils/apiCalls";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 export default function ProfilePage() {
   const { setUser } = useContext(UserContext);
   const [editMode, setEditMode] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-import { UserContext } from "../../contexts/UserContext";
+import UserContext from "../../contexts/UserContext";
 import StandardLinks from "../../components/StandardLinks";
 import LoginLinks from "../../components/LoginLinks";
 import UserLinks from "../../components/UserLinks";

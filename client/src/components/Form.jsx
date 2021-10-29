@@ -3,8 +3,8 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "../styles/Form.module.css";
 import btnStyles from "../styles/Button.module.css";
 import Button from "./Button";
-import { formValidateMessage } from "../utils/formValidateMessage";
-import { UserContext } from "../contexts/UserContext";
+import formValidateMessage from "../utils/formValidateMessage";
+import UserContext from "../contexts/UserContext";
 import { appPostRequest } from "../utils/apiCalls";
 
 export default function Form({ type, title }) {

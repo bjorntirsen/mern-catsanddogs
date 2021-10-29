@@ -2,7 +2,7 @@ import { React, useEffect, useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "../components/Button";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState(null);

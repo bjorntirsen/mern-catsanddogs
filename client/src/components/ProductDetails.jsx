@@ -1,5 +1,5 @@
 import { React, useState, useContext, useEffect } from "react";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 import Button from "../components/Button";
 import styles from "../styles/ProductDetails.module.css";

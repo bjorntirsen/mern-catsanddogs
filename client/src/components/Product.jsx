@@ -1,6 +1,6 @@
 import { React, useState, useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 import Button from "../components/Button";
 import { appPostRequest } from "../utils/apiCalls";
 

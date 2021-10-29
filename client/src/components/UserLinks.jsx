@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/Navbar.module.css";
 import Cart from "../bxs-cart.svg";
 import { NavLink } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 
 const UserLinks = ({ logoutHandler }) => {
   const [cartSum, setCartSum] = useState(null);

@@ -1,7 +1,7 @@
 import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "../components/Button";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 import { appDeleteCall, appFetchCall } from "../utils/apiCalls";
 
 export default function AdminProductsPage() {

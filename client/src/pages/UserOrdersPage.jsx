@@ -1,6 +1,6 @@
 import { React, useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "../components/Button";
 
