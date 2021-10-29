@@ -3,3 +3,7 @@
 
 cd server
 npm run lint
+
+cd ..
+cd client
+npx eslint .

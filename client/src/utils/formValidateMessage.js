@@ -1,4 +1,4 @@
-export const formValidateMessage = (submitedFileds, type) => {
+const formValidateMessage = (submitedFileds, type) => {
   let fields = [];
   if (type === "signup") {
     fields = [
@@ -14,7 +14,7 @@ export const formValidateMessage = (submitedFileds, type) => {
   }
 
   let isThereEmptyField = false;
-  //This checks if there is any empty field
+  // This checks if there is any empty field
   fields.forEach((field) => {
     if (
       submitedFileds[field] === "" ||
@@ -26,16 +26,18 @@ export const formValidateMessage = (submitedFileds, type) => {
 
   if (isThereEmptyField) return "No empty fields";
 
-  //This will check if passwords match only for the signup type
+  // This will check if passwords match only for the signup type
   if (
     type === "signup" &&
     submitedFileds.password !== submitedFileds.passwordConfirm
   )
     return "Passwords don't match";
 
-  //This will check if email is in a write format
+  // This will check if email is in a write format
   if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(submitedFileds.email))
     return "Not a valid Email address";
 
   return "validates";
 };
+
+export default formValidateMessage;
