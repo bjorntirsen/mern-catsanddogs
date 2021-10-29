@@ -17,8 +17,8 @@ const OrderDetailsPage = ({ match }) => {
         setIsLoading(false);
       })
       .catch((error) => {
-        setIsLoading(false);
         setErrorMessage(error.message);
+        setIsLoading(false);
       });
   }, [match]);
 
@@ -30,8 +30,8 @@ const OrderDetailsPage = ({ match }) => {
         setIsLoading(false);
       })
       .catch((error) => {
-        setIsLoading(false);
         setErrorMessage(error.message);
+        setIsLoading(false);
       });
   }, []);
 
@@ -39,16 +39,6 @@ const OrderDetailsPage = ({ match }) => {
     return (
       <section className={styles.IsLoading}>
         <p>Loading...</p>
-      </section>
-    );
-  }
-
-  if (errorMessage) {
-    return (
-      <section className={styles.container}>
-        <div className={styles.ErrorMessage}>
-          <p>{errorMessage}</p>
-        </div>
       </section>
     );
   }
@@ -92,6 +82,16 @@ const OrderDetailsPage = ({ match }) => {
                 </Fragment>
               );
             })}
+        </div>
+      </section>
+    );
+  }
+
+  if (errorMessage) {
+    return (
+      <section className={styles.container}>
+        <div className={styles.ErrorMessage}>
+          <p>{errorMessage}</p>
         </div>
       </section>
     );
