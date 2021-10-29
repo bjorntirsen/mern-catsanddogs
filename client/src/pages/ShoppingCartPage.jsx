@@ -42,8 +42,21 @@ export default function ShoppingCartPage() {
     };
   }, [user]);
 
+  const calculateTotal = useCallback(() => {
+    if (cart && cart.length > 0) {
+      const total = cart.reduce((previousValue, product) => {
+        const unitPrice = products.find(
+          (item) => item._id === product.productId
+        ).price;
+        const subTotal = product.amount * unitPrice;
+        return previousValue + subTotal;
+      }, 15);
+      setTotalPrice(total.toFixed(2));
+    }
+  }, [cart, products]);
+
   const changeQuantityHandler = (productId, fn) => {
-    //update product
+    // update product
     let indexOfProduct;
     const product = cart.find((item, index) => {
       indexOfProduct = index;
@@ -53,25 +66,12 @@ export default function ShoppingCartPage() {
     const updatedProduct = product;
     updatedProduct.amount = fn(amount);
     // insert updated product in array
-    let updatedCart = cart;
+    const updatedCart = cart;
     updatedCart[indexOfProduct] = updatedProduct;
     setCart(updatedCart);
     calculateTotal();
     setWasChanged(true);
   };
-
-  const calculateTotal = useCallback(() => {
-    if (cart && cart.length > 0) {
-      const total = cart.reduce((previousValue, product) => {
-        const unitPrice = products.find((item) => {
-          return item._id === product.productId;
-        }).price;
-        const subTotal = product.amount * unitPrice;
-        return previousValue + subTotal;
-      }, 15);
-      setTotalPrice(total.toFixed(2));
-    }
-  }, [cart, products]);
 
   useEffect(() => {
     if (user && products) {
@@ -89,9 +89,10 @@ export default function ShoppingCartPage() {
 
   const addUnitPriceToCart = (oldCart) => {
     const updatedCart = oldCart.map((product) => {
-      const unitPrice = products.find((item) => {
-        return item._id === product.productId;
-      }).price;
+      const unitPrice = products.find(
+        (item) => item._id === product.productId
+      ).price;
+      // eslint-disable-next-line no-param-reassign
       product.unitPriceAtPurchase = unitPrice;
       return product;
     });
@@ -103,16 +104,14 @@ export default function ShoppingCartPage() {
     const url = `${process.env.REACT_APP_BASE_URL}/api/orders`;
     const cartItemsOverStock = updatedCart
       .map((item) => item.productId)
-      .map((id) => {
-        return products.filter((prodItem) => prodItem._id === id)[0];
-      })
+      .map((id) => products.filter((prodItem) => prodItem._id === id)[0])
       .filter((prodItem, index) => prodItem.stock < updatedCart[index].amount);
 
     const isProdNotAvailable = cartItemsOverStock.length > 0;
     if (isProdNotAvailable) {
       console.error(updatedCart);
       setProductsNotAvailable(cartItemsOverStock);
-      return -1;
+      return;
     }
 
     const responseData = await appPostRequest(url, { content: updatedCart });
@@ -159,15 +158,21 @@ export default function ShoppingCartPage() {
         <div className={styles.cart_container}>
           <div className={styles.header}>
             <h2>Shopping Cart</h2>
-            <h5 onClick={handleRemoveAllClick} className={styles.action}>
+            <span
+              onClick={handleRemoveAllClick}
+              className={styles.action}
+              onKeyPress={handleRemoveAllClick}
+              tabIndex={0}
+              role="button"
+            >
               Remove all
-            </h5>
+            </span>
           </div>
 
           {cart.map((product) => {
-            const fullProduct = products.find((item) => {
-              return item._id === product.productId;
-            });
+            const fullProduct = products.find(
+              (item) => item._id === product.productId
+            );
             return (
               <CartItem
                 key={product.productId}
@@ -206,25 +211,23 @@ export default function ShoppingCartPage() {
             )}
           </div>
           {productsNotAvailable &&
-            productsNotAvailable.map((item) => {
-              return (
-                <div className={styles.ErrorMessage} key={item._id}>
-                  <p>{item.title}: Not enough in stock</p>
-                  <p>
-                    Only {item.stock} unit
-                    {item.stock > 1 ? <>s</> : <></>} left in stock
-                  </p>
-                  <p>Please update your cart.</p>
-                </div>
-              );
-            })}
+            productsNotAvailable.map((item) => (
+              <div className={styles.ErrorMessage} key={item._id}>
+                <p>{item.title}: Not enough in stock</p>
+                <p>
+                  Only {item.stock} unit
+                  {item.stock > 1 ? <>s</> : <></>} left in stock
+                </p>
+                <p>Please update your cart.</p>
+              </div>
+            ))}
         </div>
       </section>
     );
 
   return (
     <section className={styles.ErrorMessage}>
-      <p>"Something went wrong!"</p>
+      <p>Something went wrong!</p>
     </section>
   );
 }

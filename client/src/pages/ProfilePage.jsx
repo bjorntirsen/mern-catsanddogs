@@ -1,8 +1,9 @@
-import { useState, useEffect, useContext } from "react";
-import styles from "../styles/ProfilePage.module.css";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import styles from "../styles/ProfilePage.module.css";
 import { appUpdateCall } from "../utils/apiCalls";
 import UserContext from "../contexts/UserContext";
+
 export default function ProfilePage() {
   const { setUser } = useContext(UserContext);
   const [editMode, setEditMode] = useState(false);
@@ -30,7 +31,7 @@ export default function ProfilePage() {
         setIsLoading(false);
       } else setIsLoading(false);
     };
-    fetchUser().catch((error) => {
+    fetchUser().catch(() => {
       setIsLoading(false);
     });
   }, []);
@@ -143,11 +144,17 @@ export default function ProfilePage() {
             )}
           </p>
           {editMode ? (
-            <button disabled={!canSendPayload} onClick={handleSaveClick}>
+            <button
+              disabled={!canSendPayload}
+              onClick={handleSaveClick}
+              type="button"
+            >
               Save
             </button>
           ) : (
-            <button onClick={handleEditClick}>Edit</button>
+            <button onClick={handleEditClick} type="button">
+              Edit
+            </button>
           )}
         </div>
       )}

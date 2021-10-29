@@ -28,18 +28,22 @@ const AdminEditProductPage = ({ match }) => {
 
   useEffect(() => {
     if (products) {
-      const [item] = products.filter((item) => item.slug === slug);
-      if (!item)
-        return setErrorMessage(
-          "No item with that slug was found in the database"
-        );
+      const [item] = products.filter((_item) => _item.slug === slug);
+      if (!item) {
+        setErrorMessage("No item with that slug was found in the database");
+        return;
+      }
       setProduct(item);
     }
   }, [products, slug]);
 
+  const getHandleChange = (key) => (event) => {
+    setProduct({ ...product, [key]: event.target.value });
+  };
+
   function renderInputs(keyList) {
     return Object.entries(product)
-      .filter(([key, value]) => keyList.includes(key))
+      .filter(([key]) => keyList.includes(key))
       .map(([key, value]) => (
         <tr key={key}>
           <th className={styles.th}>{key}</th>
@@ -57,13 +61,9 @@ const AdminEditProductPage = ({ match }) => {
       ));
   }
 
-  const getHandleChange = (key) => (event) => {
-    setProduct({ ...product, [key]: event.target.value });
-  };
-
-  const handleOnSubmit = (slug) => async (event) => {
+  const handleOnSubmit = (productSlug) => async (event) => {
     event.preventDefault();
-    const url = `${process.env.REACT_APP_BASE_URL}/api/products/${slug}`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/products/${productSlug}`;
 
     try {
       await appPostRequest(url, product);
@@ -102,6 +102,7 @@ const AdminEditProductPage = ({ match }) => {
       <div className={styles.ap_container}>
         <h2 className={styles.header}>Admin Page</h2>
         <h3 className={styles.header}>Edit product</h3>
+        {console.log(product)}
         <form onSubmit={handleOnSubmit(product.slug)}>
           <table className={styles.ap_table}>
             <tbody>

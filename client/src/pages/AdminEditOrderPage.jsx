@@ -54,10 +54,9 @@ const AdminEditOrderPage = ({ match }) => {
       const responseData = await appUpdateCall(url, { status: orderStatus });
       setOrderStatus(responseData.data.order.status);
       setMessage("Successfully updated order's status!");
-      setWasChanged(false);
-      //}
+      return setWasChanged(false);
     } catch (err) {
-      console.error(err);
+      return console.error(err);
     }
   };
 

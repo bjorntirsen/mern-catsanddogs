@@ -69,28 +69,29 @@ const OrderDetailsPage = ({ match }) => {
             <span>Order status:</span> {order.status}
           </p>
           <h3 className={styles.header}>Content:</h3>
-          {products && order.content.map((content) => {
-            const OrderProducts = products.filter(
-              (product) => product._id === content.productId
-            );
-            return (
-              <Fragment key={content.productId}>
-                <p className={styles.card_small_line}>
-                  <span>Product Title:</span>
-                  {OrderProducts[0]
-                    ? OrderProducts[0].title
-                    : content.productId}
-                </p>
-                <p key={content.amount} className={styles.card_small_line}>
-                  <span>Amount:</span> {content.amount}
-                </p>
-                <p className={styles.card_line}>
-                  <span>Price each at purchase:</span>$
-                  {content.unitPriceAtPurchase}
-                </p>
-              </Fragment>
-            );
-          })}
+          {products &&
+            order.content.map((content) => {
+              const OrderProducts = products.filter(
+                (product) => product._id === content.productId
+              );
+              return (
+                <Fragment key={content.productId}>
+                  <p className={styles.card_small_line}>
+                    <span>Product Title:</span>
+                    {OrderProducts[0]
+                      ? OrderProducts[0].title
+                      : content.productId}
+                  </p>
+                  <p key={content.amount} className={styles.card_small_line}>
+                    <span>Amount:</span> {content.amount}
+                  </p>
+                  <p className={styles.card_line}>
+                    <span>Price each at purchase:</span>$
+                    {content.unitPriceAtPurchase}
+                  </p>
+                </Fragment>
+              );
+            })}
         </div>
       </section>
     );

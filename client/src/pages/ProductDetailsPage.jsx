@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import ProductDetails from "../components/ProductDetails.jsx";
-import RelatedProducts from "../components/RelatedProducts.jsx";
+import ProductDetails from "../components/ProductDetails";
+import RelatedProducts from "../components/RelatedProducts";
 
 import styles from "../styles/ProductDetailsPage.module.css";
-import { appFetchCall } from "../utils/apiCalls.js";
+import { appFetchCall } from "../utils/apiCalls";
 
 const ProductDetailsPage = ({ match }) => {
   const [products, setProducts] = useState(null);
@@ -31,15 +31,17 @@ const ProductDetailsPage = ({ match }) => {
 
   useEffect(() => {
     if (products) {
-      const [item] = products.filter((item) => item.slug === slug);
-      if (!item)
-        return setErrorMessage(
-          "No item with that slug was found in the database"
-        );
+      const [item] = products.filter(
+        (productItem) => productItem.slug === slug
+      );
+      if (!item) {
+        setErrorMessage("No item with that slug was found in the database");
+        return;
+      }
       setProduct(item);
-      const relatedItems = products.filter((prod) => {
-        return prod.category === item.category && prod.slug !== item.slug;
-      });
+      const relatedItems = products.filter(
+        (prod) => prod.category === item.category && prod.slug !== item.slug
+      );
       setRelatedProducts(relatedItems);
     }
   }, [products, slug]);
