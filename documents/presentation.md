@@ -1,6 +1,6 @@
-# Plan för redovisning 29/10:
+# Redovisning 29/10 Nackademin sal 205:
 
-1. Vanlig kund - Edvard
+1. Vanlig kund - Mariia
    signup
    logout
    login
@@ -17,9 +17,13 @@
    titta på en order
    ändra status på order
 
+3. Validering av skapa produkt - Björn
+   Validering frontend
+   Validering backend
 
-3. Arbetssätt - Björn
-   trello
-   möten 1. ideer 2. standup
+5. Arbetssätt - Marta
+   Vår Trello
+   Olika stegen i produktionen
+   Möten: 1. ideer 2. standup
    pull requests
    granskningar
