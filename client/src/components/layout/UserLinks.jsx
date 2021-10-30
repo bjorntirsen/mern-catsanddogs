@@ -23,33 +23,37 @@ const UserLinks = ({ logoutHandler }) => {
   return (
     <div className={styles.right}>
       <ul className={styles.nav}>
-        <li className={styles.li}>
-          <NavLink to="/profile" className={styles.a}>
-            Logged in as: {user.fullName}
-          </NavLink>
-        </li>
-        <li className={styles.li}>
-          <span
-            className={styles.a}
-            onClick={logoutHandler}
-            role="button"
-            onKeyPress={logoutHandler}
-            tabIndex={0}
-          >
-            Logout
-          </span>
-        </li>
-        <li className={styles.li}>
-          <NavLink to="/orders" className={styles.a}>
-            My orders
-          </NavLink>
-        </li>
-        <li className={`${styles.li} ${styles.cartLi}`}>
-          <NavLink to="/cart">
-            <img className={styles.cart} src={Cart} alt="cart-icon" />
-          </NavLink>
-          <span>{cartSum}</span>
-        </li>
+        <div className={styles.upper}>
+          <li className={styles.li}>
+            <NavLink to="/profile" className={styles.a}>
+              Logged in as: {user.fullName}
+            </NavLink>
+          </li>
+        </div>
+        <div className={styles.lower}>
+          <li className={styles.li}>
+            <span
+              className={styles.a}
+              onClick={logoutHandler}
+              role="button"
+              onKeyPress={logoutHandler}
+              tabIndex={0}
+            >
+              Logout
+            </span>
+          </li>
+          <li className={styles.li}>
+            <NavLink to="/orders" className={styles.a}>
+              My orders
+            </NavLink>
+          </li>
+          <li className={`${styles.li} ${styles.cartLi}`}>
+            <NavLink to="/cart">
+              <img className={styles.cart} src={Cart} alt="cart-icon" />
+            </NavLink>
+            <span>{cartSum}</span>
+          </li>
+        </div>
       </ul>
     </div>
   );

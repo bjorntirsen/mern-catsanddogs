@@ -25,9 +25,10 @@ nav {
 }
 
 .left {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  justify-self: left;
 }
 
 .center {
@@ -101,4 +102,12 @@ span:hover {
   width: 25px;
   height: 25px;
   border-radius: 100%;
+}
+
+.upper {
+  float: right;
+}
+
+.lower {
+  float: right;
 }

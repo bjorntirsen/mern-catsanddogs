@@ -23,43 +23,47 @@ const AdminLinks = ({ logoutHandler }) => {
   return (
     <div className={styles.right}>
       <ul className={styles.nav}>
-        <li className={styles.li}>
-          <NavLink to="/profile" className={styles.a}>
-            Logged in admin: {user.fullName}
-          </NavLink>
-        </li>
-        <li className={styles.li}>
-          <NavLink to="/admin/orders" className={styles.a}>
-            Orders
-          </NavLink>
-        </li>
-        <li className={styles.li}>
-          <NavLink to="/admin/products" className={styles.a}>
-            Products
-          </NavLink>
-        </li>
-        <li className={styles.li}>
-          <NavLink to="/admin/products/create" className={styles.a}>
-            Create Product
-          </NavLink>
-        </li>
-        <li className={styles.li}>
-          <span
-            className={styles.a}
-            onClick={logoutHandler}
-            onKeyPress={logoutHandler}
-            role="button"
-            tabIndex={0}
-          >
-            Logout
-          </span>
-        </li>
-        <li className={`${styles.li} ${styles.cartLi}`}>
-          <NavLink to="/cart">
-            <img className={styles.cart} src={Cart} alt="cart-icon" />
-          </NavLink>
-          <span>{cartSum}</span>
-        </li>
+        <div className={styles.upper}>
+          <li className={styles.li}>
+            <NavLink to="/profile" className={styles.a}>
+              Logged in admin: {user.fullName}
+            </NavLink>
+          </li>
+        </div>
+        <div className={styles.lower}>
+          <li className={styles.li}>
+            <NavLink to="/admin/orders" className={styles.a}>
+              Orders
+            </NavLink>
+          </li>
+          <li className={styles.li}>
+            <NavLink to="/admin/products" className={styles.a}>
+              Products
+            </NavLink>
+          </li>
+          <li className={styles.li}>
+            <NavLink to="/admin/products/create" className={styles.a}>
+              Create Product
+            </NavLink>
+          </li>
+          <li className={styles.li}>
+            <span
+              className={styles.a}
+              onClick={logoutHandler}
+              onKeyPress={logoutHandler}
+              role="button"
+              tabIndex={0}
+            >
+              Logout
+            </span>
+          </li>
+          <li className={`${styles.li} ${styles.cartLi}`}>
+            <NavLink to="/cart">
+              <img className={styles.cart} src={Cart} alt="cart-icon" />
+            </NavLink>
+            <span>{cartSum}</span>
+          </li>
+        </div>
       </ul>
     </div>
   );
