@@ -17,7 +17,7 @@
 
 .ap_container {
   max-width: 60rem;
-  width: 95%;
+  width: 100%;
   box-shadow: 0px 25px 40px var(--darkshade);
   margin-bottom: 1rem;
   padding-bottom: 2rem;
@@ -92,5 +92,11 @@ button:hover {
 @media (max-width: 435px) {
   .hide_xs {
     display: none;
+  }
+}
+
+@media (max-width: 335px) {
+  .ap_table {
+    font-size: small;
   }
 }
