@@ -118,7 +118,9 @@ const AdminEditProductPage = ({ match }) => {
               ])}
             </tbody>
           </table>
-          <button type="submit">Update product</button>
+          <button type="submit" className={styles.btn}>
+            Update product
+          </button>
         </form>
         <p className={styles.message}>{message}</p>
       </div>
