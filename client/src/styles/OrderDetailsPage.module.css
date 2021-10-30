@@ -62,7 +62,7 @@
 }
 
 @media (max-width: 540px) {
-  .container {
-    font-size: 0.8rem;
+  .card {
+    padding: 0.5rem;
   }
 }
