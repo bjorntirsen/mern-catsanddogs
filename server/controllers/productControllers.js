@@ -19,7 +19,7 @@ const createOneProduct = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         "You need to provide title, price, category, description, imageUrl, weight, maker and stock to add a new product.",
-        401
+        400
       )
     );
   }
@@ -74,7 +74,7 @@ const readProductsByCategory = catchAsync(async (req, res, next) => {
   const { category } = req.params;
   if (category !== "dog" && category !== "cat") {
     return next(
-      new AppError("Provide either 'cat' or 'dog' as category.", 401)
+      new AppError("Provide either 'cat' or 'dog' as category.", 400)
     );
   }
   const products = await Product.find({ category });
