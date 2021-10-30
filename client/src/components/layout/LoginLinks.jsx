@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import styles from "../styles/Navbar.module.css";
-import Cart from "../bxs-cart.svg";
+import styles from "../../styles/Navbar.module.css";
+import Cart from "../../bxs-cart.svg";
 
 const LoginLinks = () => (
   <div className={styles.right}>

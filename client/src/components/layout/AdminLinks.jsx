@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import styles from "../styles/Navbar.module.css";
-import Cart from "../bxs-cart.svg";
-import UserContext from "../contexts/UserContext";
+import styles from "../../styles/Navbar.module.css";
+import Cart from "../../bxs-cart.svg";
+import UserContext from "../../contexts/UserContext";
 
-const UserLinks = ({ logoutHandler }) => {
+const AdminLinks = ({ logoutHandler }) => {
   const [cartSum, setCartSum] = useState(null);
   const { user } = useContext(UserContext);
 
@@ -25,24 +25,34 @@ const UserLinks = ({ logoutHandler }) => {
       <ul className={styles.nav}>
         <li className={styles.li}>
           <NavLink to="/profile" className={styles.a}>
-            Logged in as: {user.fullName}
+            Logged in admin: {user.fullName}
+          </NavLink>
+        </li>
+        <li className={styles.li}>
+          <NavLink to="/admin/orders" className={styles.a}>
+            Orders
+          </NavLink>
+        </li>
+        <li className={styles.li}>
+          <NavLink to="/admin/products" className={styles.a}>
+            Products
+          </NavLink>
+        </li>
+        <li className={styles.li}>
+          <NavLink to="/admin/products/create" className={styles.a}>
+            Create Product
           </NavLink>
         </li>
         <li className={styles.li}>
           <span
             className={styles.a}
             onClick={logoutHandler}
-            role="button"
             onKeyPress={logoutHandler}
+            role="button"
             tabIndex={0}
           >
             Logout
           </span>
-        </li>
-        <li className={styles.li}>
-          <NavLink to="/orders" className={styles.a}>
-            My orders
-          </NavLink>
         </li>
         <li className={`${styles.li} ${styles.cartLi}`}>
           <NavLink to="/cart">
@@ -55,4 +65,4 @@ const UserLinks = ({ logoutHandler }) => {
   );
 };
 
-export default UserLinks;
+export default AdminLinks;
