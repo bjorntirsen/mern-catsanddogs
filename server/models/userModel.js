@@ -5,6 +5,11 @@ const userSchema = new mongoose.Schema({
   fullName: {
     type: String,
     required: [true, "A user must have a full name"],
+    maxlength: [26, "Your full name can only be 26 characters or less."],
+    minlength: [
+      2,
+      "You need to provide at least 2 characters for your full name.",
+    ],
   },
   password: {
     type: String,
