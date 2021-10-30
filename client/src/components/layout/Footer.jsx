@@ -8,7 +8,9 @@ export default function Footer() {
     <footer className={styles.footerContainer}>
       <div className={`${styles.footerContent} ${styles.footerMain}`}>
         <div className={styles.footerCol}>
-          <img src={logo} alt="Logo" />
+          <div className={styles.logo_container}>
+            <img src={logo} alt="Logo" />
+          </div>
           <p>1203 Town Center Orive #L 335458 USA</p>
           <p>+841 123 456 78</p>
           <p>info@company.com</p>
