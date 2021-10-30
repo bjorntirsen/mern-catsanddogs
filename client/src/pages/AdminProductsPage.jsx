@@ -76,7 +76,7 @@ export default function AdminProductsPage() {
                   <td>{product.stock}</td>
                   <td>
                     <a href={`/admin/products/${product.slug}`}>
-                      <Button type="primary" text="Update" />
+                      <Button btnStyle="primary" text="Update" />
                     </a>
                   </td>
                   <td>

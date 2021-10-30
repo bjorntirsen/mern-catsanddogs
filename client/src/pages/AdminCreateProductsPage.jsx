@@ -82,7 +82,11 @@ const AdminCreateProductsPage = () => {
 
   return (
     <section>
-      <form className={styles.formContainer} onChange={changeHandler}>
+      <form
+        className={styles.formContainer}
+        onChange={changeHandler}
+        onSubmit={handleCreateProduct}
+      >
         <h1 className={styles.header}>Create product</h1>
         <Input
           label="Title:"
@@ -160,11 +164,11 @@ const AdminCreateProductsPage = () => {
           {errorMessage && <p className={styles.error}>{errorMessage}</p>}
           <Button
             text="Create"
-            type="primary"
-            onClick={handleCreateProduct}
+            btnStyle="primary"
+            btnType="submit"
             disabled={!formIsValid}
           />
-          <Button text="Cancel" type="secondary" onClick={handleCancel} />
+          <Button text="Cancel" btnStyle="secondary" onClick={handleCancel} />
         </div>
       </form>
     </section>

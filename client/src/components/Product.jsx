@@ -63,7 +63,7 @@ const Product = ({ product }) => {
         onKeyPress={addToCart}
         tabIndex={0}
       >
-        <Button type="primary" text={btnText} />
+        <Button btnStyle="primary" text={btnText} />
       </div>
     </div>
   );

@@ -1,26 +1,32 @@
 import React from "react";
 import styles from "../styles/Button.module.css"; // Import css modules stylesheet as styles
 
-export default function Button({ disabled = false, onClick, type, text }) {
-  if (type === "primary") {
+export default function Button({
+  disabled = false,
+  onClick,
+  btnStyle,
+  btnType,
+  text,
+}) {
+  if (btnStyle === "primary") {
     return (
       <button
         onClick={onClick}
         disabled={disabled}
         className={`${styles.btn} ${styles.btnPrimary}`}
-        type="button"
+        type={btnType === "submit" ? "submit" : "button"}
       >
         {text}
       </button>
     );
   }
-  if (type === "secondary") {
+  if (btnStyle === "secondary") {
     return (
       <button
         onClick={onClick}
         disabled={disabled}
         className={`${styles.btn} ${styles.btnSecondary}`}
-        type="button"
+        type={btnType === "submit" ? "submit" : "button"}
       >
         {text}
       </button>
@@ -31,7 +37,7 @@ export default function Button({ disabled = false, onClick, type, text }) {
       onClick={onClick}
       disabled={disabled}
       className={styles.btn}
-      type="button"
+      type={btnType === "submit" ? "submit" : "button"}
     >
       {text}
     </button>
