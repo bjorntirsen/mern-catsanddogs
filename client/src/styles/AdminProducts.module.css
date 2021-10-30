@@ -76,3 +76,21 @@ th {
 button:hover {
   opacity: 0.5;
 }
+
+@media (max-width: 830px) {
+  .hide_med {
+    display: none;
+  }
+}
+
+@media (max-width: 555px) {
+  .hide_small {
+    display: none;
+  }
+}
+
+@media (max-width: 435px) {
+  .hide_xs {
+    display: none;
+  }
+}

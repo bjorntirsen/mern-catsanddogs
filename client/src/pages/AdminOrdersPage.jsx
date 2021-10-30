@@ -70,26 +70,36 @@ export default function AdminOrdersPage() {
           <table className={styles.ap_table}>
             <thead>
               <tr>
-                <th className={styles.th_big}>Order Id</th>
-                <th className={styles.th_small}>Order Date</th>
+                <th className={`${styles.th_big} ${styles.hide_med}`}>
+                  Order Id
+                </th>
+                <th className={`${styles.th_small} ${styles.hide_small}`}>
+                  Order Date
+                </th>
                 <th className={styles.th_small}>Address</th>
                 <th className={styles.th_small}>Order details</th>
-                <th className={styles.th_small}>Status</th>
+                <th className={`${styles.th_small} ${styles.hide_xs}`}>
+                  Status
+                </th>
                 <th className={styles.th_small}>Edit</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id}>
-                  <td className={styles.th_big}>{order._id}</td>
-                  <td>{new Date(order.datePlaced).toLocaleString("en-US")}</td>
+                  <td className={`${styles.th_big} ${styles.hide_med}`}>
+                    {order._id}
+                  </td>
+                  <td className={styles.hide_small}>
+                    {new Date(order.datePlaced).toLocaleString("en-US")}
+                  </td>
                   <td>{order.deliveryAddress}</td>
                   <td>
                     <NavLink to={`/orders/${order._id}`}>
                       <Button text="Order details" btnStyle="primary" />
                     </NavLink>
                   </td>
-                  <td>{order.status}</td>
+                  <td className={styles.hide_xs}>{order.status}</td>
                   <td>
                     <a href={`/admin/orders/${order._id}`}>
                       <Button text="Update status" btnStyle="primary" />
