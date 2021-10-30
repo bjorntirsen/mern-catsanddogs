@@ -35,7 +35,7 @@ const createUser = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         "You need to provide fullName, password, passwordConfirm, email, phone, address to sign up.",
-        401
+        400
       )
     );
   }
@@ -116,7 +116,9 @@ const updateMe = catchAsync(async (req, res, next) => {
     !req.body.phone ||
     !req.body.address
   ) {
-    return next(new AppError("No field shall be left empty!", 400));
+    return next(
+      new AppError("Please provide fullName, email, phone and address", 400)
+    );
   }
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,

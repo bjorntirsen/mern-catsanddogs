@@ -86,13 +86,13 @@ const createOrder = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         "You need to provide price, a valid product id, amount, shipping cost and delivery address to place an order.",
-        401
+        400
       )
     );
   }
   if (validCart === "not enough stock") {
     return next(
-      new AppError("We do not have enough stock to cover that order.", 401)
+      new AppError("We do not have enough stock to cover that order.", 404)
     );
   }
   const { content } = req.body;
@@ -176,7 +176,7 @@ const updateOrderById = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         "You need to provide content, status and delivery address to place an order.",
-        401
+        400
       )
     );
   }
