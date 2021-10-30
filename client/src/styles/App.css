@@ -32,7 +32,13 @@
 
 body,
 html {
-  height: 100%;
   color: var(--darkgrey);
   background: linear-gradient(to bottom right, #fcfcfc, #f9f9f9);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  flex-grow: 1;
 }
