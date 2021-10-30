@@ -195,7 +195,7 @@ export default function ShoppingCartPage() {
             <div className={styles.items}>including $15 shipping</div>
             <div className={styles.button}>
               <Button
-                type="primary"
+                btnStyle="primary"
                 text="Checkout"
                 onClick={handleCreateOrder}
               />
@@ -203,7 +203,7 @@ export default function ShoppingCartPage() {
             {wasChanged && (
               <div className={styles.button}>
                 <Button
-                  type="secondary"
+                  btnStyle="secondary"
                   text="Save cart"
                   onClick={handleSaveCart}
                 />

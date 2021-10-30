@@ -60,4 +60,10 @@
   .hero_container {
     height: 320px;
   }
+  .cats button {
+    font-size: 1rem;
+  }
+  .dogs button {
+    font-size: 1rem;
+  }
 }

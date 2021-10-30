@@ -12,7 +12,7 @@ const createCartItem = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         "You need to provide the id of the product you wish to add to cart.",
-        401
+        400
       )
     );
   }
@@ -71,7 +71,7 @@ const createCartItems = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         "You need to provide the id of the product and the amount you wish to add to cart.",
-        401
+        400
       )
     );
   }
@@ -160,7 +160,7 @@ const updateCart = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         "One or more items in your cart are not valid products.",
-        401
+        400
       )
     );
   }

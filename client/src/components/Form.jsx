@@ -47,8 +47,8 @@ export default function Form({ type, title }) {
 
   if (type === "signup") {
     return (
-      <section>
-        <form className={styles.formContainer}>
+      <section className={styles.formContainer}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <h1 className={styles.header}>{title}</h1>
           <div className={styles.formCol}>
             <label htmlFor="fullName">Fullname*</label>
@@ -102,8 +102,7 @@ export default function Form({ type, title }) {
             />
           </div>
           <div className={styles.formCol}>
-            {/* Byt ut nedantående mot Button components */}
-            <Button text="Sign Up" type="primary" onClick={handleSubmit} />
+            <Button text="Sign Up" btnStyle="primary" btnType="submit" />
             <Link
               className={`${btnStyles.btn} ${btnStyles.btnSecondary}`}
               to="/"
@@ -126,8 +125,8 @@ export default function Form({ type, title }) {
   }
   if (type === "login") {
     return (
-      <section>
-        <form className={styles.formContainer}>
+      <section className={styles.formContainer}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <h1 className={styles.header}>{title}</h1>
           <div className={styles.formCol}>
             <label htmlFor="email">Email*</label>
@@ -148,7 +147,7 @@ export default function Form({ type, title }) {
             />
           </div>
           <div className={styles.formCol}>
-            <Button text="Login" type="primary" onClick={handleSubmit} />
+            <Button text="Login" btnStyle="primary" btnType="submit" />
             <Link
               className={`${btnStyles.btn} ${btnStyles.btnSecondary}`}
               to="/"

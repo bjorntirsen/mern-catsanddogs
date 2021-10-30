@@ -86,13 +86,13 @@ export default function AdminOrdersPage() {
                   <td>{order.deliveryAddress}</td>
                   <td>
                     <NavLink to={`/orders/${order._id}`}>
-                      <Button text="Order details" type="primary" />
+                      <Button text="Order details" btnStyle="primary" />
                     </NavLink>
                   </td>
                   <td>{order.status}</td>
                   <td>
                     <a href={`/admin/orders/${order._id}`}>
-                      <Button type="primary" text="Update status" />
+                      <Button text="Update status" btnStyle="primary" />
                     </a>
                   </td>
                 </tr>

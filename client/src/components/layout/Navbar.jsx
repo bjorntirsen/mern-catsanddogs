@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
 import UserContext from "../../contexts/UserContext";
-import StandardLinks from "../StandardLinks";
-import LoginLinks from "../LoginLinks";
-import UserLinks from "../UserLinks";
-import AdminLinks from "../AdminLinks";
+import StandardLinks from "./StandardLinks";
+import LoginLinks from "./LoginLinks";
+import UserLinks from "./UserLinks";
+import AdminLinks from "./AdminLinks";
 
 import styles from "../../styles/Navbar.module.css";
 import Hero from "../Hero";
@@ -25,7 +25,7 @@ const Navbar = () => {
   if (!user) {
     return (
       <>
-        <header>
+        <header className={styles.container}>
           <nav className={styles.nav}>
             <StandardLinks />
             <LoginLinks />
@@ -38,7 +38,7 @@ const Navbar = () => {
   if (user && !user.adminUser) {
     return (
       <>
-        <header>
+        <header className={styles.container}>
           <nav className={styles.nav}>
             <StandardLinks />
             <UserLinks logoutHandler={handleLogout} />
@@ -50,7 +50,7 @@ const Navbar = () => {
   }
   return (
     <>
-      <header>
+      <header className={styles.container}>
         <nav className={styles.nav}>
           <StandardLinks />
           <AdminLinks logoutHandler={handleLogout} />

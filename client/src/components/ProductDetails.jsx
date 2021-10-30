@@ -115,7 +115,7 @@ const ProductDetails = ({ product }) => {
           </span>
           <Button
             onClick={addToCart}
-            type="primary"
+            btnStyle="primary"
             text={btnText}
             disabled={btnDisabled}
           />
