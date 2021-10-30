@@ -157,16 +157,16 @@ const AdminCreateProductsPage = () => {
           setIsValid={setStockIsValid}
         />
         <div className={styles.formCol}>
+          {errorMessage && <p className={styles.error}>{errorMessage}</p>}
           <Button
             text="Create"
             type="primary"
-            disabled={!formIsValid}
             onClick={handleCreateProduct}
+            disabled={!formIsValid}
           />
           <Button text="Cancel" type="secondary" onClick={handleCancel} />
         </div>
       </form>
-      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
     </section>
   );
 };
