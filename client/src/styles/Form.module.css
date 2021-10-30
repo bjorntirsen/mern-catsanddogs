@@ -1,3 +1,15 @@
+.formContainer {
+  width: 40rem;
+  max-width: 95%;
+  border: 0.5px solid var(--lightgrey);
+  padding: 24px;
+  margin: 1rem auto;
+}
+
+.form {
+  text-align: center;
+}
+
 .header {
   font-size: 2.5rem;
   margin: 1rem auto;
@@ -7,16 +19,6 @@ h1 {
   font-size: 4rem;
   font-weight: 500;
   letter-spacing: 0.03em;
-}
-
-.formContainer {
-  width: 40vw;
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-column-gap: 24px;
-  border: 0.5px solid var(--lightgrey);
-  padding: 24px;
-  margin: 1rem auto;
 }
 
 .formCol {
@@ -37,6 +39,7 @@ h1 {
 
 .formCol label {
   font-weight: 700;
+  text-align: start;
 }
 
 .formContainer p {

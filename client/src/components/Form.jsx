@@ -47,8 +47,8 @@ export default function Form({ type, title }) {
 
   if (type === "signup") {
     return (
-      <section>
-        <form className={styles.formContainer}>
+      <section className={styles.formContainer}>
+        <form className={styles.form}>
           <h1 className={styles.header}>{title}</h1>
           <div className={styles.formCol}>
             <label htmlFor="fullName">Fullname*</label>
@@ -126,8 +126,8 @@ export default function Form({ type, title }) {
   }
   if (type === "login") {
     return (
-      <section>
-        <form className={styles.formContainer}>
+      <section className={styles.formContainer}>
+        <form className={styles.form}>
           <h1 className={styles.header}>{title}</h1>
           <div className={styles.formCol}>
             <label htmlFor="email">Email*</label>
