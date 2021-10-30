@@ -111,3 +111,34 @@ span:hover {
 .lower {
   float: right;
 }
+
+@media (max-width: 1300px) {
+  nav {
+    display: flex;
+    flex-direction: column;
+  }
+  .upper {
+    float: none;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+  .lower {
+    float: none;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+  .right {
+    margin: 0;
+  }
+}
+
+@media (max-width: 510px) {
+  .lower {
+    flex-wrap: wrap;
+  }
+  .right {
+    flex-wrap: wrap;
+  }
+}
