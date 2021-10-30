@@ -1,6 +1,6 @@
 import { React, useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "../components/Button";
 
@@ -36,14 +36,14 @@ export default function UserOrdersPage() {
       setErrorMessage(error.message);
     });
   }, []);
-  
-    if (isLoading) {
-      return (
-        <section className={styles.IsLoading}>
-          <p>Loading...</p>
-        </section>
-      );
-    }
+
+  if (isLoading) {
+    return (
+      <section className={styles.IsLoading}>
+        <p>Loading...</p>
+      </section>
+    );
+  }
 
   if (!user) {
     return (
@@ -78,22 +78,18 @@ export default function UserOrdersPage() {
               </tr>
             </thead>
             <tbody>
-              {UserOrders.map((order) => {
-                return (
-                  <tr key={order._id}>
-                    <td>
-                      {new Date(order.datePlaced).toLocaleString("en-US")}
-                    </td>
-                    <td>{order.status}</td>
-                    <td>{order.deliveryAddress}</td>
-                    <td>
-                      <NavLink to={`/orders/${order._id}`}>
-                        <Button text={"Order details"} type={"primary"} />
-                      </NavLink>
-                    </td>
-                  </tr>
-                );
-              })}
+              {UserOrders.map((order) => (
+                <tr key={order._id}>
+                  <td>{new Date(order.datePlaced).toLocaleString("en-US")}</td>
+                  <td>{order.status}</td>
+                  <td>{order.deliveryAddress}</td>
+                  <td>
+                    <NavLink to={`/orders/${order._id}`}>
+                      <Button text="Order details" type="primary" />
+                    </NavLink>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

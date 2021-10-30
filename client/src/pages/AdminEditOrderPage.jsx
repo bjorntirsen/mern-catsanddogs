@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminEditProduct.module.css";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 import { appUpdateCall } from "../utils/apiCalls";
 
 const AdminEditOrderPage = ({ match }) => {
@@ -54,10 +54,9 @@ const AdminEditOrderPage = ({ match }) => {
       const responseData = await appUpdateCall(url, { status: orderStatus });
       setOrderStatus(responseData.data.order.status);
       setMessage("Successfully updated order's status!");
-      setWasChanged(false);
-      //}
+      return setWasChanged(false);
     } catch (err) {
-      console.error(err);
+      return console.error(err);
     }
   };
 

@@ -1,7 +1,7 @@
 import { React, useState, useContext, useEffect } from "react";
-import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
-import Button from "../components/Button";
+import UserContext from "../contexts/UserContext";
+import Button from "./Button";
 import styles from "../styles/ProductDetails.module.css";
 import { appPostRequest } from "../utils/apiCalls";
 
@@ -17,12 +17,12 @@ const ProductDetails = ({ product }) => {
   };
 
   const increaseQuantityHandler = () => {
-    if (quantity === product.stock) return null;
-    else setQuantity(quantity + 1);
+    if (quantity === product.stock) return;
+    setQuantity(quantity + 1);
   };
 
   const onChangeHandler = (event) => {
-    setQuantity(parseInt(event.target.value));
+    setQuantity(parseInt(event.target.value, 10));
   };
 
   const addToCart = () => {
@@ -46,9 +46,9 @@ const ProductDetails = ({ product }) => {
     });
   };
 
-  const productAvailable = (product) => {
-    if (product.stock === 0) return false;
-    else return true;
+  const productAvailable = (item) => {
+    if (item.stock === 0) return false;
+    return true;
   };
 
   useEffect(() => {
@@ -88,7 +88,14 @@ const ProductDetails = ({ product }) => {
         <div className={styles.cta_area}>
           <label htmlFor="qty_input">Quantity:</label>
           <span className={styles.quantity}>
-            <span onClick={reduceQuantityHandler}>-</span>
+            <span
+              onClick={reduceQuantityHandler}
+              role="button"
+              onKeyPress={reduceQuantityHandler}
+              tabIndex={0}
+            >
+              -
+            </span>
             <input
               onChange={onChangeHandler}
               type="number"
@@ -97,7 +104,14 @@ const ProductDetails = ({ product }) => {
               min="1"
               max={product.stock}
             />
-            <span onClick={increaseQuantityHandler}>+</span>
+            <span
+              onClick={increaseQuantityHandler}
+              role="button"
+              onKeyPress={increaseQuantityHandler}
+              tabIndex={0}
+            >
+              +
+            </span>
           </span>
           <Button
             onClick={addToCart}

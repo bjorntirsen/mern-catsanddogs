@@ -17,7 +17,7 @@ import AdminEditProductPage from "./pages/AdminEditProductPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminEditOrderPage from "./pages/AdminEditOrderPage";
 import Layout from "./components/layout/Layout";
-import { UserContext } from "./contexts/UserContext";
+import UserContext from "./contexts/UserContext";
 
 const App = () => {
   const [user, setUser] = useState(null);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import classes from "../styles/Input.module.css";
 
@@ -24,7 +24,7 @@ const Input = ({
     setEnteredValue(event.target.value);
   };
 
-  const inputBlurHandler = (event) => {
+  const inputBlurHandler = () => {
     setIsTouched(true);
   };
 

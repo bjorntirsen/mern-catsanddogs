@@ -2,7 +2,7 @@ import { React, useEffect, useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "../components/Button";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState(null);
@@ -44,7 +44,7 @@ export default function AdminOrdersPage() {
       </section>
     );
   }
-  
+
   if (!user || !user.adminUser) {
     return (
       <section className={styles.ErrorMessage}>
@@ -79,28 +79,24 @@ export default function AdminOrdersPage() {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order) => {
-                return (
-                  <tr key={order._id}>
-                    <td className={styles.th_big}>{order._id}</td>
-                    <td>
-                      {new Date(order.datePlaced).toLocaleString("en-US")}
-                    </td>
-                    <td>{order.deliveryAddress}</td>
-                    <td>
-                      <NavLink to={`/orders/${order._id}`}>
-                        <Button text={"Order details"} type={"primary"} />
-                      </NavLink>
-                    </td>
-                    <td>{order.status}</td>
-                    <td>
-                      <a href={`/admin/orders/${order._id}`}>
-                        <Button type="primary" text="Update status" />
-                      </a>
-                    </td>
-                  </tr>
-                );
-              })}
+              {orders.map((order) => (
+                <tr key={order._id}>
+                  <td className={styles.th_big}>{order._id}</td>
+                  <td>{new Date(order.datePlaced).toLocaleString("en-US")}</td>
+                  <td>{order.deliveryAddress}</td>
+                  <td>
+                    <NavLink to={`/orders/${order._id}`}>
+                      <Button text="Order details" type="primary" />
+                    </NavLink>
+                  </td>
+                  <td>{order.status}</td>
+                  <td>
+                    <a href={`/admin/orders/${order._id}`}>
+                      <Button type="primary" text="Update status" />
+                    </a>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -110,7 +106,7 @@ export default function AdminOrdersPage() {
 
   return (
     <section className={styles.ErrorMessage}>
-      <p>"Something went wrong!"</p>
+      <p>Something went wrong!</p>
     </section>
   );
 }

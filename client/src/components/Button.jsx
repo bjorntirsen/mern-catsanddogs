@@ -8,25 +8,32 @@ export default function Button({ disabled = false, onClick, type, text }) {
         onClick={onClick}
         disabled={disabled}
         className={`${styles.btn} ${styles.btnPrimary}`}
+        type="button"
       >
         {text}
       </button>
     );
-  } else if (type === "secondary") {
+  }
+  if (type === "secondary") {
     return (
       <button
         onClick={onClick}
         disabled={disabled}
         className={`${styles.btn} ${styles.btnSecondary}`}
+        type="button"
       >
         {text}
       </button>
     );
-  } else {
-    return (
-      <button onClick={onClick} disabled={disabled} className={styles.btn}>
-        {text}
-      </button>
-    );
   }
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={styles.btn}
+      type="button"
+    >
+      {text}
+    </button>
+  );
 }

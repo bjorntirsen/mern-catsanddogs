@@ -11,8 +11,8 @@ import { appPostRequest } from "../utils/apiCalls";
 const validTitle = (value) =>
   value.trim() !== "" && value.trim().length > 4 && value.trim().length < 41;
 const isNumeric = (value) => {
-  if (typeof value != "string") return false;
-  return !isNaN(value) && !isNaN(parseFloat(value));
+  if (typeof value !== "string") return false;
+  return !Number.isNaN(value) && !Number.isNaN(parseFloat(value));
 };
 const validCategory = (value) =>
   value.trim() === "dog" || value.trim() === "cat";
@@ -51,14 +51,14 @@ const AdminCreateProductsPage = () => {
   const changeHandler = (event) =>
     handleChange(event.target.value, event.target.id);
 
-  const handleCreateProduct = async (e) => {
-    e.preventDefault();
+  const handleCreateProduct = async (event) => {
+    event.preventDefault();
     const url = `${process.env.REACT_APP_BASE_URL}/api/products`;
     try {
       await appPostRequest(url, formFields);
       history.push(`/admin/products`);
-    } catch (e) {
-      setErrorMessage(e.message);
+    } catch (err) {
+      setErrorMessage(err.message);
     }
   };
 
@@ -82,11 +82,7 @@ const AdminCreateProductsPage = () => {
 
   return (
     <section>
-      <form
-        onSubmit={handleCreateProduct}
-        className={styles.formContainer}
-        onChange={changeHandler}
-      >
+      <form className={styles.formContainer} onChange={changeHandler}>
         <h1 className={styles.header}>Create product</h1>
         <Input
           label="Title:"
@@ -161,11 +157,16 @@ const AdminCreateProductsPage = () => {
           setIsValid={setStockIsValid}
         />
         <div className={styles.formCol}>
-          <Button text="Create" type="primary" disabled={!formIsValid} />
+          {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+          <Button
+            text="Create"
+            type="primary"
+            onClick={handleCreateProduct}
+            disabled={!formIsValid}
+          />
           <Button text="Cancel" type="secondary" onClick={handleCancel} />
         </div>
       </form>
-      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
     </section>
   );
 };

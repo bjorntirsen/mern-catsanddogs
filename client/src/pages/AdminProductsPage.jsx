@@ -1,7 +1,7 @@
 import { React, useState, useEffect, useContext } from "react";
 import styles from "../styles/AdminProducts.module.css";
 import Button from "../components/Button";
-import { UserContext } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 import { appDeleteCall, appFetchCall } from "../utils/apiCalls";
 
 export default function AdminProductsPage() {
@@ -23,7 +23,7 @@ export default function AdminProductsPage() {
       });
   }, []);
 
-  const handleDelete = (slug) => async (event) => {
+  const handleDelete = (slug) => async () => {
     const confirm = window.confirm(`Are you sure you want to delete ${slug}`);
     if (!confirm) return;
     const url = `${process.env.REACT_APP_BASE_URL}/api/products/${slug}`;
@@ -70,27 +70,26 @@ export default function AdminProductsPage() {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => {
-                return (
-                  <tr key={product.slug}>
-                    <td className={styles.th_big}>{product.title}</td>
-                    <td>{product.stock}</td>
-                    <td>
-                      <a href={`/admin/products/${product.slug}`}>
-                        <Button type="primary" text="Update" />
-                      </a>
-                    </td>
-                    <td>
-                      <button
-                        className={styles.btn_delete}
-                        onClick={handleDelete(product.slug)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+              {products.map((product) => (
+                <tr key={product.slug}>
+                  <td className={styles.th_big}>{product.title}</td>
+                  <td>{product.stock}</td>
+                  <td>
+                    <a href={`/admin/products/${product.slug}`}>
+                      <Button type="primary" text="Update" />
+                    </a>
+                  </td>
+                  <td>
+                    <button
+                      className={styles.btn_delete}
+                      onClick={handleDelete(product.slug)}
+                      type="button"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -100,7 +99,7 @@ export default function AdminProductsPage() {
 
   return (
     <section className={styles.ErrorMessage}>
-      <p>"Something went wrong!"</p>
+      <p>Something went wrong!</p>
     </section>
   );
 }
