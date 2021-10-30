@@ -25,7 +25,7 @@ const Navbar = () => {
   if (!user) {
     return (
       <>
-        <header>
+        <header className={styles.container}>
           <nav className={styles.nav}>
             <StandardLinks />
             <LoginLinks />
@@ -38,7 +38,7 @@ const Navbar = () => {
   if (user && !user.adminUser) {
     return (
       <>
-        <header>
+        <header className={styles.container}>
           <nav className={styles.nav}>
             <StandardLinks />
             <UserLinks logoutHandler={handleLogout} />
@@ -50,7 +50,7 @@ const Navbar = () => {
   }
   return (
     <>
-      <header>
+      <header className={styles.container}>
         <nav className={styles.nav}>
           <StandardLinks />
           <AdminLinks logoutHandler={handleLogout} />

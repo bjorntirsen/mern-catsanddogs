@@ -1,4 +1,9 @@
-/************ NAVBAR STYLES ************/
+.container {
+  background-color: var(--yellow);
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 
 nav {
   list-style-type: none;
@@ -7,11 +12,12 @@ nav {
   padding: 0;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 2fr 1fr 2fr;
   grid-auto-rows: auto;
   align-items: center;
   text-align: center;
-  background-color: var(--yellow);
+  width: 95%;
+  max-width: 1631px;
 }
 
 .title {
