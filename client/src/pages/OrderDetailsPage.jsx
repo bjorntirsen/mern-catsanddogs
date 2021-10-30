@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 
 import styles from "../styles/OrderDetailsPage.module.css";
 import { appFetchCall } from "../utils/apiCalls";
@@ -47,41 +47,48 @@ const OrderDetailsPage = ({ match }) => {
     return (
       <section className={styles.container}>
         <div className={styles.card}>
-          <h2 className={styles.header}>Order details and receipt</h2>
-          <p className={styles.card_line}>
-            <span>Order id:</span> {order._id}
-          </p>
-          <p className={styles.card_line}>
-            <span>Date placed:</span>{" "}
-            {new Date(order.datePlaced).toLocaleString("en-US")}
-          </p>
-          <p className={styles.card_line}>
-            <span>Order status:</span> {order.status}
-          </p>
-          <h3 className={styles.header}>Content:</h3>
-          {products &&
-            order.content.map((content) => {
-              const OrderProducts = products.filter(
-                (product) => product._id === content.productId
-              );
-              return (
-                <Fragment key={content.productId}>
-                  <p className={styles.card_small_line}>
-                    <span>Product Title:</span>
-                    {OrderProducts[0]
-                      ? OrderProducts[0].title
-                      : content.productId}
-                  </p>
-                  <p key={content.amount} className={styles.card_small_line}>
-                    <span>Amount:</span> {content.amount}
-                  </p>
-                  <p className={styles.card_line}>
-                    <span>Price each at purchase:</span>$
-                    {content.unitPriceAtPurchase}
-                  </p>
-                </Fragment>
-              );
-            })}
+          <h2>Order details and receipt</h2>
+          <div className={styles.card_line}>
+            <p>Order id: {order._id}</p>
+          </div>
+          <div className={styles.card_line}>
+            <p>
+              <span>Date placed:</span>
+              {new Date(order.datePlaced).toLocaleString("en-US")}
+            </p>
+          </div>
+          <div className={styles.card_line}>
+            <p>
+              <span>Order status:</span>
+              {order.status}
+            </p>
+          </div>
+          <h3 className={styles.content}>Content:</h3>
+          <div className={styles.content_container}>
+            {products &&
+              order.content.map((content) => {
+                const OrderProducts = products.filter(
+                  (product) => product._id === content.productId
+                );
+                return (
+                  <div className={styles.content_item} key={content.productId}>
+                    <p className={styles.card_small_line}>
+                      <span>Product Title:</span>
+                      {OrderProducts[0]
+                        ? OrderProducts[0].title
+                        : content.productId}
+                    </p>
+                    <p key={content.amount} className={styles.card_small_line}>
+                      <span>Amount:</span> {content.amount}
+                    </p>
+                    <p className={styles.card_small_line}>
+                      <span>Price each at purchase:</span>$
+                      {content.unitPriceAtPurchase}
+                    </p>
+                  </div>
+                );
+              })}
+          </div>
         </div>
       </section>
     );

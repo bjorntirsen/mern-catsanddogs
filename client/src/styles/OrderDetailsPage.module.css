@@ -16,31 +16,39 @@
   gap: 20px;
   align-items: center;
 }
-.header {
-  margin: auto;
-  width: 90%;
-  height: 10%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-h3.header {
-  color: orangered;
-}
 
 .card {
   background-color: var(--lightbackground2);
   padding: 0.5rem 2rem 2rem 2rem;
   margin-bottom: 2rem;
   box-shadow: 10px 5px 20px 1px var(--lightblack);
-  width: 800px;
-  max-width: 90%;
+  width: 60rem;
+  max-width: 95%;
+  text-align: center;
 }
 
 .card_line {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.content {
+  margin: 0.5rem;
+  text-decoration: underline;
+}
+
+.content_container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.content_item {
+  border: 1px lightgray solid;
+  padding: 1rem;
+  margin: 0.5rem;
 }
 
 .card_small_line {
@@ -49,6 +57,12 @@ h3.header {
   align-items: center;
 }
 
-.details_card span {
+.bold {
   font-weight: bold;
+}
+
+@media (max-width: 540px) {
+  .container {
+    font-size: 0.8rem;
+  }
 }
