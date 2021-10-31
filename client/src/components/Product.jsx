@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import Button from "./Button";
 import { appPostRequest } from "../utils/apiCalls";
+import styles from "../styles/Product.module.css";
 
 const Product = ({ product }) => {
   const history = useHistory();
@@ -53,17 +54,19 @@ const Product = ({ product }) => {
       <Link to={`/products/${product.slug}`}>
         <img src={product.imageUrl} alt="" />
       </Link>
-      <p>{product.title}</p>
-      <span>
-        <h4>${product.price}</h4>
-      </span>
-      <div
-        onClick={addToCart}
-        role="button"
-        onKeyPress={addToCart}
-        tabIndex={0}
-      >
-        <Button btnStyle="primary" text={btnText} />
+      <div className={styles.container}>
+        <p>{product.title}</p>
+        <span className={styles.no_margin}>
+          <h4>${product.price}</h4>
+        </span>
+        <div
+          onClick={addToCart}
+          role="button"
+          onKeyPress={addToCart}
+          tabIndex={0}
+        >
+          <Button btnStyle="primary" text={btnText} />
+        </div>
       </div>
     </div>
   );
