@@ -105,8 +105,8 @@ const AdminEditProductPage = ({ match }) => {
 
   return (
     <section className={styles.container}>
-      <h2 className={styles.header}>Admin Page</h2>
-      <h3 className={styles.header}>Edit product</h3>
+      <h1 className={styles.title}>Admin Page</h1>
+      <h2 className={styles.subtitle}>Edit product</h2>
       {console.log(product)}
       <form onSubmit={handleOnSubmit(product.slug)}>
         <table className={styles.ap_table}>
@@ -123,11 +123,13 @@ const AdminEditProductPage = ({ match }) => {
             ])}
           </tbody>
         </table>
-        <button type="submit" className={styles.btn}>
-          Update product
-        </button>
+        <div className={styles.btn_container}>
+          <button type="submit" className={styles.btn}>
+            Update product
+          </button>
+          <p className={styles.message}>{message}</p>
+        </div>
       </form>
-      <p className={styles.message}>{message}</p>
     </section>
   );
 };
