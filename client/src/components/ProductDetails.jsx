@@ -86,8 +86,10 @@ const ProductDetails = ({ product }) => {
           <p>{`$${product.price}`}</p>
         </div>
         <div className={styles.cta_area}>
-          <label htmlFor="qty_input">Quantity:</label>
-          <span className={styles.quantity}>
+          <label htmlFor="qty_input" className={styles.hide}>
+            Quantity:
+          </label>
+          <span className={`${styles.quantity} ${styles.hide}`}>
             <span
               onClick={reduceQuantityHandler}
               role="button"
