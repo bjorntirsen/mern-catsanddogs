@@ -51,15 +51,24 @@ const OrderDetailsPage = ({ match }) => {
           <div className={styles.card_line}>
             <p>Order id: {order._id}</p>
           </div>
-          <div className={styles.card_line}>
-            <p>
-              <span>Date placed:</span>
+          <div className={styles.info_container}>
+            <p className={styles.info_item}>
+              <strong>Date placed: </strong>
               {new Date(order.datePlaced).toLocaleString("en-US")}
             </p>
-          </div>
-          <div className={styles.card_line}>
-            <p>
-              <span>Order status:</span>
+            <p className={styles.info_item}>
+              <strong>Customer ID: </strong>
+              {order.customerId}
+            </p>
+            <p className={styles.info_item}>
+              <strong>Delivery Address: </strong>
+              {order.deliveryAddress}
+            </p>
+            <p className={styles.info_item}>
+              <strong>Shipping cost: </strong>${order.shippingCost}
+            </p>
+            <p className={styles.info_item}>
+              <strong>Order status: </strong>
               {order.status}
             </p>
           </div>
