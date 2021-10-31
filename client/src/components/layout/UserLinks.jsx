@@ -25,7 +25,7 @@ const UserLinks = ({ logoutHandler }) => {
       <ul className={styles.nav}>
         <div className={styles.upper}>
           <li className={styles.li}>
-            <NavLink to="/profile" className={styles.a}>
+            <NavLink to="/profile" className={styles.upper_link}>
               Logged in as: {user.fullName}
             </NavLink>
           </li>
