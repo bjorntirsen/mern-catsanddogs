@@ -33,6 +33,17 @@
   justify-content: center;
 }
 
+.info_container {
+  margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.info_item {
+  margin: 0.5rem 1.5rem;
+}
+
 .content {
   margin: 0.5rem;
   text-decoration: underline;
