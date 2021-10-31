@@ -79,9 +79,15 @@ const ProductDetails = ({ product }) => {
       <div className={styles.details_top_content}>
         <h1>{product.title}</h1>
         <p>{product.description}</p>
-        <p>
-          <strong>Number in stock: {product.stock}</strong>
-        </p>
+        <div className={styles.info_container}>
+          <p className={styles.info_item}>
+            <strong>Number in stock: {product.stock}</strong>
+          </p>
+          <p className={styles.info_item}>Maker: {product.maker}</p>
+          <p className={styles.info_item}>Category: {product.category}</p>
+          <p className={styles.info_item}>Weight: {product.weight}</p>
+        </div>
+
         <div className={styles.price_wrapper}>
           <p>{`$${product.price}`}</p>
         </div>

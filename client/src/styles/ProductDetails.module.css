@@ -84,6 +84,16 @@ h4 {
   font-weight: bold;
 }
 
+.info_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.info_item {
+  margin: 0 1.5rem;
+}
+
 .cta_area {
   display: flex;
   width: 100%;
@@ -187,14 +197,15 @@ h4 {
   cursor: pointer;
 }
 
-@media (max-width: 615px) {
+@media (max-width: 625px) {
   .hide {
     display: none;
+  }
+  .details_top_content {
+    height: 100%;
   }
 }
 
 @media (max-width: 470px) {
-  .details_top_content {
-    height: 100%;
-  }
+  
 }
