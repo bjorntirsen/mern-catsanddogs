@@ -67,7 +67,7 @@ const OrderDetailsPage = ({ match }) => {
             <p className={styles.info_item}>
               <strong>Shipping cost: </strong>${order.shippingCost}
             </p>
-            <p>
+            <p className={styles.info_item}>
               <strong>Order status: </strong>
               {order.status}
             </p>
