@@ -47,15 +47,21 @@ const AdminEditProductPage = ({ match }) => {
       .map(([key, value]) => (
         <tr key={key}>
           <th className={styles.th}>{key}</th>
-          <td>
-            <input
-              className={styles.input}
-              type="text"
-              name={key}
-              value={value}
-              size={50}
-              onChange={getHandleChange(key)}
-            />
+          <td className={styles.td}>
+            {key === "description" ? (
+              <textarea type="text" className={styles.input} rows="18">
+                {value}
+              </textarea>
+            ) : (
+              <input
+                className={styles.input}
+                type="text"
+                name={key}
+                value={value}
+                size={50}
+                onChange={getHandleChange(key)}
+              />
+            )}
           </td>
         </tr>
       ));
@@ -98,32 +104,30 @@ const AdminEditProductPage = ({ match }) => {
   }
 
   return (
-    <section className={styles.body}>
-      <div className={styles.ap_container}>
-        <h2 className={styles.header}>Admin Page</h2>
-        <h3 className={styles.header}>Edit product</h3>
-        {console.log(product)}
-        <form onSubmit={handleOnSubmit(product.slug)}>
-          <table className={styles.ap_table}>
-            <tbody>
-              {renderInputs([
-                "title",
-                "price",
-                "categoty",
-                "description",
-                "imageUrl",
-                "weight",
-                "maker",
-                "stock",
-              ])}
-            </tbody>
-          </table>
-          <button type="submit" className={styles.btn}>
-            Update product
-          </button>
-        </form>
-        <p className={styles.message}>{message}</p>
-      </div>
+    <section className={styles.container}>
+      <h2 className={styles.header}>Admin Page</h2>
+      <h3 className={styles.header}>Edit product</h3>
+      {console.log(product)}
+      <form onSubmit={handleOnSubmit(product.slug)}>
+        <table className={styles.ap_table}>
+          <tbody>
+            {renderInputs([
+              "title",
+              "price",
+              "categoty",
+              "description",
+              "imageUrl",
+              "weight",
+              "maker",
+              "stock",
+            ])}
+          </tbody>
+        </table>
+        <button type="submit" className={styles.btn}>
+          Update product
+        </button>
+      </form>
+      <p className={styles.message}>{message}</p>
     </section>
   );
 };
